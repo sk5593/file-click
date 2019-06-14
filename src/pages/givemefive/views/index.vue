@@ -126,10 +126,10 @@
                     </div>
                 </summary>
             </main>
-            <footer class="footer visibility" v-if="!config.valid&&!state">
+            <footer class="footer visibility" >
                 <img class="img-bg-bottom" :src="IMGPrefix+'/img/givemefive/bg-bottom.png'" alt="">
             </footer>
-            <footer class="footer" :class="{'isOver': !config.valid&&!state}">
+            <footer class="footer isOver">
                 <img class="img-bg-bottom" :src="IMGPrefix+'/img/givemefive/bg-bottom.png'" alt="">
             </footer>
         </article>
@@ -177,7 +177,7 @@
                 },
                 state: 0, // 1.初始状态；2.团长开团；3.有小伙伴加入（不满5人）；4.已满团（满5人）;5.已开券
                 role: 1, // 角色，1.团长；2.团员
-                join: false, // 是否已加入
+                join: null, // 是否已加入
                 bind: false, //是否已绑定小米账号
                 scene: '', // 来源
                 teamId: '', // 团ID
@@ -265,10 +265,6 @@
                     }
                 });
             },
-            // initTeamInfo(data) {
-            //     this.role = data.role;
-            //     this.join = data.join;
-            // },
             initMessage() {
                 try{
                     // eslint-disable-next-line no-undef
@@ -668,7 +664,11 @@
         bottom: 0;
         left: 0;
         right: 0;
-        padding-bottom: 0; 
+    }
+    .hasAside{
+        .footer.isOver{
+            bottom: $asideBtnHeight;
+        }
     }
     .footer.visibility{
         visibility: hidden;

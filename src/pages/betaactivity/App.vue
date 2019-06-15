@@ -331,11 +331,13 @@
         font-weight: 300;
         color: rgba(120,125,152,1);
         z-index: 3;
+        line-height: 1;
     }
 
     .input-text{
         position: relative;
         margin-left: .375rem;
+        padding: 0;
         border: none;
         background: transparent;
         outline: none;
@@ -344,6 +346,7 @@
         font-weight: 300;
         color:rgba(57,63,90,1);
         z-index: 11;
+        line-height: 1;
     }
     
     .footer{

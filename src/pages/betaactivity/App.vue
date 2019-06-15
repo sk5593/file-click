@@ -25,7 +25,7 @@
                             <div class="form-input-area" flex="cross:center">
                                 <img class="icon" src="./lib/icon_address.png">
                                 <span class="form-placeholder" v-show="!form.area">省、市、区/县</span>
-                                <input flex-box="1" class="input-text" readonly type="text" v-model="form.area" @click="selectArea=true">
+                                <input flex-box="1" class="input-text" readonly unselectable="on" onfocus="this.blur()" type="text" v-model="form.area" @click="selectArea=true">
                                 <div class="arrow-down"></div>
                                 <div class="area-border"></div>
                             </div>
@@ -125,6 +125,26 @@
                     this.state = 2;
                 } else if (code == '31001'){
                     this.state = 4;
+                } else if (code == '32001'){
+                    try {
+                        // eslint-disable-next-line no-undef
+                        wx.redirectTo({
+                            url: '/pages/index/index?page=load'
+                        });
+                    } catch(e) {
+                        // eslint-disable-next-line no-console
+                        console.log(e);
+                    }
+                } else if (code == '32002'){
+                    try {
+                        // eslint-disable-next-line no-undef
+                        wx.redirectTo({
+                            url: '/pages/oauth/oauth'
+                        });
+                    } catch(e) {
+                        // eslint-disable-next-line no-console
+                        console.log(e);
+                    }
                 } else {
                      Dialog({ 
                         message: err.msg || '网络开小差了，请稍后重试~',
@@ -356,6 +376,7 @@
         right: 0;
         width: 100%;
         text-align: center;
+        z-index: 9;
     }
     .btn_submit{
         width: 100%;
@@ -368,9 +389,6 @@
         // background:rgba(217,196,179,1);
         padding-bottom: env(safe-area-inset-bottom);
         touch-action: manipulation;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
         &:active{
             opacity: .9;
             

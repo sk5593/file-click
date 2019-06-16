@@ -9,15 +9,15 @@
                     <div class="form-row">
                         <div class="form-input form-single" flex="cross:center">
                             <img class="icon" src="./lib/icon_name.png">
-                            <span class="form-placeholder" v-show="!form.name">姓名</span>
-                            <input flex-box="1" class="input-text" type="text" v-model="form.name">
+                            <span class="form-placeholder" v-show="!form.name&&isNameFocus==false">姓名</span>
+                            <input flex-box="1" class="input-text" @focus="isNameFocus=true" @blur="isNameFocus=false" type="text" maxlength="50" v-model="form.name">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-input form-single" flex="cross:center">
                             <img class="icon" src="./lib/icon_phone.png">
-                            <span class="form-placeholder" v-show="!form.phoneNumber">手机号</span>
-                            <input flex-box="1" class="input-text" type="tel" v-model="form.phoneNumber">
+                            <span class="form-placeholder" v-show="!form.phoneNumber&&isNumFocus==false">手机号</span>
+                            <input flex-box="1" class="input-text" @focus="isNumFocus=true" @blur="isNumFocus=false" type="tel" maxlength="11" v-model="form.phoneNumber">
                         </div>
                     </div>
                     <div class="form-row">
@@ -31,8 +31,8 @@
                             </div>
                             <div class="form-input-address" flex="cross:center">
                                 <img class="icon" src="./lib/icon_address.png" style="visibility: hidden;">
-                                <span class="form-placeholder" v-show="!form.address">详细地址</span>
-                                <input flex-box="1" class="input-text" type="text" v-model="form.address">
+                                <span class="form-placeholder" v-show="!form.address&&isAddFocus==false">详细地址</span>
+                                <input flex-box="1" class="input-text" @focus="isAddFocus=true" @blur="isAddFocus=false" type="text" maxlength="50" v-model="form.address">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
             <aside class="aside">
                 <img class="img_rule" :src="config.bgBottomImage" alt="">
             </aside>
-            <footer class="footer">
+            <footer class="footer" :class="{'isfocus': isFocus}">
                 <button class="btn_submit" @click="handleBth" :disabled="isSubmiting" :style="{'background':config.buttonBgColor, 'color': config.buttonFontColor}">
                     <van-loading v-show="isSubmiting" size="16" text-size="16" color="#969799" type="spinner">提交中...</van-loading>
                     <span v-show="!isSubmiting">立即提交</span>
@@ -66,7 +66,7 @@
 
 <script>
     import { Dialog, Toast, Loading, Area, Popup } from 'vant';
-    import { getQueryString, isvalidatemobile } from '@/util/util';
+    import { getQueryString, isvalidatemobile, isvalidatetel } from '@/util/util';
     import { getToken, setToken } from '@/util/auth'
     import { getCurrentOne, checkJoinCurrentk, submit } from '@/service/betaactivity';
     import areaList from './lib/area'
@@ -84,13 +84,21 @@
                 config: {},
                 isSubmiting: false,
                 selectArea: false,
-                areaList: {}
+                areaList: {},
+                isAddFocus: false,
+                isNameFocus: false,
+                isNumFocus: false
             }
         },
         components: {
             vanLoading: Loading,
             vanArea: Area,
             vanPopup: Popup
+        },
+        computed: {
+            isFocus() {
+                return this.isNameFocus || this.isNumFocus || this.isAddFocus
+            }
         },
         mounted(){
             Toast.loading({
@@ -204,7 +212,7 @@
                 } else if(!this.form.phoneNumber){
                     Toast('请输入手机号~');
                     return false;
-                } else if (isvalidatemobile(this.form.phoneNumber)[0]) {
+                } else if (isvalidatemobile(this.form.phoneNumber)[0] && isvalidatetel(this.form.phoneNumber)[0]) {
                     Toast('手机号码格式不正确~');
                     return false;
                 } else if (!this.form.area){
@@ -377,6 +385,9 @@
         width: 100%;
         text-align: center;
         z-index: 9;
+        &.isfocus{
+            position: relative;
+        }
     }
     .btn_submit{
         width: 100%;

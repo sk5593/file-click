@@ -66,7 +66,7 @@
 
 <script>
     import { Dialog, Toast, Loading, Area, Popup } from 'vant';
-    import { getQueryString, isvalidatemobile, isvalidatetel } from '@/util/util';
+    import { getQueryString, isvalidatemobile, isvalidatetel, validatenull } from '@/util/util';
     import { getToken, setToken } from '@/util/auth'
     import { getCurrentOne, checkJoinCurrentk, submit } from '@/service/betaactivity';
     import areaList from './lib/area'
@@ -87,7 +87,8 @@
                 areaList: {},
                 isAddFocus: false,
                 isNameFocus: false,
-                isNumFocus: false
+                isNumFocus: false,
+                errInfo: null
             }
         },
         components: {
@@ -119,10 +120,31 @@
                     checkJoinCurrentk().then(() => {
                         this.state = 1;
                     }).catch(err => {
+                        this.errInfo = err;
                         this.initErrPage(err);
                     })
                 ]).finally(() => {
                     Toast.clear();
+                    if(validatenull(this.config)){
+                        let msg = '';
+                        if(this.errInfo) msg = this.errInfo.msg;
+                        else msg = '网络开小差了，请稍后重试~';
+                        Dialog({ 
+                            message: msg,
+                            confirmButtonColor: '#00c200',
+                            className: 'dialog_activity',
+                            beforeClose: (action, done) => {
+                                try{
+                                    // eslint-disable-next-line no-undef
+                                    wx.navigateBack();
+                                } catch(e) {
+                                    // eslint-disable-next-line no-console
+                                    console.log(e);
+                                }
+                                done();
+                            }
+                        });
+                    }
                 });
             },
             initErrPage(err){
@@ -161,6 +183,7 @@
                     });
                 }
             },
+
             getCurrentOne() {
                 return getCurrentOne().then(res => {
                     if(res.success){

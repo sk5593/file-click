@@ -88,7 +88,8 @@
                 isAddFocus: false,
                 isNameFocus: false,
                 isNumFocus: false,
-                errInfo: null
+                errInfo: null,
+                originalHeight: 0
             }
         },
         components: {
@@ -111,6 +112,15 @@
             let token = getQueryString('timeline') || getToken();
             if(token) setToken(token);
             this.areaList = areaList;
+            this.originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            window.onresize = () => {
+                var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                if(resizeHeight-0 < this.originalHeight-0){
+                    this.isFocus = true;
+                }else{
+                    this.isFocus = false;
+                }
+            }
             this.init();
         },
         methods: {
@@ -152,7 +162,7 @@
                 if(code == '30001' || code == '30002'){
                     this.state = 3;
                 } else if (code == '32003'){
-                    this.state = 2;
+                    this.state = 1;
                 } else if (code == '31001'){
                     this.state = 4;
                 } else if (code == '32001'){
@@ -356,6 +366,7 @@
         background: #b9bac8;
     }
     .form-input-address{
+        position: relative;
         margin-top: 1px; 
         height: 2.2rem;;
         padding: 0 .675rem;
@@ -377,6 +388,8 @@
     .form-placeholder{
         position: absolute;
         left: 1.8rem;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: .7rem;
         font-family: PingFangSC-Light;
         font-weight: 300;
@@ -409,7 +422,7 @@
         text-align: center;
         z-index: 9;
         &.isfocus{
-            position: relative;
+            position: absolute;
         }
     }
     .btn_submit{

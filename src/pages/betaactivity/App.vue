@@ -89,7 +89,8 @@
                 isNameFocus: false,
                 isNumFocus: false,
                 errInfo: null,
-                originalHeight: 0
+                originalHeight: 0,
+                focusTemp: ''
             }
         },
         components: {
@@ -116,9 +117,13 @@
             window.onresize = () => {
                 var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
                 if(resizeHeight-0 < this.originalHeight-0){
-                    this.isFocus = true;
+                    if(this.isFocus || !this.focusTemp) return;
+                    this[this.focusTemp] = true;
                 }else{
-                    this.isFocus = false;
+                    if(!this.isFocus) return;
+                    if (this.isNameFocus) { this.focusTemp = 'isNameFocus'; this.isNameFocus = false; }
+                    else if (this.isNumFocus) { this.focusTemp = 'isNumFocus'; this.isNumFocus = false; }
+                    else if (this.isAddFocus) { this.focusTemp = 'isAddFocus'; this.isAddFocus = false; }
                 }
             }
             this.init();

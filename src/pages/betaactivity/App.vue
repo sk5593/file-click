@@ -151,7 +151,7 @@
                             beforeClose: (action, done) => {
                                 try{
                                     // eslint-disable-next-line no-undef
-                                    wx.navigateBack();
+                                    wx.miniProgram.navigateBack();
                                 } catch(e) {
                                     // eslint-disable-next-line no-console
                                     console.log(e);
@@ -173,7 +173,7 @@
                 } else if (code == '32001'){
                     try {
                         // eslint-disable-next-line no-undef
-                        wx.redirectTo({
+                        wx.miniProgram.redirectTo({
                             url: '/pages/index/index?page=load'
                         });
                     } catch(e) {
@@ -183,7 +183,7 @@
                 } else if (code == '32002'){
                     try {
                         // eslint-disable-next-line no-undef
-                        wx.redirectTo({
+                        wx.miniProgram.redirectTo({
                             url: '/pages/oauth/oauth'
                         });
                     } catch(e) {
@@ -229,7 +229,7 @@
                         beforeClose: (action, done) => {
                             try{
                                 // eslint-disable-next-line no-undef
-                                wx.navigateBack();
+                                wx.miniProgram.navigateBack();
                             } catch(e) {
                                 // eslint-disable-next-line no-console
                                 console.log(e);

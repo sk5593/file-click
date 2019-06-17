@@ -167,7 +167,7 @@
                 if(code == '30001' || code == '30002'){
                     this.state = 3;
                 } else if (code == '32003'){
-                    this.state = 1;
+                    this.state = 2;
                 } else if (code == '31001'){
                     this.state = 4;
                 } else if (code == '32001'){

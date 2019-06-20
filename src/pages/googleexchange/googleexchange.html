@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Google & Yeelight Giveaway time</title>
+    <script>
+      (function (doc, win) {
+        var docEl = doc.documentElement;
+        var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        var recalc = function () {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) {
+                return false;
+            } else {
+                if (clientWidth >= 1440) {
+                    clientWidth = 1440;
+                } else if (clientWidth <= 1200) {
+                    clientWidth = 1200;
+                }
+                docEl.style.fontSize = 100 * (clientWidth / 1440) + 'px';
+            }
+        }
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+    </script>
+    <script>
+      var IMGPrefix = '//cloud-bj-resources.yeelight.com/img/tocpage/googleexchange/';
+      var IMGArray = [
+            'bg_header.png',
+            'bg_dialogue.png',
+            'bg_color.png'
+        ];
+        var IMGCount = 0,
+            IMGLen = IMGArray.length,
+            IMGLoadFun = function (src) {
+                if (IMGCount < IMGLen) {
+                    var imgObj = new Image();
+                    var imgSrc = IMGPrefix + src;
+                    imgObj.src = imgSrc;
+                    imgObj.onload = imgObj.onerror = arguments.callee(IMGArray[++IMGCount]);
+                }
+            }
+        IMGLoadFun(IMGArray[IMGCount]);
+    </script>
+    <style>
+        body {
+            background: #fff;
+            font-size: 14px;
+            font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but yeelight-toc-page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

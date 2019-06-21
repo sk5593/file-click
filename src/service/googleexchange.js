@@ -1,36 +1,31 @@
 import request from './index';
 
-export const changeCaptcha = (teamId) => {
+export const submit = (data) => {
     return request({
-        url: '/apis/c/v1/user-coupons/youpin/r/get/team',
-        method: 'get',
-        params: {
-            teamId
-        }
-    })
-}
-
-export const submit = (source, teamId) => {
-    return request({
-        url: '/apis/c/v1/user-coupons/youpin/w/join/team',
+        url: '/apis/c/v1/google/coupon/r/check',
         method: 'post',
-        data: {
-            source,
-            teamId
-        }
+        data: data
     })
 }
 
 export const getCaptcha = () => {
     return request({
-        url: '/apis/c/v1/user-coupons/youpin/w/open/coupon',
-        method: 'post'
+        url: '/apis/c/v1/captcha/r/generate',
+        method: 'get'
     })
 }
 
-export const config = () => {
+export const verify = (data) => {
     return request({
-        url: '/apis/c/v1/user-coupons/youpin/r/config',
+        url: '/apis/c/v1/google/coupon/w/verify',
+        method: 'post',
+        data: data
+    })
+}
+
+export const editVerify = () => {
+    return request({
+        url: '/apis/c/v1/google/coupon/w/edit',
         method: 'get'
     })
 }

@@ -1,6 +1,7 @@
 // vue.config.js
 const entry = 'googleexchange';
-const apiUrl = 'http://api-test.yeedev.com';
+// const apiUrl = 'http://api-test.yeedev.com';
+const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
     publicPath: '',
     outputDir: 'target/classes/META-INF/resources/webjars',
@@ -27,7 +28,10 @@ module.exports = {
         proxy: {
             '/apis/c': {
                 target: apiUrl,
-                ws: true
+                ws: true,
+                // pathRewrite: {
+                //     '^/apis/c': '/'
+                // },
             }
         }
     }

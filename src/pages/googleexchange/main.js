@@ -1,14 +1,29 @@
 import Vue from 'vue'
-import App from './views/index.vue'
+import VueRouter from 'vue-router'
+import App from './App.vue'
+import formCoupon from './views/formCoupon.vue'
+import formAddress from './views/formAddress.vue'
+import formSuccess from './views/formSuccess.vue'
 
 import '@/styles/normalize.scss'
 import '@/styles/base.scss'
-import '@/styles/flex.css'
 
 import 'babel-polyfill'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: [
+    { path: '/', component: formCoupon },
+    { path: '/formCoupon', component: formCoupon },
+    { path: '/formAddress', component: formAddress },
+    { path: '/formSuccess', component: formSuccess }
+  ]
+})
 
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

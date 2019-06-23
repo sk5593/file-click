@@ -56,7 +56,6 @@
                      v-show="!form.street">Enter your street adress here</label>
               <input type="text"
                      class="input_text input_text_street"
-                     :class="{'error': errorKey.includes('street')}"
                      autocomplete="off"
                      v-model="form.street">
               <!-- <div class="form_item_error" v-show="firstNameError.flag">
@@ -73,8 +72,9 @@
                      v-show="!form.city">Select your city here</label>
               <select class="input_text input_text_city select"
                       autocomplete="off"
+                      @change="handlerCityChange"
                       v-model="form.city">
-                <option v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item">{{item.name}}</option>
+                <option v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
               </select>
               <!-- <div class="select_dropdown_panel" v-show="">
                 <ul class="select_dropdown_list">
@@ -90,7 +90,7 @@
               <select class="input_text input_text_state select"
                       autocomplete="off"
                       v-model="form.state">
-                <option v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item">{{item.name}}</option>
+                <option v-for="item of AustraliaState" :key="'AustraliaState' + item" class="select_item">{{item}}</option>
               </select>
               <!-- <div class="form_item_error" v-show="firstNameError.flag">
                                 <img class="forim_item_error_icon" src="../lib/error.png" alt="">
@@ -174,7 +174,8 @@ export default {
       formReady: false,
       errorKey: [],
       Australia: Australia,
-      AustraliaState: []
+      AustraliaState: [],
+      isEdit: null
     };
   },
   components: {
@@ -202,6 +203,7 @@ export default {
     }
   },
   mounted() {
+    this.isEdit = this.$route.query.isEdit;
     this.init();
   },
   methods: {
@@ -230,7 +232,7 @@ export default {
       this.forEachFormData(this.form);
       if (this.errorKey.length) return;
       this.formReady = false;
-      verify(this.form)
+      verify(this.form, this.isEdit)
         .then(() => {
           this.$router.push({path: '/formSuccess'});
         })
@@ -245,9 +247,20 @@ export default {
       if (err.code == "13004" || err.code == "13002") {
         sessionStorage.removeItem("googleexchange_formcoupon");
         this.$router.push({path: '/formCoupon'});
+      } else if (err.code == '13001') {
+        this.$router.push({path: '/formSuccess'});
       } else {
         alert(err.msg);
       }
+    },
+    handlerCityChange() {
+      this.form.state = '';
+      this.Australia.some(item => {
+        if(item.name == this.form.city){
+          if(!this.AustraliaState.length) this.AustraliaState.push(...item.cities);
+          else this.AustraliaState.splice(0, this.AustraliaState.length, ...item.cities);
+        }
+      })
     }
   }
 };

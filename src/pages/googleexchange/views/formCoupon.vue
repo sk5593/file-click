@@ -182,14 +182,14 @@
         font-family: Roboto-Regular;
         font-weight: 400;
         color: rgba(0,0,0,1);
-        line-height: .36rem;
+        line-height: .4rem;
         opacity: 0.9;
     }
     .form_item {
         position: relative;
     }
     .form_item_coupon{
-        margin-top: .49rem;
+        margin-top: .47rem;
     }
     .form_item_content {
         position: relative;

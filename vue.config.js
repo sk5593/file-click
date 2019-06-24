@@ -1,5 +1,5 @@
 // vue.config.js
-const entry = 'googleexchange';
+const entry = 'googleexchange_m';
 // const apiUrl = 'http://api-test.yeedev.com';
 const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
@@ -15,9 +15,13 @@ module.exports = {
         //     entry: 'src/pages/betaactivity/main.js',
         //     template: 'src/pages/betaactivity/betaactivity.html'
         // },
-        googleexchange: {
-            entry: 'src/pages/googleexchange/main.js',
-            template: 'src/pages/googleexchange/googleexchange.html'
+        // googleexchange: {
+        //     entry: 'src/pages/googleexchange/main.js',
+        //     template: 'src/pages/googleexchange/googleexchange.html'
+        // },
+        googleexchange_m: {
+            entry: 'src/pages/googleexchange_m/main.js',
+            template: 'src/pages/googleexchange_m/googleexchange.html'
         }
     },
     devServer:{

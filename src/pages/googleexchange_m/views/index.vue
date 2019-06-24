@@ -2,27 +2,23 @@
     <div class="container">
         <article class="content">
             <section class="section section_header">
-                <img class="img_bg" :src="IMGPrefix+'bg_header.png'" alt="">
-                <img class="img_header_logo" src="../lib/logo.png" alt="">
-                <div class="head_text">
-                    <div class="header_title">
-                        <span>Google & Yeelight Giveaway Time</span>
-                    </div>
-                    <div class="header_describe">
-                        <span>Try with free Yeelight smart bulb given by Google!</span>
+                <img class="img_bg" :src="IMGPrefix+'bg_header_m.png'" alt="">
+                <div class="header_content">
+                    <img class="img_header_logo" src="../lib/logo.png" alt="">
+                    <div class="head_text">
+                        <div class="header_title">
+                            <span>Google & Yeelight Giveaway Time</span>
+                        </div>
+                        <div class="header_describe">
+                            <span>Try with free Yeelight smart bulb<br>given by Google!</span>
+                        </div>
                     </div>
                 </div>
+                
             </section>
-            <section class="section section_form">
-                <slot></slot>
-            </section>
+            
             <section class="section">
-                <img class="img_bg" :src="IMGPrefix+'bg_color.png'" alt="">
-                <div class="color_text">
-                    <div class="color_text_title">Yeelight</div>
-                    <div class="color_text_title color_text_title_vice">Smart LED Bulb (Color)</div>
-                    <div class="color_text_describe">Have a Light Bulb Moment</div>
-                </div>
+                <img class="img_bg" :src="IMGPrefix+'bg_color_m.png'" alt="">
             </section>
             <section class="section">
                 <div class="function_box">
@@ -47,7 +43,7 @@
                 <div class="function_line vertical"></div>
             </section>
             <section class="section">
-                <img class="img_bg" :src="IMGPrefix+'bg_dialogue.png'" alt="">
+                <img class="img_bg" :src="IMGPrefix+'bg_dialogue_m.png'" alt="">
             </section>
             <section class="section">
                 <header class="steps_header">Installation steps</header>
@@ -139,6 +135,9 @@
                 </div>
             </section>
         </article>
+        <footer class="footer">
+             <button class="btn_proceed" @click="handlerProceed">Proceed</button>
+        </footer>
     </div>
 </template>
 
@@ -155,17 +154,22 @@
             
         },
         methods: {
-            
             handlerLearnMore () {
                 window.open('https://yeelight.com/en');
             },
+
+            handlerProceed () {
+                this.$router.push({
+                    path: '/formCoupon'
+                });
+            } 
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    $maxWidth: 1440px;
-    $minWidth: 1200px;
+    $maxWidth: 750px;
+    $minWidth: 320px;
     .container {
         color: #333333;
     }
@@ -174,84 +178,57 @@
         max-width: $maxWidth;
         min-width: $minWidth;
         margin: 0 auto;
+        padding-bottom: 6rem;
     }
     .section {
         position: relative;
     }
-    .section_form {
-        padding: .5rem 0;
-    }
+    // .section_form {
+    //     padding: .5rem 0;
+    // }
     .section_specifications{
         background: #F4F4F4;
-        padding: .6rem 0;
+        padding: 5rem 0 2.75rem;
     }
     .img_bg {
         width: 100%;
         z-index: 1;
     }
-    .img_header_logo {
+    .header_content{
         position: absolute;
-        top: .36rem;
-        right: .57rem;
-        z-index: 2;
-    }
-    .head_text {
-        position: absolute;
-        top: 1.65rem;
+        top: 6.5rem;
         left: 0;
         width: 100%;
         text-align: center;
+        z-index: 2;
+    }
+    .img_header_logo {
+        width: 17rem;
+    }
+    .head_text {
+        margin-top: 3.7rem; 
     }
     .header_title{
-        font-size: .42rem;
+        font-size: 2rem;
         font-family: NotoSans-Medium;
         font-weight: 500;
-        color: #333333;
         line-height: 1;
     }
     .header_describe{
-        margin-top: .28rem; 
-        font-size: .2rem;
+        margin-top: 1.65rem; 
+        font-size: 1.6rem;
         font-family: Roboto-Regular;
         font-weight: 400;
         color: #333333;
-        line-height: 1;
-    }
-
-
-    .color_text {
-        position: absolute;
-        top: 1.76rem;
-        left: .94rem;
-        z-index: 2;
-    }
-    .color_text_title {
-        font-size: .36rem;
-        font-family: NotoSans-Regular;
-        font-weight: 400;
-        color: #333333;
-        line-height: 1;
-    }
-    .color_text_title_vice {
-        margin-top: .12rem;
-    }
-    .color_text_describe {
-        margin-top: .26rem;
-        font-size: .2rem;
-        font-family: Roboto-Regular;
-        font-weight: 400;
-        color: #333333;
-        line-height: 1;
-        opacity: 0.8;
+        line-height: 2.1rem;
     }
 
     .footer_box {
         text-align: center;
-        padding: .67rem 0 .72rem;
-        font-size: .2rem;
+        padding: 2.25rem 7rem 3.25rem;
+        font-size: 1.2rem;
         font-family: NotoSans-Regular;
-        font-weight: 400;
-        line-height: .36rem;
+        line-height: 2.5rem;
     }
     .footer_descript{
         color: #000;
@@ -262,26 +239,25 @@
 
     .function_box {
         overflow: hidden;
+        padding: 1.9rem 2.2rem;
     }
     .function_item {
         float: left;
         width: 50%;
-        height: 2.16rem;
+        height: 9.25rem;
         text-align: center;
     }
     .img_function { 
-        width: .6rem;
-        height: .6rem;
+        width: 3rem;
+        height: 3rem;
     }
     .function_icon {
-        margin-top: .67rem;
+        margin-top: 1.9rem;
     }
     .function_text {
-        margin-top: .1rem;
-        font-size: .1rem;
+        margin-top: 1.5rem;
+        font-size: 1.2rem;
         font-family: Roboto-Regular;
-        font-weight: 400;
-        color: #333333;
         line-height: 1;
     }
     .function_line {
@@ -290,88 +266,106 @@
         left: 50%;
         background: rgba(0, 0, 0, .1);
         &.vertical {
-            height: 3.44rem;
+            height: 12rem;
             width: 1px;
-            margin-top: -1.72rem;
+            margin-top: -6rem;
             transform: translateX(-50%);
         }
         &.horizontal {
             height: 1px;
-            width: 12.72rem;
-            margin-left: -6.86rem;
+            width: 33rem;
+            margin-left: -16.5rem;
             transform: translateY(-50%);
         }
     }
 
     .steps_header{
-        margin-top: .6rem;
-        font-size: .36rem;
+        margin-top: 5rem;
+        font-size: 1.4rem;
         font-family: NotoSans-Regular;
-        font-weight: 400;
-        color: #333333;
         line-height: 1;
         text-align: center;
     }
     .steps_box {
-        overflow: hidden;
-        padding: .7rem .46rem .66rem;
+        // overflow: hidden;
+        padding: 1.5rem .8rem 3.5rem;
+        display: flex;
+        flex-wrap: wrap;
     }
     .steps_item {
-        float: left;
-        width: 25%;
-        text-align: center
+        // float: left;
+        width: 50%;
+        text-align: center;
+        flex-shrink: 0;
     }
     .img_steps {
-        width: 1.55rem;
-        height: 1.54rem;
-        opacity: .35;
+        margin-top: 2.5rem;
+        width: 5.4rem;
+        height: 5.4rem;
+        // opacity: .35;
     }
     .steps_text {
-        margin-top: .4rem;
-        font-size: .2rem;
+        margin-top: 0.9rem;
+        font-size: 1.2rem;
         font-family: Roboto-Regular;
-        font-weight: 400;
-        color: #333333;
-        line-height: .24rem;
+        line-height: 1.45rem;
     }
 
     .specifications_header {
-        font-size: .36rem;
+        font-size: 1.4rem;
         font-family: NotoSans-Regular;
-        font-weight: 400;
-        color:#333333;
         line-height: 1;
         text-align: center;
     }
     .specifications_label {
-        margin-top: .67rem;
-        font-size: .2rem;
+        margin-top: 2.9rem;
+        font-size: 1.2rem;
         font-family: Roboto-Regular;
-        font-weight: 400;
-        color: #333333;
-        line-height: .36rem;
+        line-height: 2.5rem;
         text-align: center;
+        white-space: normal;
     }
     .specifications_label_item {
         display: inline-block;
         text-align: left;
+        &.left {
+            padding-left: 3rem;
+        }
         &.right {
-            margin-left: 1.5rem;
+            margin-left: 1.6rem;
         }
     }
     .specifications_footer {
-        margin-top: .65rem;
+        margin-top: 3.1rem;
         text-align: center;
     }
     .btn_specifications {
-        width: 1.16rem;
-        height: .36rem;
-        border: 2px solid rgba(51,51,51,.4);
-        font-size: .16rem;
+        width: 9.5rem;
+        line-height: 2.2rem;
+        border: 1px solid rgba(51,51,51,.4);
+        font-size: 1.4rem;
         font-family: Roboto-Regular;
-        font-weight: 400;
         color:rgba(51,51,51,.8);
         background: transparent;
         border-radius: 2px;
+        padding: 0;
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 99;
+    }
+    .btn_proceed {
+        width: 100%;
+        max-width: $maxWidth;
+        height: 6rem;
+        background: #2F73E8;
+        font-size: 2rem;
+        font-family:NotoSans-Medium;
+        font-weight:500;
+        color: #FFFFFF;
     }
 </style>

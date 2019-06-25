@@ -8,7 +8,7 @@
           <div class="text_row">we will send the giveaway after close</div>
           <div class="text_row">of this event.You are able to change</div>
           <div class="text_row">the address before the date of </div>
-          <div>{{verifyTime}}</div>
+          <div>{{validDate}}</div>
         </div>
         <div class="icon">
           <img class="img_package"

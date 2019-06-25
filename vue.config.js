@@ -7,10 +7,10 @@ module.exports = {
     outputDir: 'target/classes/META-INF/resources/webjars/',
     lintOnSave: true,
     pages:{
-        // givemefive: {
-        //     entry: 'src/pages/givemefive/main.js',
-        //     template: 'src/pages/givemefive/givemefive.html'
-        // },
+        givemefive: {
+            entry: 'src/pages/givemefive/main.js',
+            template: 'src/pages/givemefive/givemefive.html'
+        },
         betaactivity: {
             entry: 'src/pages/betaactivity/main.js',
             template: 'src/pages/betaactivity/betaactivity.html'
@@ -19,10 +19,10 @@ module.exports = {
             entry: 'src/pages/googleexchange/main.js',
             template: 'src/pages/googleexchange/googleexchange.html'
         },
-        // googleexchange_m: {
-        //     entry: 'src/pages/googleexchange_m/main.js',
-        //     template: 'src/pages/googleexchange_m/googleexchange.html'
-        // }
+        googleexchange_m: {
+            entry: 'src/pages/googleexchange_m/main.js',
+            template: 'src/pages/googleexchange_m/googleexchange_m.html'
+        }
     },
     devServer:{
         host: 'localhost.yeelight.com',

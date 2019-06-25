@@ -19,12 +19,9 @@
                      v-show="!form.firstName">Enter your first name here</label>
               <input type="text"
                      class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('firstName')}"
                      autocomplete="off"
                      v-model="form.firstName">
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
             <label class="form_row_label right"
                    for="">*Last:</label>
@@ -33,12 +30,9 @@
                      v-show="!form.lastName">Enter your last name here</label>
               <input type="text"
                      class="input_text input_text_lastname"
+                     :class="{'error' : errorKey.includes('lastName')}"
                      autocomplete="off"
                      v-model="form.lastName">
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
           </div>
         </div>
@@ -56,12 +50,9 @@
                      v-show="!form.street">Enter your street adress here</label>
               <input type="text"
                      class="input_text input_text_street"
+                     :class="{'error' : errorKey.includes('street')}"
                      autocomplete="off"
                      v-model="form.street">
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
           </div>
           <div class="form_row form_row_addr">
@@ -71,16 +62,12 @@
               <label class="label_placeholder"
                      v-show="!form.city">Select your city here</label>
               <select class="input_text input_text_city select"
+                     :class="{'error' : errorKey.includes('city')}"
                       autocomplete="off"
                       @change="handlerCityChange"
                       v-model="form.city">
                 <option v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
               </select>
-              <!-- <div class="select_dropdown_panel" v-show="">
-                <ul class="select_dropdown_list">
-                  <li v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item"><span>{{item.name}}</span></li>
-                </ul>
-              </div> -->
             </div>
             <label class="form_row_label right"
                    for="">*State:</label>
@@ -88,14 +75,11 @@
               <label class="label_placeholder"
                      v-show="!form.state">Select your state</label>
               <select class="input_text input_text_state select"
+                     :class="{'error' : errorKey.includes('state')}"
                       autocomplete="off"
                       v-model="form.state">
                 <option v-for="item of AustraliaState" :key="'AustraliaState' + item" class="select_item">{{item}}</option>
               </select>
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
           </div>
           <div class="form_row form_row_contact">
@@ -104,28 +88,22 @@
             <div class="form_row_input">
               <label class="label_placeholder"
                      v-show="!form.phone">Enter your phone number here</label>
-              <input type="text"
+              <input type="tel"
                      class="input_text input_text_phone"
                      autocomplete="off"
                      v-model="form.phone">
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
             <label class="form_row_label right"
                    for="">*E-mail:</label>
             <div class="form_row_input">
               <label class="label_placeholder"
                      v-show="!form.email">Enter your e-mail here</label>
-              <input type="text"
+              <input type="email"
                      class="input_text input_text_email"
+                     :class="{'error' : errorKey.includes('email')}"
                      autocomplete="off"
+                     required
                      v-model="form.email">
-              <!-- <div class="form_item_error" v-show="firstNameError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div> -->
             </div>
           </div>
         </div>
@@ -162,16 +140,7 @@ export default {
         captcha: "",
         captchaToken: ""
       },
-      couponError: {
-        flag: false,
-        msg: ""
-      },
-      captchaError: {
-        flag: false,
-        msg: ""
-      },
-      conditionAgree: false,
-      formReady: false,
+      formReady: true,
       errorKey: [],
       Australia: Australia,
       AustraliaState: [],
@@ -182,25 +151,16 @@ export default {
     baseLayout
   },
   watch: {
-    form: {
-      deep: true,
-      handler: function(newVal) {
-        this.formReady = Object.keys(newVal).every(key => {
-          if (key == "phone") return true;
-          else if (key == "email" && !isEmail(newVal[key])) return false;
-          else return newVal[key];
-        });
-      }
-    },
-    conditionAgree(val) {
-      if (val) {
-        if (this.form.captcha && this.form.coupon) {
-          this.formReady = true;
-          return;
-        }
-      }
-      this.formReady = false;
-    }
+    // form: {
+    //   deep: true,
+    //   handler: function(newVal) {
+    //     this.formReady = Object.keys(newVal).every(key => {
+    //       if (key == "phone") return true;
+    //       else if (key == "email" && !isEmail(newVal[key])) return false;
+    //       else return newVal[key];
+    //     });
+    //   }
+    // }
   },
   mounted() {
     this.isEdit = this.$route.query.isEdit;
@@ -221,7 +181,9 @@ export default {
     },
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
-        if (!data[key]) this.errorKey.push(key);
+         if (key == "phone") return true;
+         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
+         else if (!data[key]) this.errorKey.push(key);
       });
     },
     handlerChangeCaptcha() {
@@ -234,7 +196,7 @@ export default {
       this.formReady = false;
       verify(this.form, this.isEdit)
         .then(() => {
-          this.$router.push({path: '/formSuccess'});
+          this.$router.push({path: '/success'});
         })
         .catch(err => {
           this.initError(err);
@@ -246,9 +208,9 @@ export default {
     initError(err) {
       if (err.code == "13004" || err.code == "13002") {
         sessionStorage.removeItem("googleexchange_formcoupon");
-        this.$router.push({path: '/formCoupon'});
+        this.$router.push({path: '/check'});
       } else if (err.code == '13001') {
-        this.$router.push({path: '/formSuccess'});
+        this.$router.push({path: '/success'});
       } else {
         alert(err.msg);
       }
@@ -343,6 +305,9 @@ export default {
       background: transparent;
       opacity:0.8;
       z-index: 9;
+      &.error {
+        border-color: #f56c6c;
+      }
     }
     .form_row_addr {
       margin-top: .25rem;

@@ -1,6 +1,6 @@
 import request from './index';
 
-export const submit = (data) => {
+export const check = (data) => {
     return request({
         url: '/apis/c/v1/google/coupon/r/check',
         method: 'post',

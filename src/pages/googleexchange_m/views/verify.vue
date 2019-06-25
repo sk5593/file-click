@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <form-header></form-header>
+  <base-layout>
       <section class="section section_header">
         <div class="title">
           <span>Please enter your address</span>
@@ -19,6 +17,7 @@
                        v-show="!form.firstName">Enter your first name here</label>
                 <input type="text"
                        class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('firstName')}"
                        autocomplete="off"
                        v-model="form.firstName">
               </div>
@@ -34,6 +33,7 @@
                        v-show="!form.lastName">Enter your last name here</label>
                 <input type="text"
                        class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('lastName')}"
                        autocomplete="off"
                        v-model="form.lastName">
               </div>
@@ -49,6 +49,7 @@
                        v-show="!form.street">Enter your street adress here</label>
                 <input type="text"
                        class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('street')}"
                        autocomplete="off"
                        v-model="form.street">
               </div>
@@ -65,6 +66,7 @@
                 <label class="label_placeholder"
                        v-show="!form.city">Select your city here</label>
                 <select class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('city')}"
                         autocomplete="off"
                         @change="handlerCityChange"
                         v-model="form.city">
@@ -85,6 +87,7 @@
                 <label class="label_placeholder"
                        v-show="!form.state">Select your state</label>
                 <select class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('state')}"
                         autocomplete="off"
                         v-model="form.state">
                   <option v-for="item of AustraliaState"
@@ -102,8 +105,9 @@
               <div class="form_row_input">
                 <label class="label_placeholder"
                        v-show="!form.email">Enter your e-mail here</label>
-                <input type="text"
+                <input type="email"
                        class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('email')}"
                        autocomplete="off"
                        v-model="form.email">
               </div>
@@ -133,13 +137,11 @@
                  @click="handlerSubmitForm">
         </div>
       </section>
-
-    </div>
-  </div>
+  </base-layout>
 </template>
 
 <script>
-import formHeader from "./formHeader";
+import baseLayout from "./baseLayout";
 import { isEmail } from "@/util/util";
 import Australia from "../lib/Australia";
 import { verify } from "@/service/googleexchange";
@@ -161,16 +163,7 @@ export default {
         captcha: "",
         captchaToken: ""
       },
-      couponError: {
-        flag: false,
-        msg: ""
-      },
-      captchaError: {
-        flag: false,
-        msg: ""
-      },
-      conditionAgree: false,
-      formReady: false,
+      formReady: true,
       errorKey: [],
       Australia: Australia,
       AustraliaState: [],
@@ -178,28 +171,19 @@ export default {
     };
   },
   components: {
-    formHeader
+    baseLayout
   },
   watch: {
-    form: {
-      deep: true,
-      handler: function(newVal) {
-        this.formReady = Object.keys(newVal).every(key => {
-          if (key == "phone") return true;
-          else if (key == "email" && !isEmail(newVal[key])) return false;
-          else return newVal[key];
-        });
-      }
-    },
-    conditionAgree(val) {
-      if (val) {
-        if (this.form.captcha && this.form.coupon) {
-          this.formReady = true;
-          return;
-        }
-      }
-      this.formReady = false;
-    }
+    // form: {
+    //   deep: true,
+    //   handler: function(newVal) {
+    //     this.formReady = Object.keys(newVal).every(key => {
+    //       if (key == "phone") return true;
+    //       else if (key == "email" && !isEmail(newVal[key])) return false;
+    //       else return newVal[key];
+    //     });
+    //   }
+    // }
   },
   mounted() {
     this.isEdit = this.$route.query.isEdit;
@@ -220,7 +204,9 @@ export default {
     },
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
-        if (!data[key]) this.errorKey.push(key);
+         if (key == "phone") return true;
+         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
+         else if (!data[key]) this.errorKey.push(key);
       });
     },
     handlerChangeCaptcha() {
@@ -233,7 +219,7 @@ export default {
       this.formReady = false;
       verify(this.form, this.isEdit)
         .then(() => {
-          this.$router.push({ path: "/formSuccess" });
+          this.$router.push({ path: "/success" });
         })
         .catch(err => {
           this.initError(err);
@@ -245,9 +231,9 @@ export default {
     initError(err) {
       if (err.code == "13004" || err.code == "13002") {
         sessionStorage.removeItem("googleexchange_formcoupon");
-        this.$router.push({ path: "/formCoupon" });
+        this.$router.push({ path: "/check" });
       } else if (err.code == "13001") {
-        this.$router.push({ path: "/formSuccess" });
+        this.$router.push({ path: "/success" });
       } else {
         alert(err.msg);
       }
@@ -272,15 +258,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img_header {
-  width: 100%;
-}
-.section {
-  padding: 0 4.5rem;
-}
-.section_header {
-  margin-top: -4.5rem;
-}
 .title {
   font-size: 2.2rem;
   font-family: NotoSans-Regular;
@@ -337,10 +314,12 @@ export default {
   &:focus {
     outline: none;
   }
+  &.error {
+    border-color: #f56c6c;
+  }
 }
 .form_group_submit {
   margin-top: 6rem;
-  padding-bottom: 3.5rem;
   text-align: center;
 }
 .btn_submit {

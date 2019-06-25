@@ -15,10 +15,10 @@ module.exports = {
         //     entry: 'src/pages/betaactivity/main.js',
         //     template: 'src/pages/betaactivity/betaactivity.html'
         // },
-        // googleexchange: {
-        //     entry: 'src/pages/googleexchange/main.js',
-        //     template: 'src/pages/googleexchange/googleexchange.html'
-        // },
+        googleexchange: {
+            entry: 'src/pages/googleexchange/main.js',
+            template: 'src/pages/googleexchange/googleexchange.html'
+        },
         googleexchange_m: {
             entry: 'src/pages/googleexchange_m/main.js',
             template: 'src/pages/googleexchange_m/googleexchange.html'

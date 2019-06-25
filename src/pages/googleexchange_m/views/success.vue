@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <form-header></form-header>
+  <base-layout>
       <section class="section">
           <div class="title">
               <span>Thank you for your support</span>
@@ -23,35 +21,28 @@
                  @click="handlerSubmitForm">
         </div>
       </section>
-
-    </div>
-  </div>
+  </base-layout>
 </template>
 
 <script>
-import formHeader from "./formHeader";
+import baseLayout from "./baseLayout";
 export default {
   data() {
     return {};
   },
   components: {
-    formHeader
+    baseLayout
   },
   mounted() {},
   methods: {
     handlerSubmitForm() {
-      this.$router.push({ path: "/formCheckOrder" });
+      this.$router.push({ path: "/track" });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.section {
-    margin-top: -4rem;
-    z-index: 3;
-    padding: 0 4.5rem;
-}
 .title {
   font-size: 2.2rem;
   line-height: 1;
@@ -74,7 +65,6 @@ export default {
 }
 .btn_box {
   margin-top: 9.2rem;
-  padding-bottom: 2.6rem;
 }
 .btn_submit {
     width: 100%;

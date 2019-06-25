@@ -6,7 +6,7 @@
                     <span>Type your Coupon</span>
                 </div>
                 <div class="form_describe">
-                    <span>Please enter the coupon code to get a free YEELIGHT smart bulb - MSRP</span>
+                    <span>Please enter the coupon code to get a free YEELIGHT smart bulb - MSRP $29.99</span>
                 </div>
             </div>
             <div class="form_item form_item_input form_item_coupon">
@@ -54,7 +54,7 @@
 
 <script>
     import baseLayout from './baseLayout'
-    import { submit, getCaptcha } from '@/service/googleexchange';
+    import { check, getCaptcha } from '@/service/googleexchange';
     export default {
         data() {
             return {
@@ -127,9 +127,16 @@
             handlerSubmitForm () {
                 this.resetError();
                 this.formReady = false;
-                submit(this.form).then(() => {
+                check(this.form).then(res => {
                     sessionStorage.setItem('googleexchange_formcoupon', JSON.stringify(this.form));
-                    this.$router.push({path: '/formAddress'});
+                    if(res.data.form) {
+                        let used = res.data.form.used;
+                        if (used === 2 || used === 3) {
+                            this.$router.push({path: '/track'});
+                            return;
+                        }
+                    }
+                    this.$router.push({path: '/verify'});
                 }).catch(err => {
                     this.initError(err);
                 }).finally(() => {
@@ -314,6 +321,7 @@
         color: #0072F0;
         line-height: .18rem;
         vertical-align: middle;
+        text-decoration: none;
     }
     .btn_proceed{
         width: $inputWidth;

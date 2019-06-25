@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <div class="form">
-      <form-header></form-header>
+  <base-layout>
       <section class="section">
         <div class="title">
             <span>Check your Order</span>
@@ -19,36 +17,20 @@
             </div>
             <div class="block_item_content">
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Name:</span>
-                </div>
-                <div class="content_label right">
-                  <span>Kit Harington</span>
-                </div>
+                <div class="content_label left">Name:</div>
+                <div class="content_label right">Kit Harington</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Postal Address:</span>
-                </div>
-                <div class="content_label right">
-                  <span>15 Coronation Drive, Yarralumla, ACT 2600</span>
-                </div>
+                <div class="content_label left">Postal Address:</div>
+                <div class="content_label right">15 Coronation Drive, Yarralumla, ACT 2600</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                    <span>E-mail:</span>
-                  </div>
-                  <div class="content_label right">
-                    <span>Harington@yeelight</span>
-                  </div>
+                <div class="content_label left">E-mail:</div>
+                  <div class="content_label right">Harington@yeelight</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Phone:</span>
-                </div>
-                <div class="content_label right">
-                  <span>13210801818</span>
-                </div>
+                <div class="content_label left">Phone:</div>
+                <div class="content_label right">13210801818</div>
               </div>
             </div>
           </div>
@@ -66,31 +48,22 @@
             </div>
             <div v-else-if="state==2" class="block_item_content trace_content">
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Carrier:</span>
-                </div>
-                <div class="content_label right">
-                  <span>TNT</span>
-                </div>
+                <div class="content_label left">Carrier:</div>
+                <div class="content_label right">TNT</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Order number:</span>
-                </div>
-                <div class="content_label right">
-                  <span>#12345678</span>
-                </div>
+                <div class="content_label left">Order number:</div>
+                <div class="content_label right">#12345678</div>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  </div>
+  </base-layout>
 </template>
 
 <script>
-  import formHeader from "./formHeader";
+  import baseLayout from "./baseLayout";
   import { verify } from "@/service/googleexchange";
   export default {
     data() {
@@ -122,7 +95,7 @@
       };
     },
     components: {
-      formHeader
+      baseLayout
     },
     watch: {
 
@@ -155,7 +128,7 @@
       },
       handlerEdit () {
         this.$router.push({
-          path: '/formAddress',
+          path: '/verify',
           query: {isEdit: true}
         });
       }
@@ -164,13 +137,8 @@
 </script>
 
 <style lang="scss" scoped>
-    .content {
-      font-family:Roboto-Regular;
-    }
     .section {
-      margin-top: -4rem;
-      padding: 0 4.5rem 4.6rem;
-      z-index: 3;
+      font-family:Roboto-Regular;
     }
     .title {
       font-size: 2.2rem;
@@ -233,7 +201,7 @@
       line-height: 2.5rem;
       opacity:0.9;
       &.left {
-        width: 8.5rem;
+        width: 8.8rem;
         flex-shrink: 0;
       }
       &.right {

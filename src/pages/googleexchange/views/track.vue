@@ -20,36 +20,20 @@
             </div>
             <div class="form_item_block_content">
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Name:</span>
-                </div>
-                <div class="content_label right">
-                  <span>Kit Harington</span>
-                </div>
+                <div class="content_label left">Name:</div>
+                <div class="content_label right">{{form.name}}</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Postal Address:</span>
-                </div>
-                <div class="content_label right">
-                  <span>15 Coronation Drive, Yarralumla, ACT 2600</span>
-                </div>
+                <div class="content_label left">Postal Address:</div>
+                <div class="content_label right">{{form.street}}</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                    <span>E-mail:</span>
-                  </div>
-                  <div class="content_label right">
-                    <span>Harington@yeelight</span>
-                  </div>
+                <div class="content_label left">E-mail:</div>
+                  <div class="content_label right">{{form.email}}</div>
               </div>
               <div class="content_row">
-                <div class="content_label left">
-                  <span>Phone:</span>
-                </div>
-                <div class="content_label right">
-                  <span>13210801818</span>
-                </div>
+                <div class="content_label left">Phone:</div>
+                <div class="content_label right">{{form.phone}}</div>
               </div>
             </div>
           </div>
@@ -67,20 +51,12 @@
             </div>
             <div v-else-if="state==2" class="form_item_block_content">
               <div class="content_row">
-                 <div class="content_label left">
-                  <span>Carrier:</span>
-                </div>
-                <div class="content_label right">
-                  <span>TNT</span>
-                </div>
+                 <div class="content_label left">Carrier:</div>
+                <div class="content_label right">TNT</div>
               </div>
               <div class="content_row">
-                 <div class="content_label left">
-                  <span>Order number:</span>
-                </div>
-                <div class="content_label right">
-                  <span>#12345678</span>
-                </div>
+                 <div class="content_label left">Order number:</div>
+                <div class="content_label right">#12345678</div>
               </div>
             </div>
           </div>
@@ -92,7 +68,7 @@
 
 <script>
   import baseLayout from "./baseLayout";
-  import { verify } from "@/service/googleexchange";
+  import { check } from "@/service/googleexchange";
   export default {
     data() {
       return {
@@ -143,20 +119,20 @@
           // alert('unknown error');
           // this.$router.replace({path: '/'});
         }
-        this.verify();
+        this.check();
       },
-      verify () {
-        verify().then(res => {
-          if(res.data.state) {
+      check () {
+        check().then(res => {
+          if(res.data.used === 2) {
             this.state = 1;
-          } else {
+          } else if(res.data.used === 3) {
             this.state = 2;
           }
         });
       },
       handlerEdit () {
         this.$router.push({
-          path: '/formAddress',
+          path: '/verify',
           query: {isEdit: true}
         });
       }
@@ -222,11 +198,15 @@
       color: #000000;
       opacity: .9;
       text-align: left;
+      vertical-align: middle;
       &.left {
         width: 37%;
       }
       &.right {
         width: 63%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 

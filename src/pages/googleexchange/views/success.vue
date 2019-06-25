@@ -35,7 +35,7 @@
     },
     methods: {
       handlerSubmitForm() {
-          this.$router.push({path: '/formCheckOrder'});
+          this.$router.push({path: '/track'});
       }
     }
   };

@@ -1,66 +1,62 @@
 <template>
-    <div class="container">
-         <div class="content">
-            <form-header></form-header>
-            <section class="section section_text">
-                <div class="title">
-                    <span>Type your Coupon</span>
+    <base-layout class="container">
+        <section class="section section_text">
+            <div class="title">
+                <span>Type your Coupon</span>
+            </div>
+            <div class="describe">
+                <span>Please enter the coupon code to get a free
+                YEELIGHT smart bulb - MSRP $29.99</span>
+            </div>
+        </section>
+        <section class="section section_form">
+            <div class="form_item form_item_coupon">
+                <div>
+                    <label class="form_item_label" for="">Coupon</label>
                 </div>
-                <div class="describe">
-                    <span>Please enter the coupon code to get a free
-                    YEELIGHT smart bulb - MSRP $29.99</span>
-                </div>
-            </section>
-            <section class="section section_form">
-                <div class="form_item form_item_coupon">
-                    <div>
-                        <label class="form_item_label" for="">Coupon</label>
-                    </div>
-                    <div class="form_item_input form_item_content">
-                        <div class="input_box">
-                            <label class="label_placeholder" v-show="!form.coupon">Enter your code here</label>
-                            <input type="text" class="input_text input_text_coupon" autocomplete="off" ref="coupon" v-model="form.coupon">
-                            <div class="form_item_error" v-show="couponError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{couponError.msg}}</span>
-                            </div>
+                <div class="form_item_input form_item_content">
+                    <div class="input_box">
+                        <label class="label_placeholder" v-show="!form.coupon">Enter your code here</label>
+                        <input type="text" class="input_text input_text_coupon" autocomplete="off" ref="coupon" v-model="form.coupon">
+                        <div class="form_item_error" v-show="couponError.flag">
+                            <img class="forim_item_error_icon" src="../lib/error.png" alt="">
+                            <span class="form_item_error_text">{{couponError.msg}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="form_item form_item_captcha">
-                    <div class="form_item_content">
-                        <label class="form_item_label" for="">Captcha</label>
-                        <div class="input_box">
-                            <label class="label_placeholder" v-show="!form.captcha">Enter your captcha here</label>
-                            <input type="text" class="input_text input_text_captcha" autocomplete="off" ref="captcha" v-model="form.captcha">
-                            <img class="img_captcha" :src="'data:image/png;base64,'+captchaBase64" alt="captcha">
-                            <img class="img_refresh" src="../lib/refresh.png" alt="refresh" @click="handlerChangeCaptcha">
-                            <div class="form_item_error" v-show="captchaError.flag">
-                                <img class="forim_item_error_icon" src="../lib/error.png" alt="">
-                                <span class="form_item_error_text">{{captchaError.msg}}</span>
-                            </div>
+            </div>
+            <div class="form_item form_item_captcha">
+                <div class="form_item_content">
+                    <label class="form_item_label" for="">Captcha</label>
+                    <div class="input_box">
+                        <label class="label_placeholder" v-show="!form.captcha">Enter your captcha here</label>
+                        <input type="text" class="input_text input_text_captcha" autocomplete="off" ref="captcha" v-model="form.captcha">
+                        <img class="img_captcha" :src="'data:image/png;base64,'+captchaBase64" alt="captcha">
+                        <img class="img_refresh" src="../lib/refresh.png" alt="refresh" @click="handlerChangeCaptcha">
+                        <div class="form_item_error" v-show="captchaError.flag">
+                            <img class="forim_item_error_icon" src="../lib/error.png" alt="">
+                            <span class="form_item_error_text">{{captchaError.msg}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="form_item form_item_condition">
-                    <div class="form_item_condition_content">
-                        <img v-show="!conditionAgree" class="img_condition" src="../lib/check.png" alt="" @click="conditionAgree=!conditionAgree">
-                        <img v-show="conditionAgree" class="img_condition" src="../lib/check_ok.png" alt="" @click="conditionAgree=!conditionAgree">
-                        <span class="condition_text">I have read and agree to the </span>
-                        <a class="condition_terms" href="javascript: void(0);">Terms and Conditions</a>
-                    </div>
+            </div>
+            <div class="form_item form_item_condition">
+                <div class="form_item_condition_content">
+                    <img v-show="!conditionAgree" class="img_condition" src="../lib/check.png" alt="" @click="conditionAgree=!conditionAgree">
+                    <img v-show="conditionAgree" class="img_condition" src="../lib/check_ok.png" alt="" @click="conditionAgree=!conditionAgree">
+                    <span class="condition_text">I have read and agree to the </span>
+                    <a class="condition_terms" href="javascript: void(0);">Terms and Conditions</a>
                 </div>
-                <div class="form_item form_item_submit">
-                    <input type="submit" :disabled="!formReady" class="btn btn_proceed" value="Redeem" @click="handlerSubmitForm">
-                </div>
-            </section>
-            
-        </div>
-    </div>
+            </div>
+            <div class="form_item form_item_submit">
+                <input type="submit" :disabled="!formReady" class="btn btn_proceed" value="Redeem" @click="handlerSubmitForm">
+            </div>
+        </section>
+    </base-layout>
 </template>
 
 <script>
-    import formHeader from './formHeader';
+    import baseLayout from './baseLayout';
     import { submit, getCaptcha } from '@/service/googleexchange';
     export default {
         data() {
@@ -84,7 +80,7 @@
             }
         },
         components: {
-            formHeader
+            baseLayout
         },
         watch: {
             'form.coupon'(val) {
@@ -136,7 +132,7 @@
                 this.formReady = false;
                 submit(this.form).then(() => {
                     sessionStorage.setItem('googleexchange_formcoupon', JSON.stringify(this.form));
-                    this.$router.push({path: '/formAddress'});
+                    this.$router.push({path: '/verify'});
                 }).catch(err => {
                     this.initError(err);
                 }).finally(() => {
@@ -172,18 +168,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .header {
-
-    }
-    .img_header {
-        width: 100%;
-    }
-    .section{
-        padding: 0 4.5rem;
-    }
-    .section_text {
-        margin-top: -4.6rem;
-    }
     .title {
         font-size: 2.2rem;
         font-family: NotoSans-Regular;

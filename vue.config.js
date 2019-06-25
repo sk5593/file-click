@@ -4,17 +4,17 @@ const entry = 'googleexchange';
 const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
     publicPath: '',
-    outputDir: 'target/classes/META-INF/resources/webjars/'+entry,
+    outputDir: 'target/classes/META-INF/resources/webjars/',
     lintOnSave: true,
     pages:{
         // givemefive: {
         //     entry: 'src/pages/givemefive/main.js',
         //     template: 'src/pages/givemefive/givemefive.html'
         // },
-        // betaactivity: {
-        //     entry: 'src/pages/betaactivity/main.js',
-        //     template: 'src/pages/betaactivity/betaactivity.html'
-        // },
+        betaactivity: {
+            entry: 'src/pages/betaactivity/main.js',
+            template: 'src/pages/betaactivity/betaactivity.html'
+        },
         googleexchange: {
             entry: 'src/pages/googleexchange/main.js',
             template: 'src/pages/googleexchange/googleexchange.html'

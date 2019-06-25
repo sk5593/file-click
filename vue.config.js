@@ -1,10 +1,10 @@
 // vue.config.js
-const entry = 'googleexchange_m';
+const entry = 'googleexchange';
 // const apiUrl = 'http://api-test.yeedev.com';
 const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
     publicPath: '',
-    outputDir: 'target/classes/META-INF/resources/webjars',
+    outputDir: 'target/classes/META-INF/resources/webjars/'+entry,
     lintOnSave: true,
     pages:{
         // givemefive: {
@@ -19,10 +19,10 @@ module.exports = {
             entry: 'src/pages/googleexchange/main.js',
             template: 'src/pages/googleexchange/googleexchange.html'
         },
-        googleexchange_m: {
-            entry: 'src/pages/googleexchange_m/main.js',
-            template: 'src/pages/googleexchange_m/googleexchange.html'
-        }
+        // googleexchange_m: {
+        //     entry: 'src/pages/googleexchange_m/main.js',
+        //     template: 'src/pages/googleexchange_m/googleexchange.html'
+        // }
     },
     devServer:{
         host: 'localhost.yeelight.com',

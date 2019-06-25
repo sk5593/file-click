@@ -134,7 +134,7 @@
                     sessionStorage.setItem('googleexchange_checkform', JSON.stringify(this.form));
                     if(res.data) {
                         let used = res.data.used;
-                        if (used === 2 || used === 3) {
+                        if (used != 0) {
                             this.$router.push({path: '/track'});
                             return;
                         }
@@ -272,7 +272,7 @@
         font-family:Roboto-Regular;
         line-height: 1.4rem;
         vertical-align: middle;
-        letter-spacing: -.7px;
+        letter-spacing: -.07rem;
     }
     .condition_terms {
         font-size: 1.2rem;
@@ -280,7 +280,7 @@
         line-height: 1.4rem;
         vertical-align: middle;
         color: #2F73E8;
-        letter-spacing: -.7px;
+        letter-spacing: -.07rem;
     }
     .form_item_error {
         position: absolute;

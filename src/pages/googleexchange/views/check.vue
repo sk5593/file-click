@@ -131,7 +131,7 @@
                     sessionStorage.setItem('googleexchange_checkform', JSON.stringify(this.form));
                     if(res.data) {
                         let used = res.data.used;
-                        if (used === 2 || used === 3) {
+                        if (used != 0) {
                             this.$router.push({path: '/track'});
                             return;
                         }

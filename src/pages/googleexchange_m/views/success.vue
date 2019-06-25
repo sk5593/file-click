@@ -56,8 +56,7 @@ import { check } from "@/service/googleexchange";
           this.checkForm.captchaToken = checkForm.captchaToken;
           this.check();
         } else {
-          // alert('unknown error');
-          // this.$router.replace({path: '/'});
+          this.$router.replace({path: '/'});
         }
       },
       check () {

@@ -108,8 +108,7 @@
           this.checkForm.captcha = checkForm.captcha;
           this.checkForm.captchaToken = checkForm.captchaToken;
         } else {
-          // alert('unknown error');
-          // this.$router.replace({path: '/'});
+          this.$router.replace({path: '/'});
         }
         this.check();
       },
@@ -138,8 +137,7 @@
       },
       handlerEdit () {
         this.$router.push({
-          path: '/verify',
-          query: {isEdit: true}
+          path: '/verify'
         });
       }
     }

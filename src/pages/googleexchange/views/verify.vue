@@ -178,8 +178,7 @@ export default {
         await this.check();
         this.formReady = true;
       } else {
-        // alert('unknown error');
-        // this.$router.replace({path: '/'});
+        this.$router.replace({path: '/'});
       }
     },
     check () {

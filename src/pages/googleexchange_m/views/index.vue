@@ -160,7 +160,7 @@
 
             handlerProceed () {
                 this.$router.push({
-                    path: '/formCoupon'
+                    path: '/check'
                 });
             } 
         }

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import baseLayout from "./baseLayout";
+import baseLayout from "./baseLayout";
 import { formatTime } from "@/util/util";
 import { check } from "@/service/googleexchange";
   export default {

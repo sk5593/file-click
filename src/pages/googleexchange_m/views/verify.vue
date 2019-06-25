@@ -144,12 +144,15 @@
 import baseLayout from "./baseLayout";
 import { isEmail } from "@/util/util";
 import Australia from "../lib/Australia";
-import { verify } from "@/service/googleexchange";
+import { check, verify } from "@/service/googleexchange";
 export default {
   data() {
     return {
-      // eslint-disable-next-line no-undef
-      IMGPrefix: IMGPrefix,
+      checkForm: {
+        coupon: "",
+        captcha: "",
+        captchaToken: ""
+      },
       form: {
         country: "Australia",
         state: "",
@@ -159,15 +162,11 @@ export default {
         phone: "",
         firstName: "",
         lastName: "",
-        coupon: "",
-        captcha: "",
-        captchaToken: ""
       },
       formReady: true,
       errorKey: [],
       Australia: Australia,
-      AustraliaState: [],
-      isEdit: null
+      AustraliaState: []
     };
   },
   components: {
@@ -186,21 +185,44 @@ export default {
     // }
   },
   mounted() {
-    this.isEdit = this.$route.query.isEdit;
     this.init();
   },
   methods: {
-    init() {
-      let couponForm = sessionStorage.getItem("googleexchange_checkform");
-      if (couponForm) {
-        couponForm = JSON.parse(couponForm);
-        this.form.coupon = couponForm.coupon;
-        this.form.captcha = couponForm.captcha;
-        this.form.captchaToken = couponForm.captchaToken;
+    async init() {
+      let checkForm = sessionStorage.getItem("googleexchange_checkform");
+      if (checkForm) {
+        checkForm = JSON.parse(checkForm);
+        this.checkForm.coupon = checkForm.coupon;
+        this.checkForm.captcha = checkForm.captcha;
+        this.checkForm.captchaToken = checkForm.captchaToken;
+        this.formReady = false;
+        await this.check();
+        this.formReady = true;
       } else {
         // alert('unknown error');
         // this.$router.replace({path: '/'});
       }
+    },
+    check () {
+      return check(this.checkForm).then(res => {
+        let data = res.data;
+        this.form.used = data.used;
+        this.form.firstName = data.firstName;
+        this.form.lastName = data.lastName;
+        this.form.country = data.country;
+        this.form.city = data.city;
+        if(data.city) this.handlerCityChange();
+        this.form.state = data.state;
+        this.form.street = data.street;
+        this.form.email = data.email;
+        this.form.phone = data.phone;
+      }).catch(err => {
+        if(err.code == '13004') {
+          this.$router.push({
+            path: 'check'
+          })
+        }
+      });
     },
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
@@ -217,9 +239,10 @@ export default {
       this.forEachFormData(this.form);
       if (this.errorKey.length) return;
       this.formReady = false;
-      verify(this.form, this.isEdit)
+      let form = Object.assign(this.form, this.checkForm);
+      verify(form)
         .then(() => {
-          this.$router.push({ path: "/success" });
+          this.$router.push({path: '/success'});
         })
         .catch(err => {
           this.initError(err);
@@ -231,27 +254,21 @@ export default {
     initError(err) {
       if (err.code == "13004" || err.code == "13002") {
         sessionStorage.removeItem("googleexchange_checkform");
-        this.$router.push({ path: "/check" });
-      } else if (err.code == "13001") {
-        this.$router.push({ path: "/success" });
+        this.$router.push({path: '/check'});
+      } else if (err.code == '13001') {
+        this.$router.push({path: '/success'});
       } else {
         alert(err.msg);
       }
     },
     handlerCityChange() {
-      this.form.state = "";
+      this.form.state = '';
       this.Australia.some(item => {
-        if (item.name == this.form.city) {
-          if (!this.AustraliaState.length)
-            this.AustraliaState.push(...item.cities);
-          else
-            this.AustraliaState.splice(
-              0,
-              this.AustraliaState.length,
-              ...item.cities
-            );
+        if(item.name == this.form.city){
+          if(!this.AustraliaState.length) this.AustraliaState.push(...item.cities);
+          else this.AustraliaState.splice(0, this.AustraliaState.length, ...item.cities);
         }
-      });
+      })
     }
   }
 };

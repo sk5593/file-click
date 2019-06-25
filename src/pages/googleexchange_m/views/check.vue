@@ -57,7 +57,7 @@
 
 <script>
     import baseLayout from './baseLayout';
-    import { submit, getCaptcha } from '@/service/googleexchange';
+    import { check, getCaptcha } from '@/service/googleexchange';
     export default {
         data() {
             return {
@@ -130,8 +130,15 @@
             handlerSubmitForm () {
                 this.resetError();
                 this.formReady = false;
-                submit(this.form).then(() => {
+                check(this.form).then(res => {
                     sessionStorage.setItem('googleexchange_checkform', JSON.stringify(this.form));
+                    if(res.data) {
+                        let used = res.data.used;
+                        if (used === 2 || used === 3) {
+                            this.$router.push({path: '/track'});
+                            return;
+                        }
+                    }
                     this.$router.push({path: '/verify'});
                 }).catch(err => {
                     this.initError(err);
@@ -252,7 +259,9 @@
             opacity: .3;
         }
     }
-
+    .form_item_condition_content{
+        text-align: justify;
+    }
     .img_condition {
         width: 1.4rem;
         height: 1.4rem;
@@ -263,6 +272,7 @@
         font-family:Roboto-Regular;
         line-height: 1.4rem;
         vertical-align: middle;
+        letter-spacing: -.7px;
     }
     .condition_terms {
         font-size: 1.2rem;
@@ -270,6 +280,7 @@
         line-height: 1.4rem;
         vertical-align: middle;
         color: #2F73E8;
+        letter-spacing: -.7px;
     }
     .form_item_error {
         position: absolute;

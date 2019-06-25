@@ -44,7 +44,7 @@
                 <div class="form_item_condition_content">
                     <img v-show="!conditionAgree" class="img_condition" src="../lib/check.png" alt="" @click="conditionAgree=!conditionAgree">
                     <img v-show="conditionAgree" class="img_condition" src="../lib/check_ok.png" alt="" @click="conditionAgree=!conditionAgree">
-                    <span class="condition_text">I have read and agree to the </span>
+                    <span class="condition_text" @click="conditionAgree=!conditionAgree">I have read and agree to the </span>
                     <a class="condition_terms" href="javascript: void(0);">Terms and Conditions</a>
                 </div>
             </div>
@@ -261,6 +261,7 @@
     }
     .form_item_condition_content{
         text-align: justify;
+        cursor: pointer;
     }
     .img_condition {
         width: 1.4rem;

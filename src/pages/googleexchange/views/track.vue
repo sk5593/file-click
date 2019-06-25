@@ -237,6 +237,7 @@
     .img_edit {
       width: .24rem;
       height: .24rem;
+      cursor: pointer;
     }
     .track_icon {
       margin-top: .49rem;

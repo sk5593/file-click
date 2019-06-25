@@ -192,6 +192,7 @@
     .img_edit {
       width: 1.6rem;
       height: 1.6rem;
+      cursor: pointer;
     }
     .block_item_content {
       padding: 1.5rem 2.8rem;
@@ -215,7 +216,12 @@
         flex-shrink: 0;
       }
       &.right {
-        margin-left: 2.5rem; 
+        margin-left: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
       }
     }
 

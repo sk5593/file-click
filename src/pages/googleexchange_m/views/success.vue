@@ -7,7 +7,8 @@
         <div class="text">
           <div class="text_row">we will send the giveaway after close</div>
           <div class="text_row">of this event.You are able to change</div>
-          <div class="text_row">the address before the date of {{verifyTime}}</div>
+          <div class="text_row">the address before the date of </div>
+          <div>{{verifyTime}}</div>
         </div>
         <div class="icon">
           <img class="img_package"
@@ -83,6 +84,7 @@ import { check } from "@/service/googleexchange";
 .title {
   font-size: 2.2rem;
   line-height: 1;
+  white-space: nowrap;
 }
 .text {
     margin-top: 1.6rem;

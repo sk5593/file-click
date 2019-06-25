@@ -125,6 +125,7 @@
                 });
             },
             handlerChangeCaptcha () {
+                this.form.captcha = '';
                 this.getCaptcha();
             },
             handlerSubmitForm () {
@@ -165,6 +166,7 @@
                     this.couponError.msg = err.msg;
                     this.getCaptcha();
                     this.form.coupon = '';
+                    this.form.captcha = '';
                     this.$refs.coupon.focus()
                 } else {
                     alert(err.msg);

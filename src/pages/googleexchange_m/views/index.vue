@@ -155,7 +155,6 @@
             config().then(res => {
                 if(res.data && res.data.valid) {
                     sessionStorage.setItem('googleexchange_config', JSON.stringify(res.data));
-                    this.init();
                 } else {
                     alert('The activity is over.');
                 }

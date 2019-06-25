@@ -86,3 +86,15 @@ export function isvalidatetel(phone) {
 export function isEmail(s) {
     return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s)
 }
+
+export function formatTime(timestamp) {
+    if(!timestamp) return 'XX XX XX'
+    function add0 (m){return m<10?'0'+m:m }
+    let time = new Date(parseInt(timestamp)*1000);
+    let m = time.getMonth()+1;
+    let d = time.getDate();
+    let h = time.getHours();
+    let mm = time.getMinutes();
+    let s = time.getSeconds();
+    return add0(m)+'.'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+}

@@ -191,7 +191,7 @@ export default {
   },
   methods: {
     init() {
-      let couponForm = sessionStorage.getItem("googleexchange_formcoupon");
+      let couponForm = sessionStorage.getItem("googleexchange_checkform");
       if (couponForm) {
         couponForm = JSON.parse(couponForm);
         this.form.coupon = couponForm.coupon;
@@ -230,7 +230,7 @@ export default {
     },
     initError(err) {
       if (err.code == "13004" || err.code == "13002") {
-        sessionStorage.removeItem("googleexchange_formcoupon");
+        sessionStorage.removeItem("googleexchange_checkform");
         this.$router.push({ path: "/check" });
       } else if (err.code == "13001") {
         this.$router.push({ path: "/success" });

@@ -131,7 +131,7 @@
                 this.resetError();
                 this.formReady = false;
                 submit(this.form).then(() => {
-                    sessionStorage.setItem('googleexchange_formcoupon', JSON.stringify(this.form));
+                    sessionStorage.setItem('googleexchange_checkform', JSON.stringify(this.form));
                     this.$router.push({path: '/verify'});
                 }).catch(err => {
                     this.initError(err);

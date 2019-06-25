@@ -6,7 +6,7 @@
             <span>Check your Order</span>
         </div>
         <div class="form_describe">
-            <span>Please check the status of delivery after XX XX XX</span>
+            <span>Please check the status of delivery after {{this.form.shipTime}}</span>
         </div>
       </div>
       <div class="form_item form_block">
@@ -14,18 +14,18 @@
           <div class="form_item_block">
             <div class="form_item_block_header">
               <div class="header_item_name">Order</div>
-              <div v-if="state==1" class="header_item_btn">
+              <div v-if="used==1" class="header_item_btn">
                 <img class="img_edit" src="../lib/edit.png" alt="" @click="handlerEdit">
               </div>
             </div>
             <div class="form_item_block_content">
               <div class="content_row">
                 <div class="content_label left">Name:</div>
-                <div class="content_label right">{{form.name}}</div>
+                <div class="content_label right">{{form.lastName+' '+form.firstName}}</div>
               </div>
               <div class="content_row">
                 <div class="content_label left">Postal Address:</div>
-                <div class="content_label right">{{form.street}}</div>
+                <div class="content_label right" :title="form.street+' '+form.state+' '+form.city+' '+form.country">{{form.street+' '+form.state+' '+form.city+' '+form.country}}</div>
               </div>
               <div class="content_row">
                 <div class="content_label left">E-mail:</div>
@@ -41,7 +41,7 @@
             <div class="form_item_block_header">
                <div class="header_item_name">TRACK & TRACE</div>
             </div>
-            <div v-if="state==1" class="pageage_content">
+            <div v-if="used==1||used==2" class="pageage_content">
               <div class="track_icon">
                 <img class="img_trach" src="../lib/track.png" alt="">
               </div>
@@ -49,14 +49,14 @@
                 Not yet shipped
               </div>
             </div>
-            <div v-else-if="state==2" class="form_item_block_content">
+            <div v-else-if="used==3" class="form_item_block_content">
               <div class="content_row">
                  <div class="content_label left">Carrier:</div>
-                <div class="content_label right">TNT</div>
+                <div class="content_label right">{{form.carrier}}</div>
               </div>
               <div class="content_row">
                  <div class="content_label left">Order number:</div>
-                <div class="content_label right">#12345678</div>
+                <div class="content_label right">{{form.trackerNo}}</div>
               </div>
             </div>
           </div>
@@ -68,10 +68,16 @@
 
 <script>
   import baseLayout from "./baseLayout";
+  import { formatTime } from "@/util/util";
   import { check } from "@/service/googleexchange";
   export default {
     data() {
       return {
+        checkForm: {
+          coupon: '',
+          captcha: '',
+          captchaToken: ''
+        },
         form: {
           country: "Australia",
           state: "",
@@ -81,21 +87,11 @@
           phone: "",
           firstName: "",
           lastName: "",
-          coupon: "",
-          captcha: "",
-          captchaToken: ""
+          carrier: "",
+          trackerNo: "",
+          shipTime: ''
         },
-        couponError: {
-          flag: false,
-          msg: ""
-        },
-        captchaError: {
-          flag: false,
-          msg: ""
-        },
-        conditionAgree: false,
-        formReady: false,
-        state: 2
+        used: 0,
       };
     },
     components: {
@@ -109,12 +105,12 @@
     },
     methods: {
       init() {
-        let couponForm = sessionStorage.getItem("googleexchange_formcoupon");
-        if (couponForm) {
-          couponForm = JSON.parse(couponForm);
-          this.form.coupon = couponForm.coupon;
-          this.form.captcha = couponForm.captcha;
-          this.form.captchaToken = couponForm.captchaToken;
+        let checkForm = sessionStorage.getItem("googleexchange_checkform");
+        if (checkForm) {
+          checkForm = JSON.parse(checkForm);
+          this.checkForm.coupon = checkForm.coupon;
+          this.checkForm.captcha = checkForm.captcha;
+          this.checkForm.captchaToken = checkForm.captchaToken;
         } else {
           // alert('unknown error');
           // this.$router.replace({path: '/'});
@@ -122,11 +118,25 @@
         this.check();
       },
       check () {
-        check().then(res => {
-          if(res.data.used === 2) {
-            this.state = 1;
-          } else if(res.data.used === 3) {
-            this.state = 2;
+        check(this.checkForm).then(res => {
+          let data = res.data;
+          this.used = data.used;
+          this.form.firstName = data.firstName;
+          this.form.lastName = data.lastName;
+          this.form.country = data.country;
+          this.form.city = data.city;
+          this.form.state = data.state;
+          this.form.street = data.street;
+          this.form.email = data.email;
+          this.form.phone = data.phone;
+          this.form.carrier = data.carrier;
+          this.form.trackerNo = data.trackerNo;
+          this.form.shipTime = formatTime(data.shipTime);
+        }).catch(err => {
+          if(err.code == '13004') {
+            this.$router.push({
+              path: 'check'
+            })
           }
         });
       },

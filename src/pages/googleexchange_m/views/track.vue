@@ -105,7 +105,7 @@
     },
     methods: {
       init() {
-        let couponForm = sessionStorage.getItem("googleexchange_formcoupon");
+        let couponForm = sessionStorage.getItem("googleexchange_checkform");
         if (couponForm) {
           couponForm = JSON.parse(couponForm);
           this.form.coupon = couponForm.coupon;

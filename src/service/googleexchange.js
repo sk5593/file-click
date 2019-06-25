@@ -15,9 +15,9 @@ export const getCaptcha = () => {
     })
 }
 
-export const verify = (data, isEdit) => {
+export const verify = (data) => {
     let url = '';
-    if(isEdit) {
+    if(data.used && data.used == 1) {
         url = '/apis/c/v1/google/coupon/w/edit';
     } else {
         url = '/apis/c/v1/google/coupon/w/verify';

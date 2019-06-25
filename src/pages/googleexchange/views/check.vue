@@ -128,9 +128,9 @@
                 this.resetError();
                 this.formReady = false;
                 check(this.form).then(res => {
-                    sessionStorage.setItem('googleexchange_formcoupon', JSON.stringify(this.form));
-                    if(res.data.form) {
-                        let used = res.data.form.used;
+                    sessionStorage.setItem('googleexchange_checkform', JSON.stringify(this.form));
+                    if(res.data) {
+                        let used = res.data.used;
                         if (used === 2 || used === 3) {
                             this.$router.push({path: '/track'});
                             return;

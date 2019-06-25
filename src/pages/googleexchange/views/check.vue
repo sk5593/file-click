@@ -54,7 +54,7 @@
 
 <script>
     import baseLayout from './baseLayout'
-    import { check, getCaptcha } from '@/service/googleexchange';
+    import { config, check, getCaptcha } from '@/service/googleexchange';
     export default {
         data() {
             return {
@@ -109,7 +109,16 @@
             }
         },
         mounted() {
-            this.init();
+            config().then(res => {
+                if(res.data && res.data.valid) {
+                    sessionStorage.setItem('googleexchange_config', JSON.stringify(res.data));
+                    this.init();
+                } else {
+                    alert('The activity is over.');
+                }
+            }).catch(err => {
+                alert(err.msg)
+            });
         },
         methods: {
             init () {

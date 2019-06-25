@@ -142,6 +142,7 @@
 </template>
 
 <script>
+    import { config } from '@/service/googleexchange';
     export default {
         data() {
             return {
@@ -151,7 +152,16 @@
         },
         
         mounted() {
-            
+            config().then(res => {
+                if(res.data && res.data.valid) {
+                    sessionStorage.setItem('googleexchange_config', JSON.stringify(res.data));
+                    this.init();
+                } else {
+                    alert('The activity is over.');
+                }
+            }).catch(err => {
+                alert(err.msg)
+            });
         },
         methods: {
             handlerLearnMore () {

@@ -1,5 +1,12 @@
 import request from './index';
 
+export const config = () => {
+    return request({
+        url: '/apis/c/v1/google/coupon/r/config',
+        method: 'get',
+    })
+}
+
 export const check = (data) => {
     return request({
         url: '/apis/c/v1/google/coupon/r/check',

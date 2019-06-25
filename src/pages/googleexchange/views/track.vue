@@ -6,7 +6,7 @@
             <span>Check your Order</span>
         </div>
         <div class="form_describe">
-            <span>Please check the status of delivery after {{this.form.shipTime}}</span>
+            <span>Please check the status of delivery after {{this.trackDate}}</span>
         </div>
       </div>
       <div class="form_item form_block">
@@ -68,7 +68,7 @@
 
 <script>
   import baseLayout from "./baseLayout";
-  import { formatTime } from "@/util/util";
+  // import { formatTime } from "@/util/util";
   import { check } from "@/service/googleexchange";
   export default {
     data() {
@@ -88,10 +88,10 @@
           firstName: "",
           lastName: "",
           carrier: "",
-          trackerNo: "",
-          shipTime: ''
+          trackerNo: ""
         },
         used: 0,
+        trackDate: ''
       };
     },
     components: {
@@ -101,6 +101,11 @@
 
     },
     mounted() {
+        let config = sessionStorage.getItem("googleexchange_config");
+        if(config) {
+          config = JSON.parse(config);
+          this.trackDate = config.trackDate;
+        }
       this.init();
     },
     methods: {
@@ -130,12 +135,11 @@
           this.form.phone = data.phone;
           this.form.carrier = data.carrier;
           this.form.trackerNo = data.trackerNo;
-          this.form.shipTime = formatTime(data.shipTime);
         }).catch(err => {
           if(err.code == '13004') {
             this.$router.push({
               path: 'check'
-            })
+            });
           }
         });
       },

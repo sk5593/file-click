@@ -7,7 +7,7 @@
       <div class="form_item form_item_text">
           <div class="form_item_text_row">Thank you for your support,</div>
           <div class="form_item_text_row">we will send the giveaway after close of this event.</div>
-          <div class="form_item_text_row">You are able to change the address before the date of {{verifyTime}}</div>
+          <div class="form_item_text_row">You are able to change the address before the date of {{validDate}}</div>
       </div>
       <div class="form_item form_item_submit">
         <input type="submit"
@@ -21,17 +21,11 @@
 
 <script>
 import baseLayout from "./baseLayout";
-import { formatTime } from "@/util/util";
-import { check } from "@/service/googleexchange";
+// import { formatTime } from "@/util/util";
   export default {
     data() {
       return {
-        checkForm: {
-          coupon: "",
-          captcha: "",
-          captchaToken: ""
-        },
-        verifyTime: ''
+        validDate: ''
       };
     },
     components: {
@@ -42,29 +36,11 @@ import { check } from "@/service/googleexchange";
     },
     methods: {
       init() {
-        let checkForm = sessionStorage.getItem("googleexchange_checkform");
-        if (checkForm) {
-          checkForm = JSON.parse(checkForm);
-          this.checkForm.coupon = checkForm.coupon;
-          this.checkForm.captcha = checkForm.captcha;
-          this.checkForm.captchaToken = checkForm.captchaToken;
-          this.check();
-        } else {
-          this.$router.replace({path: '/'});
+        let config = sessionStorage.getItem("googleexchange_config");
+        if(config) {
+          config = JSON.parse(config);
+          this.validDate = config.validDate;
         }
-      },
-      check () {
-        check(this.checkForm).then(res => {
-          let data = res.data;
-          this.used = data.used;
-          this.verifyTime = formatTime(data.verifyTime);
-        }).catch(err => {
-          if(err.code == '13004') {
-            this.$router.push({
-              path: 'check'
-            })
-          }
-        });
       },
       handlerSubmitForm() {
           this.$router.push({path: '/track'});

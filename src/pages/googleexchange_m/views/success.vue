@@ -2,13 +2,10 @@
   <base-layout>
       <section class="section">
           <div class="title">
-              <span>Thank you for your support</span>
+              <span>Congratulations!</span>
           </div>
         <div class="text">
-          <div class="text_row">we will send the giveaway after close</div>
-          <div class="text_row">of this event.You are able to change</div>
-          <div class="text_row">the address before the date of </div>
-          <div>{{validDate}}</div>
+          We will send the giveaway after close of this event.You are able to change the address before the date of {{validDate}}
         </div>
         <div class="icon">
           <img class="img_package"

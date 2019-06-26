@@ -25,7 +25,7 @@
               </div>
               <div class="content_row">
                 <div class="content_label left">Postal Address:</div>
-                <div class="content_label right" :title="form.street+' '+form.state+' '+form.city+' '+form.country">{{form.street+' '+form.state+' '+form.city+' '+form.country}}</div>
+                <div class="content_label right" :title="form.street+','+form.city+','+form.state">{{form.street+','+form.city+','+form.state}}</div>
               </div>
               <div class="content_row">
                 <div class="content_label left">E-mail:</div>

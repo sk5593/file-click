@@ -6,22 +6,27 @@ module.exports = {
     publicPath: '',
     outputDir: 'target/classes/META-INF/resources/webjars/',
     lintOnSave: true,
+    productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
     pages:{
         givemefive: {
             entry: 'src/pages/givemefive/main.js',
-            template: 'src/pages/givemefive/givemefive.html'
+            template: 'src/pages/givemefive/givemefive.html',
+            chunks: ['givemefive']
         },
         betaactivity: {
             entry: 'src/pages/betaactivity/main.js',
-            template: 'src/pages/betaactivity/betaactivity.html'
+            template: 'src/pages/betaactivity/betaactivity.html',
+            chunks: ['betaactivity']
         },
         googleexchange: {
             entry: 'src/pages/googleexchange/main.js',
-            template: 'src/pages/googleexchange/googleexchange.html'
+            template: 'src/pages/googleexchange/googleexchange.html',
+            chunks: ['googleexchange']
         },
         googleexchange_m: {
             entry: 'src/pages/googleexchange_m/main.js',
-            template: 'src/pages/googleexchange_m/googleexchange_m.html'
+            template: 'src/pages/googleexchange_m/googleexchange_m.html',
+            chunks: ['googleexchange_m']
         }
     },
     devServer:{

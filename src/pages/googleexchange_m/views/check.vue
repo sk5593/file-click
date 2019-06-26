@@ -16,7 +16,7 @@
                 </div>
                 <div class="form_item_input form_item_content">
                     <div class="input_box">
-                        <label class="label_placeholder" v-show="!form.coupon">Enter your code here</label>
+                        <label class="label_placeholder" v-show="!form.coupon">Enter code here</label>
                         <input type="text" class="input_text input_text_coupon" autocomplete="off" ref="coupon" v-model="form.coupon">
                         <div class="form_item_error" v-show="couponError.flag">
                             <img class="forim_item_error_icon" src="../lib/error.png" alt="">
@@ -29,7 +29,7 @@
                 <div class="form_item_content">
                     <label class="form_item_label" for="">Captcha</label>
                     <div class="input_box">
-                        <label class="label_placeholder" v-show="!form.captcha">Enter your captcha here</label>
+                        <label class="label_placeholder" v-show="!form.captcha">Enter captcha here</label>
                         <input type="text" class="input_text input_text_captcha" autocomplete="off" ref="captcha" v-model="form.captcha">
                         <img class="img_captcha" :src="'data:image/png;base64,'+captchaBase64" alt="captcha">
                         <img class="img_refresh" src="../lib/refresh.png" alt="refresh" @click="handlerChangeCaptcha">
@@ -226,20 +226,24 @@
         border-radius: .4rem;
         background: transparent;
         padding: 0 1rem;
+        font-size: 1.4rem;
+        &:focus {
+            outline: none;
+        }
     }
 
     .form_item_captcha {
         margin-top: 4rem;
     }
     .img_captcha {
-        width: 4.8rem;
-        height: 2.5rem;
-        margin-left: 1.5rem;
+        width: 5.8rem;
+        height: 3.1rem;
+        margin-left: 1rem;
     }
     .img_refresh {
         width: 1.8rem;
         height: 1.8rem;
-        margin-left: 1.6rem;
+        margin-left: 1rem;
     }
     .form_item_condition {
         margin-top: 5.5rem;
@@ -264,6 +268,7 @@
     .form_item_condition_content{
         text-align: justify;
         cursor: pointer;
+        white-space: nowrap;
     }
     .img_condition {
         width: 1.4rem;
@@ -275,7 +280,7 @@
         font-family:Roboto-Regular;
         line-height: 1.4rem;
         vertical-align: middle;
-        letter-spacing: -.07rem;
+        // letter-spacing: -.07rem;
     }
     .condition_terms {
         font-size: 1.2rem;
@@ -283,7 +288,7 @@
         line-height: 1.4rem;
         vertical-align: middle;
         color: #2F73E8;
-        letter-spacing: -.07rem;
+        // letter-spacing: -.07rem;
     }
     .form_item_error {
         position: absolute;

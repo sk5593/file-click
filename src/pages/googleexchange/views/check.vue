@@ -13,7 +13,7 @@
                 <div class="form_item_content">
                     <label class="form_item_label" for="">Coupon :</label>
                     <div class="input_box">
-                        <label class="label_placeholder" v-show="!form.coupon">Enter your code here</label>
+                        <label class="label_placeholder" v-show="!form.coupon">Enter code here</label>
                         <input type="text" class="input_text input_text_coupon" autocomplete="off" ref="coupon" v-model="form.coupon">
                         <div class="form_item_error" v-show="couponError.flag">
                             <img class="forim_item_error_icon" src="../lib/error.png" alt="">
@@ -26,7 +26,7 @@
                 <div class="form_item_content">
                     <label class="form_item_label" for="">Captcha :</label>
                     <div class="input_box">
-                        <label class="label_placeholder" v-show="!form.captcha">Enter your captcha here</label>
+                        <label class="label_placeholder" v-show="!form.captcha">Enter captcha here</label>
                         <input type="text" class="input_text input_text_captcha" autocomplete="off" ref="captcha" v-model="form.captcha">
                         <img class="img_captcha" :src="'data:image/png;base64,'+captchaBase64" alt="captcha">
                         <button class="btn_changecaptcha" @click="handlerChangeCaptcha">change</button>

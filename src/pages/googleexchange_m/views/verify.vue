@@ -324,6 +324,7 @@ export default {
   line-height: 1.5rem;
   border: none;
   border-bottom: 1px solid rgba(170, 170, 170, 0.5);
+  border-radius: 0;
   padding: 1.1rem 1rem;
   background: transparent;
   z-index: 9;

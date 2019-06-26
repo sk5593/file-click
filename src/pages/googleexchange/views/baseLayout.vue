@@ -167,6 +167,7 @@
     $maxWidth: 1440px;
     $minWidth: 1200px;
     .container {
+        font-size: 14px;
         color: #333333;
     }
     .content {
@@ -204,7 +205,7 @@
     }
     .header_title{
         font-size: .42rem;
-        font-family: NotoSans-Medium;
+        font-family: NotoSans-Medium inherit;
         font-weight: 500;
         color: #333333;
         line-height: 1;
@@ -212,7 +213,7 @@
     .header_describe{
         margin-top: .28rem; 
         font-size: .2rem;
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -227,7 +228,7 @@
     }
     .color_text_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -238,7 +239,7 @@
     .color_text_describe {
         margin-top: .26rem;
         font-size: .2rem;
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -249,7 +250,7 @@
         text-align: center;
         padding: .67rem 0 .72rem;
         font-size: .2rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         line-height: .36rem;
     }
@@ -278,8 +279,8 @@
     }
     .function_text {
         margin-top: .1rem;
-        font-size: .1rem;
-        font-family: Roboto-Regular;
+        font-size: .2rem;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -306,7 +307,7 @@
     .steps_header{
         margin-top: .6rem;
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -329,7 +330,7 @@
     .steps_text {
         margin-top: .4rem;
         font-size: .2rem;
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: .24rem;
@@ -337,7 +338,7 @@
 
     .specifications_header {
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color:#333333;
         line-height: 1;
@@ -346,7 +347,7 @@
     .specifications_label {
         margin-top: .67rem;
         font-size: .2rem;
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: .36rem;
@@ -368,7 +369,7 @@
         height: .36rem;
         border: 2px solid rgba(51,51,51,.4);
         font-size: .16rem;
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular inherit;
         font-weight: 400;
         color:rgba(51,51,51,.8);
         background: transparent;

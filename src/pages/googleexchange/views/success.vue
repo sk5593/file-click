@@ -5,7 +5,7 @@
         <img class="img_package" src="../lib/package.png" alt="">
       </div>
       <div class="form_item form_item_text">
-          <div class="form_item_text_row">Thank you for your support,</div>
+          <div class="form_item_text_row">Congratulations!</div>
           <div class="form_item_text_row">we will send the giveaway after close of this event.</div>
           <div class="form_item_text_row">You are able to change the address before the date of {{validDate}}</div>
       </div>

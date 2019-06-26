@@ -3,7 +3,7 @@
         <article class="content">
             <section class="section section_header">
                 <img class="img_bg" :src="IMGPrefix+'bg_header_m.png'" alt="">
-                <div class="header_content">
+                <!-- <div class="header_content">
                     <img class="img_header_logo" src="../lib/logo.png" alt="">
                     <div class="head_text">
                         <div class="header_title">
@@ -13,7 +13,7 @@
                             <span>Try with free Yeelight smart bulb<br>given by Google!</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
             </section>
             
@@ -203,34 +203,34 @@
         width: 100%;
         z-index: 1;
     }
-    .header_content{
-        position: absolute;
-        top: 6.5rem;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        z-index: 2;
-    }
-    .img_header_logo {
-        width: 17rem;
-    }
-    .head_text {
-        margin-top: 3.7rem; 
-    }
-    .header_title{
-        font-size: 2rem;
-        font-family: NotoSans-Medium;
-        font-weight: 500;
-        line-height: 1;
-    }
-    .header_describe{
-        margin-top: 1.65rem; 
-        font-size: 1.6rem;
-        font-family: Roboto-Regular;
-        font-weight: 400;
-        color: #333333;
-        line-height: 2.1rem;
-    }
+    // .header_content{
+    //     position: absolute;
+    //     top: 6.5rem;
+    //     left: 0;
+    //     width: 100%;
+    //     text-align: center;
+    //     z-index: 2;
+    // }
+    // .img_header_logo {
+    //     width: 17rem;
+    // }
+    // .head_text {
+    //     margin-top: 3.7rem; 
+    // }
+    // .header_title{
+    //     font-size: 2rem;
+    //     font-family: NotoSans-Medium;
+    //     font-weight: 500;
+    //     line-height: 1;
+    // }
+    // .header_describe{
+    //     margin-top: 1.65rem; 
+    //     font-size: 1.6rem;
+    //     font-family: Roboto-Regular;
+    //     font-weight: 400;
+    //     color: #333333;
+    //     line-height: 2.1rem;
+    // }
 
     .footer_box {
         text-align: center;

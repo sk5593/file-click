@@ -68,7 +68,7 @@
               <div class="form_row_input">
                 <label class="label_placeholder"
                        v-show="!form.city">Select your city here</label>
-                <select class="input_text input_text_firstname"
+                <select class="input_text input_text_firstname select"
                      :class="{'error' : errorKey.includes('city')}"
                         autocomplete="off"
                         @change="handlerCityChange"
@@ -89,7 +89,7 @@
               <div class="form_row_input">
                 <label class="label_placeholder"
                        v-show="!form.state">Select your state</label>
-                <select class="input_text input_text_firstname"
+                <select class="input_text input_text_firstname select"
                      :class="{'error' : errorKey.includes('state')}"
                         autocomplete="off"
                         v-model="form.state">
@@ -332,12 +332,20 @@ export default {
   padding: 1.1rem 1rem;
   background: transparent;
   z-index: 9;
+  font-size: 1.4rem;
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    opacity: .8;
   }
   &.error {
     border-color: #f56c6c;
   }
+}
+.select{
+    appearance: none;
+    background: url("../lib/arrow.png") no-repeat scroll 97% center transparent;
 }
 .form_group_submit {
   margin-top: 6rem;

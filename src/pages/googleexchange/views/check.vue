@@ -42,7 +42,7 @@
                     <img v-show="!conditionAgree" class="img_condition" src="../lib/check.png" alt="" @click="conditionAgree=!conditionAgree">
                     <img v-show="conditionAgree" class="img_condition" src="../lib/check_ok.png" alt="" @click="conditionAgree=!conditionAgree">
                     <span class="condition_text" @click="conditionAgree=!conditionAgree">I have read and agree to the </span>
-                    <a class="condition_terms" href="/help/googleConditions.html" target="_blank">Terms and Conditions</a>
+                    <a class="condition_terms" :href="ROOTDIRECTORY" target="_blank">Terms and Conditions</a>
                 </div>
             </div>
             <div class="form_item form_item_submit">
@@ -58,6 +58,8 @@
     export default {
         data() {
             return {
+                // eslint-disable-next-line no-undef
+                ROOTDIRECTORY: 'https://cloud-bj-resources.yeelight.com/helpPage/googleConditions.html',
                 form: {
                     coupon: '',
                     captcha: '',

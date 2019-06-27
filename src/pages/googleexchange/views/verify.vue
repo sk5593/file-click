@@ -331,12 +331,19 @@ export default {
       background: transparent;
       opacity:0.8;
       z-index: 9;
+      &:focus {
+        outline: none;
+      }
+      &:disabled {
+        opacity: .8;
+      }
       &.error {
         border-color: #f56c6c;
       }
     }
     .select{
         appearance: none;
+        background: url("../lib/arrow.png") no-repeat scroll 97% center transparent;
     }
     .form_row_addr {
       margin-top: .25rem;

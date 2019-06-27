@@ -13,11 +13,12 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.firstName">Enter your first name here</label>
+                <!-- <label class="label_placeholder"
+                       v-show="!form.firstName">Enter your first name here</label> -->
                 <input type="text"
-                       class="input_text input_text_firstname"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('firstName')}"
+                     placeholder="Enter your first name here"
                        autocomplete="off"
                      maxlength="50"
                        v-model="form.firstName">
@@ -30,11 +31,12 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.lastName">Enter your last name here</label>
+                <!-- <label class="label_placeholder"
+                       v-show="!form.lastName">Enter your last name here</label> -->
                 <input type="text"
-                       class="input_text input_text_firstname"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('lastName')}"
+                     placeholder="Enter your last name here"
                        autocomplete="off"
                      maxlength="50"
                        v-model="form.lastName">
@@ -47,11 +49,12 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.street">Enter your street adress here</label>
+                <!-- <label class="label_placeholder"
+                       v-show="!form.street">Enter your street adress here</label> -->
                 <input type="text"
-                       class="input_text input_text_firstname"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('street')}"
+                     placeholder="Enter your street adress here"
                        autocomplete="off"
                      maxlength="250"
                        v-model="form.street">
@@ -106,11 +109,12 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.email">Enter your e-mail here</label>
+                <!-- <label class="label_placeholder"
+                       v-show="!form.email">Enter your e-mail here</label> -->
                 <input type="email"
                        class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('email')}"
+                     placeholder="Enter your e-mail here"
                        autocomplete="off"
                      maxlength="100"
                      :disabled="form.used==1"
@@ -124,10 +128,11 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.phone">Enter your phone number here</label>
+                <!-- <label class="label_placeholder"
+                       v-show="!form.phone">Enter your phone number here</label> -->
                 <input type="tel"
                        class="input_text input_text_firstname"
+                       placeholder="Enter your phone number here"
                        autocomplete="off"
                      maxlength="50"
                        v-model="form.phone">
@@ -320,7 +325,7 @@ export default {
   line-height: 2rem;
   margin-top: -1rem;
   font-size: 1.5rem;
-  opacity: 0.2;
+  opacity: 0.4;
 }
 .input_text {
   position: relative;
@@ -332,12 +337,16 @@ export default {
   padding: 1.1rem 1rem;
   background: transparent;
   z-index: 9;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  appearance: none;
   &:focus {
     outline: none;
   }
   &:disabled {
     opacity: .8;
+  }
+  &::-webkit-input-placeholder{
+    color: rgba(0,0,0,.4);
   }
   &.error {
     border-color: #f56c6c;

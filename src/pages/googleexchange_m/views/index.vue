@@ -17,7 +17,7 @@
                 
             </section>
             
-            <section class="section">
+            <section class="section" style="margin-top: -1px;">
                 <img class="img_bg" :src="IMGPrefix+'bg_color_m.png'" alt="">
             </section>
             <section class="section">

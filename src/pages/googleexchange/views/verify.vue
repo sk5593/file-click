@@ -60,19 +60,6 @@
           </div>
           <div class="form_row form_row_addr">
             <label class="form_row_label left"
-                   for="">*City:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.city">Select your city here</label>
-              <select class="input_text input_text_city select"
-                     :class="{'error' : errorKey.includes('city')}"
-                      autocomplete="off"
-                      @change="handlerCityChange"
-                      v-model="form.city">
-                <option v-for="item of Australia" :key="'AustraliaCity' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
-              </select>
-            </div>
-            <label class="form_row_label right"
                    for="">*State:</label>
             <div class="form_row_input">
               <label class="label_placeholder"
@@ -80,8 +67,21 @@
               <select class="input_text input_text_state select"
                      :class="{'error' : errorKey.includes('state')}"
                       autocomplete="off"
+                      @change="handlerStateChange"
                       v-model="form.state">
-                <option v-for="item of AustraliaState" :key="'AustraliaState' + item" class="select_item">{{item}}</option>
+                <option v-for="item of Australia" :key="'AustraliaState' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
+              </select>
+            </div>
+            <label class="form_row_label right"
+                   for="">*City:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.city">Select your city here</label>
+              <select class="input_text input_text_city select"
+                     :class="{'error' : errorKey.includes('city')}"
+                      autocomplete="off"
+                      v-model="form.city">
+                <option v-for="item of AustraliaCity" :key="'AustraliaCity' + item" class="select_item">{{item}}</option>
               </select>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default {
       formReady: true,
       errorKey: [],
       Australia: Australia,
-      AustraliaState: []
+      AustraliaCity: []
     };
   },
   components: {
@@ -193,9 +193,9 @@ export default {
         this.form.firstName = data.firstName;
         this.form.lastName = data.lastName;
         this.form.country = data.country;
-        this.form.city = data.city;
-        if(data.city) this.handlerCityChange();
         this.form.state = data.state;
+        if(data.state) this.handlerStateChange();
+        this.form.city = data.city;
         this.form.street = data.street;
         this.form.email = data.email;
         this.form.phone = data.phone;
@@ -244,12 +244,12 @@ export default {
         alert(err.msg);
       }
     },
-    handlerCityChange() {
-      this.form.state = '';
+    handlerStateChange() {
+      this.form.city = '';
       this.Australia.some(item => {
-        if(item.name == this.form.city){
-          if(!this.AustraliaState.length) this.AustraliaState.push(...item.cities);
-          else this.AustraliaState.splice(0, this.AustraliaState.length, ...item.cities);
+        if(item.name == this.form.state){
+          if(!this.AustraliaCity.length) this.AustraliaCity.push(...item.cities);
+          else this.AustraliaCity.splice(0, this.AustraliaCity.length, ...item.cities);
         }
       })
     }

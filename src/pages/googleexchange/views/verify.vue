@@ -210,7 +210,7 @@ export default {
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
          if (key == "phone") return true;
-         else if (key == "email" && !isEmail(data[key]) && this.form.used===0) this.errorKey.push(key);
+         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
          else if (!data[key]) this.errorKey.push(key);
       });
     },

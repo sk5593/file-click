@@ -181,13 +181,14 @@
     $minWidth: 320px;
     .container {
         color: #333333;
+        padding-bottom: env(safe-area-inset-bottom);
     }
     .content {
         width: 100%;
         max-width: $maxWidth;
         min-width: $minWidth;
         margin: 0 auto;
-        padding-bottom: 6rem;
+        padding-bottom: 5rem;
     }
     .section {
         position: relative;
@@ -362,13 +363,15 @@
         width: 100%;
         text-align: center;
         z-index: 99;
+        padding-bottom: env(safe-area-inset-bottom);
+        background: #fff;
     }
     .btn_proceed {
         width: 100%;
         max-width: $maxWidth;
-        height: 6rem;
+        height: 5rem;
         background: #2F73E8;
-        font-size: 2rem;
+        font-size: 1.6rem;
         font-family:NotoSans-Medium inherit;
         font-weight:500;
         color: #FFFFFF;

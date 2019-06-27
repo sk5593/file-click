@@ -61,7 +61,7 @@ import baseLayout from "./baseLayout";
 .text {
     margin-top: 1.6rem;
     font-size: 1.6rem;
-    font-family: NotoSans-Regular;
+    font-family: NotoSans-Regular inherit;
     color: #000;
     line-height:2.4rem;
     opacity: .8;
@@ -84,7 +84,6 @@ import baseLayout from "./baseLayout";
   box-shadow: 0px 5px 8px 0px rgba(15, 34, 63, 0.13);
   border-radius: 2px;
   font-size: 2rem;
-  font-family: Roboto-Regular;
   color: #fff;
   border: none;
 }

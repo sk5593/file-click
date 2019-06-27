@@ -150,7 +150,7 @@
                 }).catch(err => {
                     this.initError(err);
                 }).finally(() => {
-                    this.formReady = true;
+                    // this.formReady = true;
                 });
             },
             resetError () {
@@ -175,6 +175,7 @@
                     this.form.captcha = '';
                     this.$refs.coupon.focus()
                 } else {
+                    this.formReady = true;
                     alert(err.msg);
                 }
             }
@@ -190,14 +191,13 @@
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .54rem;
     }
     .form_describe {
         font-size: .2rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .4rem;
@@ -234,9 +234,8 @@
         left: .3rem;
         margin-top: -.2rem;
         font-size: .16rem;
-        font-family:Roboto-Regular;
         font-weight:400;
-        color:rgba(0,0,0,.4);
+        color:rgba(0,0,0,.6);
         line-height: .4rem;
     }
     .form_item_label {
@@ -248,7 +247,6 @@
         margin-top: -.20rem;
         margin-right: .31rem;
         font-size: .16rem;
-        font-family:Roboto-Regular;
         font-weight:400;
         color:rgba(0,0,0,1);
         opacity:0.6;
@@ -261,7 +259,6 @@
         padding: 0 .3rem;
         box-sizing: border-box;
         font-size: .36rem;
-        font-family:Roboto-Regular;
         font-weight:400;
         color:rgba(0,0,0,1);
         opacity:0.8;
@@ -289,7 +286,7 @@
         background: transparent;
         color: #0072F0;
         font-size: .16rem;
-        font-family:Adobe Heiti Std R;
+        font-family:Adobe Heiti Std R inherit;
         font-weight:normal;
     }
     .form_item_error {
@@ -301,7 +298,6 @@
     .form_item_error_text {
         margin-left: .09rem;
         font-size: .16rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: rgba(0,0,0,.4);
         line-height: 1;
@@ -320,7 +316,6 @@
     .condition_text{
         margin-left: .1rem;
         font-size: .16rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: #000000;
         line-height: .18rem;
@@ -328,7 +323,6 @@
     }
     .condition_terms {
         font-size: .16rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: #0072F0;
         line-height: .18rem;
@@ -342,7 +336,6 @@
         box-shadow: 0px 5px 8px 0px rgba(15,34,63,0.13);
         border-radius:2px;  
         font-size: .3rem;
-        font-family:Roboto-Regular;
         font-weight:400;
         color: #FFFFFF;
         line-height: .5rem;

@@ -21,6 +21,7 @@
                      class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('firstName')}"
                      autocomplete="off"
+                     maxlength="50"
                      v-model="form.firstName">
             </div>
             <label class="form_row_label right"
@@ -32,6 +33,7 @@
                      class="input_text input_text_lastname"
                      :class="{'error' : errorKey.includes('lastName')}"
                      autocomplete="off"
+                     maxlength="50"
                      v-model="form.lastName">
             </div>
           </div>
@@ -52,6 +54,7 @@
                      class="input_text input_text_street"
                      :class="{'error' : errorKey.includes('street')}"
                      autocomplete="off"
+                     maxlength="250"
                      v-model="form.street">
             </div>
           </div>
@@ -91,6 +94,7 @@
               <input type="tel"
                      class="input_text input_text_phone"
                      autocomplete="off"
+                     maxlength="50"
                      v-model="form.phone">
             </div>
             <label class="form_row_label right"
@@ -102,7 +106,8 @@
                      class="input_text input_text_email"
                      :class="{'error' : errorKey.includes('email')}"
                      autocomplete="off"
-                     required
+                     :disabled="form.used==1"
+                     maxlength="100"
                      v-model="form.email">
             </div>
           </div>
@@ -205,7 +210,7 @@ export default {
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
          if (key == "phone") return true;
-         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
+         else if (key == "email" && !isEmail(data[key]) && this.form.used===0) this.errorKey.push(key);
          else if (!data[key]) this.errorKey.push(key);
       });
     },
@@ -260,7 +265,7 @@ export default {
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         color: #000000;
         line-height: .54rem;
     }
@@ -273,7 +278,6 @@ export default {
     .form_item_header {
       margin-left: 2.84rem;
       font-size: .2rem;
-      font-family: Roboto-Regular;
       color: #000;
       line-height: 1;
       opacity: 0.9;
@@ -287,7 +291,6 @@ export default {
     .form_row_label {
       float: left;
       font-size: .16rem;
-      font-family: Roboto-Regular;
       color: #000000;
       line-height: $inputHeight;
       opacity: 0.6;
@@ -315,7 +318,6 @@ export default {
       line-height: .2rem;
       margin-top: -.1rem;
       font-size: .14rem;
-      font-family: Roboto-Regular;
       color: #000000;
       opacity:0.4;
     }
@@ -332,6 +334,9 @@ export default {
       &.error {
         border-color: #f56c6c;
       }
+    }
+    .select{
+        appearance: none;
     }
     .form_row_addr {
       margin-top: .25rem;
@@ -351,7 +356,6 @@ export default {
         box-shadow: 0px 5px 8px 0px rgba(15,34,63,0.13);
         border-radius:2px;  
         font-size: .3rem;
-        font-family:Roboto-Regular;
         font-weight:400;
         color: #FFFFFF;
         line-height: .5rem;

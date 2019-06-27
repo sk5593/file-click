@@ -159,14 +159,13 @@
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .54rem;
     }
     .form_describe {
         font-size: .2rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .4rem;
@@ -206,7 +205,6 @@
       display: inline-block;
       line-height: .24rem;
       font-size: .16rem;
-      font-family: Roboto-Regular;
       color: #000000;
       opacity: .9;
       text-align: left;
@@ -225,7 +223,6 @@
     .header_item_name {
       padding-left: .46rem;
       font-size: .2rem;
-      font-family: Roboto-Regular;
       color: #fff;
       line-height: .63rem;
       text-align: left;
@@ -251,7 +248,6 @@
     .track_text {
       margin-top: .24rem; 
       font-size: .16rem;
-      font-family: Roboto-Regular;
       color: #000000;
       line-height: 1;
       opacity:0.6;

@@ -19,6 +19,7 @@
                        class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('firstName')}"
                        autocomplete="off"
+                     maxlength="50"
                        v-model="form.firstName">
               </div>
             </div>
@@ -35,6 +36,7 @@
                        class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('lastName')}"
                        autocomplete="off"
+                     maxlength="50"
                        v-model="form.lastName">
               </div>
             </div>
@@ -51,6 +53,7 @@
                        class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('street')}"
                        autocomplete="off"
+                     maxlength="250"
                        v-model="form.street">
               </div>
             </div>
@@ -109,6 +112,8 @@
                        class="input_text input_text_firstname"
                      :class="{'error' : errorKey.includes('email')}"
                        autocomplete="off"
+                     maxlength="100"
+                     :disabled="form.used==1"
                        v-model="form.email">
               </div>
             </div>
@@ -124,6 +129,7 @@
                 <input type="tel"
                        class="input_text input_text_firstname"
                        autocomplete="off"
+                     maxlength="50"
                        v-model="form.phone">
               </div>
             </div>
@@ -226,7 +232,7 @@ export default {
     forEachFormData(data) {
       Object.keys(data).forEach(key => {
          if (key == "phone") return true;
-         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
+         else if (key == "email" && !isEmail(data[key]) && this.form.used===0) this.errorKey.push(key);
          else if (!data[key]) this.errorKey.push(key);
       });
     },
@@ -276,7 +282,7 @@ export default {
 <style lang="scss" scoped>
 .title {
   font-size: 2.2rem;
-  font-family: NotoSans-Regular;
+  font-family: NotoSans-Regular inherit;
   color: #000;
   line-height: 3.2rem;
 }
@@ -301,7 +307,6 @@ export default {
 }
 .form_item_label {
   font-size: 1.6rem;
-  font-family: Roboto-Regular;
   line-height: 1;
   opacity: 0.8;
 }
@@ -315,7 +320,6 @@ export default {
   line-height: 2rem;
   margin-top: -1rem;
   font-size: 1.5rem;
-  font-family: Roboto-Regular;
   opacity: 0.2;
 }
 .input_text {
@@ -346,7 +350,6 @@ export default {
   box-shadow: 0px 5px 8px 0px rgba(19, 34, 61, 0.13);
   border-radius: 2px;
   font-size: 2rem;
-  font-family: Roboto-Regular;
   color: #fff;
   border: none;
   &:active {

@@ -66,7 +66,7 @@ import baseLayout from "./baseLayout";
     .form_item_text_row{
         text-align: center;
         font-size: .2rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: #000000;
         line-height: .3rem;
@@ -82,7 +82,6 @@ import baseLayout from "./baseLayout";
         box-shadow: 0px 5px 8px 0px rgba(15, 34, 63, 0.13);
         border-radius: 2px;
         font-size: 0.3rem;
-        font-family: Roboto-Regular;
         font-weight: 400;
         color: #ffffff;
         line-height: 0.5rem;

@@ -144,7 +144,7 @@
                 }).catch(err => {
                     this.initError(err);
                 }).finally(() => {
-                    this.formReady = true;
+                    // this.formReady = true;
                 });
             },
             resetError () {
@@ -169,6 +169,7 @@
                     this.form.captcha = '';
                     this.$refs.coupon.focus()
                 } else {
+                    this.formReady = true;
                     alert(err.msg);
                 }
             }
@@ -179,14 +180,13 @@
 <style lang="scss" scoped>
     .title {
         font-size: 2.2rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         color: #000;
         line-height: 3.2rem;
     }
     .describe {
         margin-top: .8rem;
         font-size: 1.4rem;
-        font-family: Roboto-Regular;
         color: #000;
         line-height: 2.4rem;
         opacity: 0.8;
@@ -207,13 +207,11 @@
         left: 1rem;
         margin-top: -1rem;
         font-size: 1.4rem;
-        font-family:Roboto-Regular;
-        color: rgba(0,0,0,.4);
+        color: rgba(0,0,0,.6);
         line-height: 2rem;
     }
     .form_item_label {
         font-size: 1.6rem;
-        font-family: Roboto-Regular;
         line-height: 1;
         opacity: 0.8;
     }
@@ -277,14 +275,12 @@
     .condition_text {
         margin-left: .8rem;
         font-size: 1.2rem;
-        font-family:Roboto-Regular;
         line-height: 1.4rem;
         vertical-align: middle;
         // letter-spacing: -.07rem;
     }
     .condition_terms {
         font-size: 1.2rem;
-        font-family:Roboto-Regular;
         line-height: 1.4rem;
         vertical-align: middle;
         color: #2F73E8;
@@ -299,7 +295,6 @@
     .form_item_error_text {
         margin-left: 1rem;
         font-size: 1.3rem;
-        font-family: Roboto-Regular;
         opacity:0.6;
         line-height: 1;
         vertical-align: middle;

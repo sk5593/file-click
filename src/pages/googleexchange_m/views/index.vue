@@ -236,7 +236,7 @@
         text-align: center;
         padding: 2.25rem 7rem 3.25rem;
         font-size: 1.2rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         line-height: 2.5rem;
     }
     .footer_descript{
@@ -266,7 +266,6 @@
     .function_text {
         margin-top: 1.5rem;
         font-size: 1.2rem;
-        font-family: Roboto-Regular;
         line-height: 1;
     }
     .function_line {
@@ -291,7 +290,7 @@
     .steps_header{
         margin-top: 5rem;
         font-size: 1.4rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         line-height: 1;
         text-align: center;
     }
@@ -316,20 +315,18 @@
     .steps_text {
         margin-top: 0.9rem;
         font-size: 1.2rem;
-        font-family: Roboto-Regular;
         line-height: 1.45rem;
     }
 
     .specifications_header {
         font-size: 1.4rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         line-height: 1;
         text-align: center;
     }
     .specifications_label {
         margin-top: 2.9rem;
         font-size: 1.2rem;
-        font-family: Roboto-Regular;
         line-height: 2.5rem;
         text-align: center;
         white-space: normal;
@@ -353,7 +350,6 @@
         line-height: 2.2rem;
         border: 1px solid rgba(51,51,51,.4);
         font-size: 1.4rem;
-        font-family: Roboto-Regular;
         color:rgba(51,51,51,.8);
         background: transparent;
         border-radius: 2px;
@@ -373,7 +369,7 @@
         height: 6rem;
         background: #2F73E8;
         font-size: 2rem;
-        font-family:NotoSans-Medium;
+        font-family:NotoSans-Medium inherit;
         font-weight:500;
         color: #FFFFFF;
     }

@@ -149,9 +149,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .section {
-      font-family:Roboto-Regular;
-    }
     .title {
       font-size: 2.2rem;
       line-height: 1;
@@ -159,7 +156,7 @@
     .text {
         margin-top: 1.6rem;
         font-size: 1.6rem;
-        font-family: NotoSans-Regular;
+        font-family: NotoSans-Regular inherit;
         color: #000;
         line-height:2.4rem;
         opacity: .8;
@@ -183,7 +180,6 @@
       line-height: 2.9rem;
       font-size: 1.4rem;
       color: #fff;
-      font-family:Roboto-Regular;
     }
     .header_item_btn {
       position: absolute;

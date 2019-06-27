@@ -3,7 +3,7 @@ const entry = 'googleexchange';
 // const apiUrl = 'http://api-test.yeedev.com';
 const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
-    publicPath: '/apis/c/webjars',
+    publicPath: '',
     outputDir: 'target/classes/META-INF/resources/webjars/',
     lintOnSave: true,
     productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
@@ -11,22 +11,22 @@ module.exports = {
         givemefive: {
             entry: 'src/pages/givemefive/main.js',
             template: 'src/pages/givemefive/givemefive.html',
-            chunks: ['givemefive']
+            // chunks: ['givemefive']
         },
         betaactivity: {
             entry: 'src/pages/betaactivity/main.js',
             template: 'src/pages/betaactivity/betaactivity.html',
-            chunks: ['betaactivity']
+            // chunks: ['betaactivity']
         },
         googleexchange: {
             entry: 'src/pages/googleexchange/main.js',
             template: 'src/pages/googleexchange/googleexchange.html',
-            chunks: ['googleexchange']
+            // chunks: ['googleexchange']
         },
         googleexchange_m: {
             entry: 'src/pages/googleexchange_m/main.js',
             template: 'src/pages/googleexchange_m/googleexchange_m.html',
-            chunks: ['googleexchange_m']
+            // chunks: ['googleexchange_m']
         }
     },
     devServer:{

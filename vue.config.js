@@ -3,7 +3,7 @@ const entry = 'googleexchange';
 // const apiUrl = 'http://api-test.yeedev.com';
 const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
-    publicPath: '',
+    publicPath: '/apis/c/webjars',
     outputDir: 'target/classes/META-INF/resources/webjars/',
     lintOnSave: true,
     productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。

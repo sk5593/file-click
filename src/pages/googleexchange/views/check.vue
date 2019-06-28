@@ -193,7 +193,6 @@
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .54rem;
@@ -288,7 +287,6 @@
         background: transparent;
         color: #0072F0;
         font-size: .16rem;
-        font-family:Adobe Heiti Std R inherit;
         font-weight:normal;
     }
     .form_item_error {

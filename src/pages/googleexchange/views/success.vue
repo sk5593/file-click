@@ -66,7 +66,6 @@ import baseLayout from "./baseLayout";
     .form_item_text_row{
         text-align: center;
         font-size: .2rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: #000000;
         line-height: .3rem;

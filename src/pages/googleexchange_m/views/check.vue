@@ -182,7 +182,6 @@
 <style lang="scss" scoped>
     .title {
         font-size: 2.2rem;
-        font-family: NotoSans-Regular inherit;
         color: #000;
         line-height: 3.2rem;
     }

@@ -220,14 +220,12 @@
     // }
     // .header_title{
     //     font-size: 2rem;
-    //     font-family: NotoSans-Medium;
     //     font-weight: 500;
     //     line-height: 1;
     // }
     // .header_describe{
     //     margin-top: 1.65rem; 
     //     font-size: 1.6rem;
-    //     font-family: Roboto-Regular;
     //     font-weight: 400;
     //     color: #333333;
     //     line-height: 2.1rem;
@@ -237,7 +235,6 @@
         text-align: center;
         padding: 2.25rem 7rem 3.25rem;
         font-size: 1.2rem;
-        font-family: NotoSans-Regular inherit;
         line-height: 2.5rem;
     }
     .footer_descript{
@@ -291,7 +288,6 @@
     .steps_header{
         margin-top: 5rem;
         font-size: 1.4rem;
-        font-family: NotoSans-Regular inherit;
         line-height: 1;
         text-align: center;
     }
@@ -321,7 +317,6 @@
 
     .specifications_header {
         font-size: 1.4rem;
-        font-family: NotoSans-Regular inherit;
         line-height: 1;
         text-align: center;
     }
@@ -372,7 +367,6 @@
         height: 5rem;
         background: #2F73E8;
         font-size: 1.6rem;
-        font-family:NotoSans-Medium inherit;
         font-weight:500;
         color: #FFFFFF;
     }

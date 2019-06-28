@@ -277,7 +277,6 @@ export default {
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular inherit;
         color: #000000;
         line-height: .54rem;
     }

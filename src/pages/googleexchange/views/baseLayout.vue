@@ -205,7 +205,6 @@
     }
     .header_title{
         font-size: .42rem;
-        font-family: NotoSans-Medium inherit;
         font-weight: 500;
         color: #333333;
         line-height: 1;
@@ -247,7 +246,6 @@
         text-align: center;
         padding: .67rem 0 .72rem;
         font-size: .2rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         line-height: .36rem;
     }
@@ -303,7 +301,6 @@
     .steps_header{
         margin-top: .6rem;
         font-size: .36rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: #333333;
         line-height: 1;
@@ -333,7 +330,6 @@
 
     .specifications_header {
         font-size: .36rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color:#333333;
         line-height: 1;

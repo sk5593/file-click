@@ -95,12 +95,13 @@
                 <select class="input_text input_text_firstname select"
                      :class="{'error' : errorKey.includes('city')}"
                         autocomplete="off"
-                      @click="handlerSelectCity"
+                        v-show="form.state"
                         v-model="form.city">
                   <option v-for="item of AustraliaCity"
                           :key="'AustraliaCity' + item"
                           class="select_item">{{item}}</option>
                 </select>
+                <input v-show="!form.state" type="text" readonly class="input_text select" @click="handlerSelectCity">
               </div>
             </div>
           </div>
@@ -113,7 +114,7 @@
                 <!-- <label class="label_placeholder"
                        v-show="!form.email">Enter your e-mail here</label> -->
                 <input type="email"
-                       class="input_text input_text_firstname"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('email')}"
                      placeholder="Enter your e-mail here"
                        autocomplete="off"

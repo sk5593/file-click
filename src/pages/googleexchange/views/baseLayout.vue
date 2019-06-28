@@ -157,7 +157,7 @@
         methods: {
             
             handlerLearnMore () {
-                window.open('https://yeelight.com/en');
+                window.open('https://www.yeelight.com/en_US/product/lemon-color');
             },
         }
     }

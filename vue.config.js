@@ -1,7 +1,7 @@
 // vue.config.js
 const entry = 'googleexchange';
-// const apiUrl = 'http://api-test.yeedev.com';
-const apiUrl = 'http://api-dev.yeedev.com';
+const apiUrl = 'http://api-test.yeedev.com';
+// const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
     publicPath: '',
     outputDir: 'target/classes/META-INF/resources/webjars/',

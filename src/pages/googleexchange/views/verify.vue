@@ -80,6 +80,7 @@
               <select class="input_text input_text_city select"
                      :class="{'error' : errorKey.includes('city')}"
                       autocomplete="off"
+                      @click="handlerSelectCity"
                       v-model="form.city">
                 <option v-for="item of AustraliaCity" :key="'AustraliaCity' + item" class="select_item">{{item}}</option>
               </select>
@@ -245,6 +246,9 @@ export default {
       }
     },
     handlerStateChange() {
+      if(this.errorKey.length==1&&this.errorKey.includes('state')){
+        this.errorKey.splice(0, 1);
+      }
       this.form.city = '';
       this.Australia.some(item => {
         if(item.name == this.form.state){
@@ -252,6 +256,14 @@ export default {
           else this.AustraliaCity.splice(0, this.AustraliaCity.length, ...item.cities);
         }
       })
+    },
+    handlerSelectCity (e) {
+      if(!this.form.state) {
+        e.currentTarget.blur();
+        if(!this.errorKey.includes('state')){
+          this.errorKey.push('state');
+        }
+      }
     }
   }
 };
@@ -331,6 +343,8 @@ export default {
       background: transparent;
       opacity:0.8;
       z-index: 9;
+      transition: all .3s;
+      appearance: none;
       &:focus {
         outline: none;
       }

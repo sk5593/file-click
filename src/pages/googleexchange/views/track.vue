@@ -159,7 +159,6 @@
     }
     .form_title {
         font-size: .36rem;
-        font-family: NotoSans-Regular inherit;
         font-weight: 400;
         color: rgba(0,0,0,1);
         line-height: .54rem;

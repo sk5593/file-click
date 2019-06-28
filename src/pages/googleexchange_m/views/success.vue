@@ -61,7 +61,6 @@ import baseLayout from "./baseLayout";
 .text {
     margin-top: 1.6rem;
     font-size: 1.6rem;
-    font-family: NotoSans-Regular inherit;
     color: #000;
     line-height:2.4rem;
     opacity: .8;

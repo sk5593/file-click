@@ -1,21 +1,24 @@
 <template>
   <base-layout>
-    <div class="form">
-      <div class="form_item form_header">
-        <img class="img_package" src="../lib/package.png" alt="">
-      </div>
-      <div class="form_item form_item_text">
-          <div class="form_item_text_row">Congratulations!</div>
-          <div class="form_item_text_row">We will send the giveaway after close of this event.</div>
-          <div class="form_item_text_row">You are able to change the address before the date of {{validDate}}</div>
-      </div>
-      <div class="form_item form_item_submit">
-        <input type="submit"
-               class="btn btn_submit"
-               value="OK"
-               @click="handlerSubmitForm">
-      </div>
-    </div>
+      <section class="section">
+          <div class="title">
+              <span>Congratulations!</span>
+          </div>
+        <div class="text">
+          We will send the giveaway after close of this event.You are able to change the address before the date of {{validDate}}
+        </div>
+        <div class="icon">
+          <img class="img_package"
+               src="../lib/package.png"
+               alt="">
+        </div>
+        <div class="btn_box">
+          <input type="button"
+                 class="btn btn_submit"
+                 value="OK"
+                 @click="handlerSubmitForm">
+        </div>
+      </section>
   </base-layout>
 </template>
 
@@ -50,40 +53,37 @@ import baseLayout from "./baseLayout";
 </script>
 
 <style lang="scss" scoped>
-    $inputWidth: 4.12rem;
-    $inputHeight: 0.72rem;
-    .form_header {
-        text-align: center;
-        margin-top: .47rem;
-    }
-    .img_package{
-        width: 1.96rem;
-        height: 1.86rem;
-    }
-    .form_item_text {
-        margin-top: 0.46rem;
-    }
-    .form_item_text_row{
-        text-align: center;
-        font-size: .2rem;
-        font-weight: 400;
-        color: #000000;
-        line-height: .3rem;
-    }
-    .form_item_submit {
-        margin-top: 0.67rem;
-        text-align: center;
-    }
-    .btn_submit {
-        width: $inputWidth;
-        height: $inputHeight;
-        background: #0072f0;
-        box-shadow: 0px 5px 8px 0px rgba(15, 34, 63, 0.13);
-        border-radius: 2px;
-        font-size: 0.3rem;
-        font-weight: 400;
-        color: #ffffff;
-        line-height: 0.5rem;
-        border: none;
-    }
+.title {
+  font-size: 2.2rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.text {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+    color: #000;
+    line-height:2.4rem;
+    opacity: .8;
+}
+.icon {
+  margin-top: 7.9rem;
+  text-align: center;
+}
+.img_package {
+    width: 10.9rem;
+    height: 10.35rem;
+}
+.btn_box {
+  margin-top: 9.2rem;
+}
+.btn_submit {
+    width: 100%;
+    height: 4.5rem;
+  background: #2F73E8;
+  box-shadow: 0px 5px 8px 0px rgba(15, 34, 63, 0.13);
+  border-radius: 2px;
+  font-size: 2rem;
+  color: #fff;
+  border: none;
+}
 </style>

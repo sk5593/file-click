@@ -1,23 +1,20 @@
 <template>
-    <base-layout class="container">
-        <section class="section section_text">
-            <div class="title">
-                <span>Type your Coupon</span>
-            </div>
-            <div class="describe">
-                <span>Please enter the coupon code to get a free
-                YEELIGHT smart bulb - MSRP $29.99</span>
-            </div>
-        </section>
-        <section class="section section_form">
-            <div class="form_item form_item_coupon">
-                <div>
-                    <label class="form_item_label" for="">Coupon</label>
+    <base-layout>
+         <div class="form">   
+            <div class="form_item form_header">
+                <div class="form_title">
+                    <span>Type your Coupon</span>
                 </div>
-                <div class="form_item_input form_item_content">
+                <div class="form_describe">
+                    <span>Please enter the coupon code to get a free YEELIGHT smart bulb - MSRP $29.99</span>
+                </div>
+            </div>
+            <div class="form_item form_item_input form_item_coupon">
+                <div class="form_item_content">
+                    <label class="form_item_label" for="">Coupon :</label>
                     <div class="input_box">
-                        <!-- <label class="label_placeholder" v-show="!form.coupon">Enter code here</label> -->
-                        <input type="text" class="input_text input_text_coupon" placeholder="Enter code here" autocomplete="off" ref="coupon" v-model="form.coupon">
+                        <label class="label_placeholder" v-show="!form.coupon">Enter code here</label>
+                        <input type="text" class="input_text input_text_coupon" autocomplete="off" ref="coupon" v-model="form.coupon">
                         <div class="form_item_error" v-show="couponError.flag">
                             <img class="forim_item_error_icon" src="../lib/error.png" alt="">
                             <span class="form_item_error_text">{{couponError.msg}}</span>
@@ -25,14 +22,14 @@
                     </div>
                 </div>
             </div>
-            <div class="form_item form_item_captcha">
+            <div class="form_item form_item_input form_item_captcha">
                 <div class="form_item_content">
-                    <label class="form_item_label" for="">Captcha</label>
+                    <label class="form_item_label" for="">Captcha :</label>
                     <div class="input_box">
-                        <!-- <label class="label_placeholder" v-show="!form.captcha">Enter captcha here</label> -->
-                        <input type="text" class="input_text input_text_captcha" placeholder="Enter captcha here" autocomplete="off" ref="captcha" v-model="form.captcha">
+                        <label class="label_placeholder" v-show="!form.captcha">Enter captcha here</label>
+                        <input type="text" class="input_text input_text_captcha" autocomplete="off" ref="captcha" v-model="form.captcha">
                         <img class="img_captcha" :src="'data:image/png;base64,'+captchaBase64" alt="captcha">
-                        <img class="img_refresh" src="../lib/refresh.png" alt="refresh" @click="handlerChangeCaptcha">
+                        <button class="btn_changecaptcha" @click="handlerChangeCaptcha">change</button>
                         <div class="form_item_error" v-show="captchaError.flag">
                             <img class="forim_item_error_icon" src="../lib/error.png" alt="">
                             <span class="form_item_error_text">{{captchaError.msg}}</span>
@@ -49,15 +46,15 @@
                 </div>
             </div>
             <div class="form_item form_item_submit">
-                <input type="submit" :disabled="!formReady" class="btn btn_proceed" value="Redeem" @click="handlerSubmitForm">
+                <input type="submit" :disabled="!formReady" class="btn btn_proceed" value="Proceed" @click="handlerSubmitForm">
             </div>
-        </section>
+        </div>
     </base-layout>
 </template>
 
 <script>
-    import baseLayout from './baseLayout';
-    import { check, getCaptcha } from '@/service/googleexchange';
+    import baseLayout from './baseLayout'
+    import { config, check, getCaptcha } from '@/service/googleexchange';
     export default {
         data() {
             return {
@@ -114,7 +111,16 @@
             }
         },
         mounted() {
-            this.init();
+            config().then(res => {
+                if(res.data && res.data.valid) {
+                    sessionStorage.setItem('googleexchange_config', JSON.stringify(res.data));
+                    this.init();
+                } else {
+                    alert('The activity is over.');
+                }
+            }).catch(err => {
+                alert(err.msg)
+            });
         },
         methods: {
             init () {
@@ -180,133 +186,162 @@
 </script>
 
 <style lang="scss" scoped>
-    .title {
-        font-size: 2.2rem;
-        color: #000;
-        line-height: 3.2rem;
+    $inputWidth: 4.12rem;
+    $inputHeight: .72rem;
+    .form_header {
+        text-align: center;
     }
-    .describe {
-        margin-top: .8rem;
-        font-size: 1.4rem;
-        color: #000;
-        line-height: 2.4rem;
-        opacity: 0.8;
+    .form_title {
+        font-size: .36rem;
+        font-weight: 400;
+        color: rgba(0,0,0,1);
+        line-height: .54rem;
     }
-    .section_form {
-        margin-top: 3.8rem;
+    .form_describe {
+        font-size: .2rem;
+        font-weight: 400;
+        color: rgba(0,0,0,1);
+        line-height: .4rem;
+        opacity: 0.9;
     }
-
-    .input_box {
-        margin-top: 1rem;
+    .form_item {
         position: relative;
-        display: flex;
-        align-items: center;
+    }
+    .form_item_coupon{
+        margin-top: .47rem;
+    }
+    .form_item_content {
+        position: relative;
+        width: $inputWidth;
+        margin: 0 auto;
+    }
+    .form_item_captcha{
+        margin-top: .71rem;
+    }
+    .form_item_condition{
+        margin-top: .4rem;
+        padding: .07rem 0;
+    }
+    .form_item_submit{
+        margin-top: .1rem;
+        text-align: center;
+    }
+    .input_box {
+        position: relative;
     }
     .label_placeholder{
         position: absolute;
         top: 50%;
-        left: 1rem;
-        margin-top: -1rem;
-        font-size: 1.4rem;
-        color: rgba(0,0,0,.6);
-        line-height: 2rem;
+        left: .3rem;
+        margin-top: -.2rem;
+        font-size: .16rem;
+        font-weight:400;
+        color:rgba(0,0,0,.6);
+        line-height: .4rem;
     }
     .form_item_label {
-        font-size: 1.6rem;
-        line-height: 1;
-        opacity: 0.8;
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        width: 1rem;
+        line-height: .4rem;
+        margin-top: -.20rem;
+        margin-right: .31rem;
+        font-size: .16rem;
+        font-weight:400;
+        color:rgba(0,0,0,1);
+        opacity:0.6;
+        text-align: right;
     }
-    .input_text {
-        position: relative;
-        z-index: 9;
-        width: 100%;
-        height: 4.4rem;;
-        border: 1px solid rgba(0,0,0,.4);
-        border-radius: .4rem;
-        background: transparent;
-        padding: 0 1rem;
-        font-size: 1.5rem;
-        appearance: none;
-        &:focus {
-            outline: none;
-        }
-        &::-webkit-input-placeholder{
-            color: rgba(0,0,0,.4);
-        }
+    .input_text{
+        height: .72rem;
+        border: 1px solid rgba(51,51,51,.2);
+        border-radius: 2px;
+        padding: 0 .3rem;
+        box-sizing: border-box;
+        font-size: .36rem;
+        font-weight:400;
+        color:rgba(0,0,0,1);
+        opacity:0.8;
     }
-
-    .form_item_captcha {
-        margin-top: 4rem;
+    .input_text_coupon{
+        width: $inputWidth;
+    }
+    .input_text_captcha{
+        width: 2.62rem;
+        vertical-align: middle;
     }
     .img_captcha {
-        width: 5.8rem;
-        height: 3.1rem;
-        margin-left: 1rem;
+        width: 1.3rem;
+        height: .65rem;
+        margin-left: .19rem;
     }
-    .img_refresh {
-        width: 1.8rem;
-        height: 1.8rem;
-        margin-left: 1rem;
-    }
-    .form_item_condition {
-        margin-top: 5.5rem;
-    }
-    .form_item_submit {
-        margin-top: 1.8rem;
-    }
-    .btn_proceed {
-        width: 100%;
-        height: 4.5rem;
-        background: #2F73E8;
-        font-size: 2rem;
-        color: #fff;
-        border: none;
-        &:active {
-            opacity: .8;
-        }
-        &:disabled {
-            opacity: .3;
-        }
-    }
-    .form_item_condition_content{
-        text-align: justify;
-        cursor: pointer;
-        white-space: nowrap;
-    }
-    .img_condition {
-        width: 1.4rem;
-        height: 1.4rem;
-    }
-    .condition_text {
-        margin-left: .8rem;
-        font-size: 1.2rem;
-        line-height: 1.4rem;
-        vertical-align: middle;
-        // letter-spacing: -.07rem;
-    }
-    .condition_terms {
-        font-size: 1.2rem;
-        line-height: 1.4rem;
-        vertical-align: middle;
-        color: #2F73E8;
-        // letter-spacing: -.07rem;
+    .btn_changecaptcha {
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        line-height: .2rem;
+        margin-top: -.1rem;
+        margin-left: .38rem;
+        padding: 0;
+        background: transparent;
+        color: #0072F0;
+        font-size: .16rem;
+        font-weight:normal;
     }
     .form_item_error {
         position: absolute;
         top: 100%;
         left: 0;
-        margin-top: .4rem;
+        margin-top: .1rem;
     }
     .form_item_error_text {
-        margin-left: 1rem;
-        font-size: 1.3rem;
-        opacity:0.6;
+        margin-left: .09rem;
+        font-size: .16rem;
+        font-weight: 400;
+        color: rgba(0,0,0,.4);
         line-height: 1;
         vertical-align: middle;
     }
-    .forim_item_error_icon {
-        width: 1.3rem;
-        height: 1.3rem;
-
+    .form_item_condition_content{
+        width: $inputWidth;
+        margin: 0 auto;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    .img_condition{
+        width: .18rem;
+        height: .18rem;
+    }
+    .condition_text{
+        margin-left: .1rem;
+        font-size: .16rem;
+        font-weight: 400;
+        color: #000000;
+        line-height: .18rem;
+        vertical-align: middle;
+    }
+    .condition_terms {
+        font-size: .16rem;
+        font-weight: 400;
+        color: #0072F0;
+        line-height: .18rem;
+        vertical-align: middle;
+        text-decoration: none;
+    }
+    .btn_proceed{
+        width: $inputWidth;
+        height: $inputHeight;
+        background: #0072F0;
+        box-shadow: 0px 5px 8px 0px rgba(15,34,63,0.13);
+        border-radius:2px;  
+        font-size: .3rem;
+        font-weight:400;
+        color: #FFFFFF;
+        line-height: .5rem;
+        border: none;
+        &:disabled {
+            opacity:0.3;
+        }
     }
 </style>

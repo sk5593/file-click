@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="font-size: 100px;">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
@@ -17,12 +17,12 @@
             if (!clientWidth) {
                 return false;
             } else {
-                if (clientWidth >= 1440) {
-                    clientWidth = 1440;
-                } else if (clientWidth <= 1200) {
-                    clientWidth = 1200;
+                if (clientWidth >= 750) {
+                    clientWidth = 750;
+                } else if (clientWidth <= 320) {
+                    clientWidth = 320;
                 }
-                docEl.style.fontSize = 100 * (clientWidth / 1440) + 'px';
+                docEl.style.fontSize = 10 * (clientWidth / 375) + 'px';
             }
         }
         if (!doc.addEventListener) return;
@@ -33,9 +33,10 @@
     <script>
       var IMGPrefix = '//cloud-bj-resources.yeelight.com/img/tocpage/googleexchange/';
       var IMGArray = [
-            'bg_header.png',
-            'bg_dialogue.png',
-            'bg_color.png'
+            'bg_header_m.png',
+            'bg_dialogue_m.png',
+            'bg_color_m.png',
+            'bg_form_m.png'
         ];
         var IMGCount = 0,
             IMGLen = IMGArray.length,
@@ -52,8 +53,9 @@
     <style>
         body {
             background: #fff;
-            font-size: 100%;
-            font-family: Roboto-Regular,NotoSans-Regular,"Helvetica Neue",Helvetica,"PingFang SC","Microsoft YaHei",Arial,sans-serif;
+            color: #000;
+            font-size: 14px;
+            font-family: Roboto-Regular,NotoSans-Regular,Helvetica,"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
             font-weight: 400;
         }
     </style>

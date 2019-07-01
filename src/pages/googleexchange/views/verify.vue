@@ -1,127 +1,155 @@
 <template>
   <base-layout>
-    <div class="form">
-      <div class="form_item form_header">
-        <div class="form_title">
+      <section class="section section_header">
+        <div class="title">
           <span>Please enter your address</span>
         </div>
-      </div>
-      <div class="form_item form_item_name">
-        <div class="form_item_header">
-          <span>Name</span>
-        </div>
-        <div class="form_item_content">
-          <div class="form_row form_row_name">
-            <label class="form_row_label left"
-                   for="">*First:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.firstName">Enter your first name here</label>
-              <input type="text"
-                     class="input_text input_text_firstname"
+      </section>
+      <section class="section section_form">
+        <div class="form_group">
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*First Name</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.firstName">Enter your first name here</label> -->
+                <input type="text"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('firstName')}"
-                     autocomplete="off"
+                     placeholder="Enter your first name here"
+                       autocomplete="off"
                      maxlength="50"
-                     v-model="form.firstName">
+                       v-model="form.firstName">
+              </div>
             </div>
-            <label class="form_row_label right"
-                   for="">*Last:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.lastName">Enter your last name here</label>
-              <input type="text"
-                     class="input_text input_text_lastname"
+          </div>
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*Last Name</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.lastName">Enter your last name here</label> -->
+                <input type="text"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('lastName')}"
-                     autocomplete="off"
+                     placeholder="Enter your last name here"
+                       autocomplete="off"
                      maxlength="50"
-                     v-model="form.lastName">
+                       v-model="form.lastName">
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="form_item form_item_address">
-        <div class="form_item_header">
-          <span>Postal Address</span>
-        </div>
-        <div class="form_item_content">
-          <div class="form_row form_row_street">
-            <label class="form_row_label left"
-                   for="">*Street Address:</label>
-            <div class="form_row_input long">
-              <label class="label_placeholder"
-                     v-show="!form.street">Enter your street adress here</label>
-              <input type="text"
-                     class="input_text input_text_street"
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*Street Address</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.street">Enter your street adress here</label> -->
+                <input type="text"
+                       class="input_text"
                      :class="{'error' : errorKey.includes('street')}"
-                     autocomplete="off"
+                     placeholder="Enter your street adress here"
+                       autocomplete="off"
                      maxlength="250"
-                     v-model="form.street">
-            </div>
-          </div>
-          <div class="form_row form_row_addr">
-            <label class="form_row_label left"
-                   for="">*State:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.state">Select your state</label>
-              <select class="input_text input_text_state select"
-                     :class="{'error' : errorKey.includes('state')}"
-                      autocomplete="off"
-                      @change="handlerStateChange"
-                      v-model="form.state">
-                <option v-for="item of Australia" :key="'AustraliaState' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
-              </select>
-            </div>
-            <label class="form_row_label right"
-                   for="">*City:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.city">Select your city here</label>
-              <select class="input_text input_text_city select"
-                     :class="{'error' : errorKey.includes('city')}"
-                      autocomplete="off"
-                      @click="handlerSelectCity"
-                      v-model="form.city">
-                <option v-for="item of AustraliaCity" :key="'AustraliaCity' + item" class="select_item">{{item}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form_row form_row_contact">
-            <label class="form_row_label left"
-                   for="">Phone:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.phone">Enter your phone number here</label>
-              <input type="tel"
-                     class="input_text input_text_phone"
-                     autocomplete="off"
-                     maxlength="50"
-                     v-model="form.phone">
-            </div>
-            <label class="form_row_label right"
-                   for="">*E-mail:</label>
-            <div class="form_row_input">
-              <label class="label_placeholder"
-                     v-show="!form.email">Enter your e-mail here</label>
-              <input type="email"
-                     class="input_text input_text_email"
-                     :class="{'error' : errorKey.includes('email')}"
-                     autocomplete="off"
-                     :disabled="form.used==1"
-                     maxlength="100"
-                     v-model="form.email">
+                       v-model="form.street">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="form_item form_item_submit">
-        <input type="submit"
-               :disabled="!formReady"
-               class="btn btn_submit"
-               value="Submit"
-               @click="handlerSubmitForm">
-      </div>
-    </div>
+        <div class="form_group form_group_addr">
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*State</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <label class="label_placeholder"
+                       v-show="!form.state">Select your state</label>
+                <select class="input_text input_text_firstname select"
+                     :class="{'error' : errorKey.includes('state')}"
+                        autocomplete="off"
+                        @change="handlerStateChange"
+                        v-model="form.state">
+                  <option v-for="item of Australia"
+                          :key="'AustraliaState' + item.code"
+                          class="select_item"
+                          :value="item.name">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*City</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <label class="label_placeholder"
+                       v-show="!form.city">Select your city here</label>
+                <select class="input_text input_text_firstname select"
+                     :class="{'error' : errorKey.includes('city')}"
+                        autocomplete="off"
+                        v-show="form.state"
+                        v-model="form.city">
+                  <option v-for="item of AustraliaCity"
+                          :key="'AustraliaCity' + item"
+                          class="select_item">{{item}}</option>
+                </select>
+                <input v-show="!form.state" type="text" readonly class="input_text select" @click="handlerSelectCity">
+              </div>
+            </div>
+          </div>
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>*E-mail</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.email">Enter your e-mail here</label> -->
+                <input type="email"
+                       class="input_text"
+                     :class="{'error' : errorKey.includes('email')}"
+                     placeholder="Enter your e-mail here"
+                       autocomplete="off"
+                     maxlength="100"
+                     :disabled="form.used==1"
+                       v-model="form.email">
+              </div>
+            </div>
+          </div>
+          <div class="form_item">
+            <div class="form_item_label">
+              <span>Phone</span>
+            </div>
+            <div class="form_item_content">
+              <div class="form_row_input">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.phone">Enter your phone number here</label> -->
+                <input type="tel"
+                       class="input_text input_text_firstname"
+                       placeholder="Enter your phone number here"
+                       autocomplete="off"
+                     maxlength="50"
+                       v-model="form.phone">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form_group_submit">
+          <input type="submit"
+                 :disabled="!formReady"
+                 class="btn btn_submit"
+                 value="Save"
+                 @click="handlerSubmitForm">
+        </div>
+      </section>
   </base-layout>
 </template>
 
@@ -270,118 +298,95 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $inputWidth: 4.12rem;
-    $inputHeight: .35rem;
-    .form_header {
-        text-align: center;
-    }
-    .form_title {
-        font-size: .36rem;
-        color: #000000;
-        line-height: .54rem;
-    }
-    .form_item_name {
-      margin-top: .41rem;
-    }
-    .form_item_address {
-      margin-top: .38rem;
-    }
-    .form_item_header {
-      margin-left: 2.84rem;
-      font-size: .2rem;
-      color: #000;
-      line-height: 1;
-      opacity: 0.9;
-    }
-    .form_item_content {
-      margin-top: .16rem;
-    }
-    .form_row {
-      overflow: hidden;
-    }
-    .form_row_label {
-      float: left;
-      font-size: .16rem;
-      color: #000000;
-      line-height: $inputHeight;
-      opacity: 0.6;
-      padding-right: .16rem;
-      text-align: right;
-      &.left{
-        width: 2.84rem;
-      }
-      &.right {
-        width: .95rem;
-      }
-    }
-    .form_row_input {
-      position: relative;
-      float: left;
-      width: $inputWidth;
-      &.long {
-        width: 9.19rem;
-      }
-    }
-    .label_placeholder {
-      position: absolute;
-      top: 50%;
-      left: .23rem;
-      line-height: .2rem;
-      margin-top: -.1rem;
-      font-size: .14rem;
-      color: #000000;
-      opacity:0.4;
-    }
-    .input_text{
-      position: relative;
-      width: 100%;
-      height: $inputHeight;
-      border:1px solid rgba(51,51,51,.2);
-      border-radius:2px;
-      padding: 0 .23rem;
-      background: transparent;
-      opacity:0.8;
-      z-index: 9;
-      transition: all .3s;
-      appearance: none;
-      &:focus {
-        outline: none;
-      }
-      &:disabled {
-        opacity: .8;
-      }
-      &.error {
-        border-color: #f56c6c;
-      }
-    }
-    .select{
-        appearance: none;
-        background: url("../lib/arrow.png") no-repeat scroll 97% center transparent;
-    }
-    .form_row_addr {
-      margin-top: .25rem;
-    }
-    .form_row_contact {
-      margin-top: .2rem;
-    }
-
-    .form_item_submit{
-      margin-top: .52rem;
-      text-align: center;
-    }
-    .btn_submit{
-        width: $inputWidth;
-        height: .72rem;
-        background: #0072F0;
-        box-shadow: 0px 5px 8px 0px rgba(15,34,63,0.13);
-        border-radius:2px;  
-        font-size: .3rem;
-        font-weight:400;
-        color: #FFFFFF;
-        line-height: .5rem;
-        border: none;
-        &:disabled {
-            opacity:0.3;
-        }
-    }
+.title {
+  font-size: 2.2rem;
+  color: #000;
+  line-height: 3.2rem;
+}
+.section_form {
+  margin-top: 3rem;
+}
+.form_group + .form_group {
+  margin-top: 5rem;
+}
+.form_group_addr {
+  border-top: 1px solid rgba(170, 170, 170, 0.5);
+  padding-top: 1.9rem;
+}
+.form_item + .form_item {
+  margin-top: 1.9rem;
+}
+.form_item_address {
+  margin-top: 0.38rem;
+}
+.form_item_content {
+  margin-top: 0.8rem;
+}
+.form_item_label {
+  font-size: 1.6rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+.form_row_input {
+  position: relative;
+}
+.label_placeholder {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  line-height: 2rem;
+  margin-top: -1rem;
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+.input_text {
+  position: relative;
+  width: 100%;
+  line-height: 1.5rem;
+  border: none;
+  border-bottom: 1px solid rgba(170, 170, 170, 0.5);
+  border-radius: 0;
+  padding: 1.1rem 1rem;
+  background: transparent;
+  z-index: 9;
+  font-size: 1.5rem;
+  transition: all .3s;
+  appearance: none;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    opacity: .8;
+  }
+  &::-webkit-input-placeholder{
+    color: rgba(0,0,0,.4);
+  }
+  &.error {
+    border-color: #f56c6c;
+  }
+}
+.select{
+    appearance: none;
+    background: url("../lib/arrow.png") no-repeat scroll 97% center transparent;
+}
+.form_group_submit {
+  margin-top: 6rem;
+  text-align: center;
+}
+.btn_submit {
+  width: 100%;
+  height: 4.5rem;
+  background: #2f73e8;
+  box-shadow: 0px 5px 8px 0px rgba(19, 34, 61, 0.13);
+  border-radius: 2px;
+  font-size: 2rem;
+  color: #fff;
+  border: none;
+  &:active {
+    opacity: 0.8;
+  }
+  &:disabled {
+    opacity: 0.3;
+  }
+}
 </style>

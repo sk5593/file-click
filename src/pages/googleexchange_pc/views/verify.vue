@@ -1,0 +1,387 @@
+<template>
+  <base-layout>
+    <div class="form">
+      <div class="form_item form_header">
+        <div class="form_title">
+          <span>Please enter your address</span>
+        </div>
+      </div>
+      <div class="form_item form_item_name">
+        <div class="form_item_header">
+          <span>Name</span>
+        </div>
+        <div class="form_item_content">
+          <div class="form_row form_row_name">
+            <label class="form_row_label left"
+                   for="">*First:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.firstName">Enter your first name here</label>
+              <input type="text"
+                     class="input_text input_text_firstname"
+                     :class="{'error' : errorKey.includes('firstName')}"
+                     autocomplete="off"
+                     maxlength="50"
+                     v-model="form.firstName">
+            </div>
+            <label class="form_row_label right"
+                   for="">*Last:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.lastName">Enter your last name here</label>
+              <input type="text"
+                     class="input_text input_text_lastname"
+                     :class="{'error' : errorKey.includes('lastName')}"
+                     autocomplete="off"
+                     maxlength="50"
+                     v-model="form.lastName">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form_item form_item_address">
+        <div class="form_item_header">
+          <span>Postal Address</span>
+        </div>
+        <div class="form_item_content">
+          <div class="form_row form_row_street">
+            <label class="form_row_label left"
+                   for="">*Street Address:</label>
+            <div class="form_row_input long">
+              <label class="label_placeholder"
+                     v-show="!form.street">Enter your street adress here</label>
+              <input type="text"
+                     class="input_text input_text_street"
+                     :class="{'error' : errorKey.includes('street')}"
+                     autocomplete="off"
+                     maxlength="250"
+                     v-model="form.street">
+            </div>
+          </div>
+          <div class="form_row form_row_addr">
+            <label class="form_row_label left"
+                   for="">*State:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.state">Select your state</label>
+              <select class="input_text input_text_state select"
+                     :class="{'error' : errorKey.includes('state')}"
+                      autocomplete="off"
+                      @change="handlerStateChange"
+                      v-model="form.state">
+                <option v-for="item of Australia" :key="'AustraliaState' + item.code" class="select_item" :value="item.name">{{item.name}}</option>
+              </select>
+            </div>
+            <label class="form_row_label right"
+                   for="">*City:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.city">Select your city here</label>
+              <select class="input_text input_text_city select"
+                     :class="{'error' : errorKey.includes('city')}"
+                      autocomplete="off"
+                      @click="handlerSelectCity"
+                      v-model="form.city">
+                <option v-for="item of AustraliaCity" :key="'AustraliaCity' + item" class="select_item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form_row form_row_contact">
+            <label class="form_row_label left"
+                   for="">Phone:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.phone">Enter your phone number here</label>
+              <input type="tel"
+                     class="input_text input_text_phone"
+                     autocomplete="off"
+                     maxlength="50"
+                     v-model="form.phone">
+            </div>
+            <label class="form_row_label right"
+                   for="">*E-mail:</label>
+            <div class="form_row_input">
+              <label class="label_placeholder"
+                     v-show="!form.email">Enter your e-mail here</label>
+              <input type="email"
+                     class="input_text input_text_email"
+                     :class="{'error' : errorKey.includes('email')}"
+                     autocomplete="off"
+                     :disabled="form.used==1"
+                     maxlength="100"
+                     v-model="form.email">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form_item form_item_submit">
+        <input type="submit"
+               :disabled="!formReady"
+               class="btn btn_submit"
+               value="Submit"
+               @click="handlerSubmitForm">
+      </div>
+    </div>
+  </base-layout>
+</template>
+
+<script>
+import baseLayout from "./baseLayout";
+import { isEmail } from "@/util/util";
+import Australia from "../lib/Australia";
+import { check, verify } from "@/service/googleexchange";
+export default {
+  data() {
+    return {
+      checkForm: {
+        coupon: "",
+        captcha: "",
+        captchaToken: ""
+      },
+      form: {
+        country: "Australia",
+        state: "",
+        city: "",
+        street: "",
+        email: "",
+        phone: "",
+        firstName: "",
+        lastName: "",
+      },
+      formReady: true,
+      errorKey: [],
+      Australia: Australia,
+      AustraliaCity: []
+    };
+  },
+  components: {
+    baseLayout
+  },
+  watch: {
+    // form: {
+    //   deep: true,
+    //   handler: function(newVal) {
+    //     this.formReady = Object.keys(newVal).every(key => {
+    //       if (key == "phone") return true;
+    //       else if (key == "email" && !isEmail(newVal[key])) return false;
+    //       else return newVal[key];
+    //     });
+    //   }
+    // }
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    async init() {
+      let checkForm = sessionStorage.getItem("googleexchange_checkform");
+      if (checkForm) {
+        checkForm = JSON.parse(checkForm);
+        this.checkForm.coupon = checkForm.coupon;
+        this.checkForm.captcha = checkForm.captcha;
+        this.checkForm.captchaToken = checkForm.captchaToken;
+        this.formReady = false;
+        await this.check();
+        this.formReady = true;
+      } else {
+        this.$router.replace({path: '/'});
+      }
+    },
+    check () {
+      return check(this.checkForm).then(res => {
+        let data = res.data;
+        this.form.used = data.used;
+        this.form.firstName = data.firstName;
+        this.form.lastName = data.lastName;
+        this.form.country = data.country;
+        this.form.state = data.state;
+        if(data.state) this.handlerStateChange();
+        this.form.city = data.city;
+        this.form.street = data.street;
+        this.form.email = data.email;
+        this.form.phone = data.phone;
+      }).catch(err => {
+        if(err.code == '13004') {
+          this.$router.push({
+            path: 'check'
+          })
+        }
+      });
+    },
+    forEachFormData(data) {
+      Object.keys(data).forEach(key => {
+         if (key == "phone") return true;
+         else if (key == "email" && !isEmail(data[key])) this.errorKey.push(key);
+         else if (!data[key]) this.errorKey.push(key);
+      });
+    },
+    handlerChangeCaptcha() {
+      this.getCaptcha();
+    },
+    handlerSubmitForm() {
+      if (this.errorKey.length) this.errorKey.splice(0, this.errorKey.length);
+      this.forEachFormData(this.form);
+      if (this.errorKey.length) return;
+      this.formReady = false;
+      let form = Object.assign(this.form, this.checkForm);
+      verify(form)
+        .then(() => {
+          this.$router.push({path: '/success'});
+        })
+        .catch(err => {
+          this.initError(err);
+        })
+        .finally(() => {
+          this.formReady = true;
+        });
+    },
+    initError(err) {
+      if (err.code == "13004" || err.code == "13002") {
+        sessionStorage.removeItem("googleexchange_checkform");
+        this.$router.push({path: '/check'});
+      } else if (err.code == '13001') {
+        this.$router.push({path: '/success'});
+      } else {
+        alert(err.msg);
+      }
+    },
+    handlerStateChange() {
+      if(this.errorKey.length==1&&this.errorKey.includes('state')){
+        this.errorKey.splice(0, 1);
+      }
+      this.form.city = '';
+      this.Australia.some(item => {
+        if(item.name == this.form.state){
+          if(!this.AustraliaCity.length) this.AustraliaCity.push(...item.cities);
+          else this.AustraliaCity.splice(0, this.AustraliaCity.length, ...item.cities);
+        }
+      })
+    },
+    handlerSelectCity (e) {
+      if(!this.form.state) {
+        e.currentTarget.blur();
+        if(!this.errorKey.includes('state')){
+          this.errorKey.push('state');
+        }
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+  $inputWidth: 4.12rem;
+    $inputHeight: .35rem;
+    .form_header {
+        text-align: center;
+    }
+    .form_title {
+        font-size: .36rem;
+        color: #000000;
+        line-height: .54rem;
+    }
+    .form_item_name {
+      margin-top: .41rem;
+    }
+    .form_item_address {
+      margin-top: .38rem;
+    }
+    .form_item_header {
+      margin-left: 2.84rem;
+      font-size: .2rem;
+      color: #000;
+      line-height: 1;
+      opacity: 0.9;
+    }
+    .form_item_content {
+      margin-top: .16rem;
+    }
+    .form_row {
+      overflow: hidden;
+    }
+    .form_row_label {
+      float: left;
+      font-size: .16rem;
+      color: #000000;
+      line-height: $inputHeight;
+      opacity: 0.6;
+      padding-right: .16rem;
+      text-align: right;
+      &.left{
+        width: 2.84rem;
+      }
+      &.right {
+        width: .95rem;
+      }
+    }
+    .form_row_input {
+      position: relative;
+      float: left;
+      width: $inputWidth;
+      &.long {
+        width: 9.19rem;
+      }
+    }
+    .label_placeholder {
+      position: absolute;
+      top: 50%;
+      left: .23rem;
+      line-height: .2rem;
+      margin-top: -.1rem;
+      font-size: .14rem;
+      color: #000000;
+      opacity:0.4;
+    }
+    .input_text{
+      position: relative;
+      width: 100%;
+      height: $inputHeight;
+      border:1px solid rgba(51,51,51,.2);
+      border-radius:2px;
+      padding: 0 .23rem;
+      background: transparent;
+      opacity:0.8;
+      z-index: 9;
+      transition: all .3s;
+      appearance: none;
+      &:focus {
+        outline: none;
+      }
+      &:disabled {
+        opacity: .8;
+      }
+      &.error {
+        border-color: #f56c6c;
+      }
+    }
+    .select{
+        appearance: none;
+        background: url("../lib/arrow.png") no-repeat scroll 97% center transparent;
+    }
+    .form_row_addr {
+      margin-top: .25rem;
+    }
+    .form_row_contact {
+      margin-top: .2rem;
+    }
+
+    .form_item_submit{
+      margin-top: .52rem;
+      text-align: center;
+    }
+    .btn_submit{
+        width: $inputWidth;
+        height: .72rem;
+        background: #0072F0;
+        box-shadow: 0px 5px 8px 0px rgba(15,34,63,0.13);
+        border-radius:2px;  
+        font-size: .3rem;
+        font-weight:400;
+        color: #FFFFFF;
+        line-height: .5rem;
+        border: none;
+        &:disabled {
+            opacity:0.3;
+        }
+    }
+</style>

@@ -1,24 +1,21 @@
 <template>
   <base-layout>
-    <div class="form">
-      <div class="form_item form_header">
-        <div class="form_title">
+      <section class="section">
+        <div class="title">
             <span>Check your Order</span>
         </div>
-        <div class="form_describe">
-            <span>Please check the status of delivery after {{this.trackDate}}</span>
+        <div class="text">
+            <span>Please check the status of delivery<br>after {{this.trackDate}}</span>
         </div>
-      </div>
-      <div class="form_item form_block">
-        <div class="form_block_box">
-          <div class="form_item_block">
-            <div class="form_item_block_header">
+        <div class="block_box">
+          <div class="block_item">
+            <div class="block_item_header">
               <div class="header_item_name">Order</div>
               <div v-if="used==1" class="header_item_btn">
                 <img class="img_edit" src="../lib/edit.png" alt="" @click="handlerEdit">
               </div>
             </div>
-            <div class="form_item_block_content">
+            <div class="block_item_content">
               <div class="content_row">
                 <div class="content_label left">Name:</div>
                 <div class="content_label right">{{form.lastName+' '+form.firstName}}</div>
@@ -37,9 +34,9 @@
               </div>
             </div>
           </div>
-          <div class="form_item_block">
-            <div class="form_item_block_header">
-               <div class="header_item_name">TRACK & TRACE</div>
+          <div class="block_item">
+            <div class="block_item_header">
+              <div class="header_item_name">TRACK & TRACE</div>
             </div>
             <div v-if="used==1||used==2" class="pageage_content">
               <div class="track_icon">
@@ -49,20 +46,19 @@
                 Not yet shipped
               </div>
             </div>
-            <div v-else-if="used==3" class="form_item_block_content">
+            <div v-else-if="used==3" class="block_item_content trace_content">
               <div class="content_row">
-                 <div class="content_label left">Carrier:</div>
+                <div class="content_label left">Carrier:</div>
                 <div class="content_label right">{{form.carrier}}</div>
               </div>
               <div class="content_row">
-                 <div class="content_label left">Order number:</div>
+                <div class="content_label left">Order number:</div>
                 <div class="content_label right">{{form.trackerNo}}</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
   </base-layout>
 </template>
 
@@ -101,7 +97,7 @@
 
     },
     mounted() {
-        let config = sessionStorage.getItem("googleexchange_config");
+      let config = sessionStorage.getItem("googleexchange_config");
         if(config) {
           config = JSON.parse(config);
           this.trackDate = config.trackDate;
@@ -139,7 +135,7 @@
           if(err.code == '13004') {
             this.$router.push({
               path: 'check'
-            });
+            })
           }
         });
       },
@@ -153,102 +149,91 @@
 </script>
 
 <style lang="scss" scoped>
-
-    .form_header {
-        text-align: center;
+    .title {
+      font-size: 2.2rem;
+      line-height: 1;
     }
-    .form_title {
-        font-size: .36rem;
-        font-weight: 400;
-        color: rgba(0,0,0,1);
-        line-height: .54rem;
+    .text {
+        margin-top: 1.6rem;
+        font-size: 1.6rem;
+        color: #000;
+        line-height:2.4rem;
+        opacity: .8;
     }
-    .form_describe {
-        font-size: .2rem;
-        font-weight: 400;
-        color: rgba(0,0,0,1);
-        line-height: .4rem;
-        opacity: 0.9;
+    .block_box {
+        margin-top: 6.2rem;
     }
-    .form_block{
-      margin-top: .77rem;
-      margin-bottom: .5rem;
-    }
-    .form_block_box{
-      text-align: center;
-    }
-    .form_item_block{
-      display: inline-block;
-      width: 6.13rem;
-      height: 2.88rem;
+    .block_item {
+      box-shadow:1px 10px 24px 0px rgba(0, 0, 0, 0.04);
       border-radius:2px;
-      box-shadow:1px 10px 24px 0px rgba(0, 0, 0, .04);
-      vertical-align: top;
     }
-    .form_item_block + .form_item_block {
-      margin-left: .5rem;
+    .block_item + .block_item {
+      margin-top: 4.6rem;
     }
-    .form_item_block_header {
+    .block_item_header {
       position: relative;
-      height: .63rem;
-      background: #0072F0;
-      opacity:0.6;
+      background:rgba(47,115,232,.6);
     }
-    .form_item_block_content {
-        padding: .25rem .47rem 0;
-    }
-    .content_row{
-      line-height: .44rem;
-    }
-    .content_label{
-      display: inline-block;
-      line-height: .24rem;
-      font-size: .16rem;
-      color: #000000;
-      opacity: .9;
-      text-align: left;
-      vertical-align: middle;
-      &.left {
-        width: 37%;
-      }
-      &.right {
-        width: 63%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-
     .header_item_name {
-      padding-left: .46rem;
-      font-size: .2rem;
+      padding-left: 2.8rem;
+      line-height: 2.9rem;
+      font-size: 1.4rem;
       color: #fff;
-      line-height: .63rem;
-      text-align: left;
     }
     .header_item_btn {
       position: absolute;
-      right: .55rem;
       top: 50%;
-      margin-top: -.12rem;
+      right: 1.5rem;
+      transform: translateY(-50%);
     }
     .img_edit {
-      width: .24rem;
-      height: .24rem;
+      width: 1.6rem;
+      height: 1.6rem;
       cursor: pointer;
     }
-    .track_icon {
-      margin-top: .49rem;
+    .block_item_content {
+      padding: 1.5rem 2.8rem;
     }
-    .img_trach {
-      width: .95rem;
-      height: .9;
+    .pageage_content {
+      min-height: 15.4rem;
+      text-align: center;
+    }
+    .trace_content {
+      min-height: 15.4rem;
+    }
+    .content_row {
+      display: flex;
+    }
+    .content_label {
+      font-size: 1.2rem;
+      line-height: 2.5rem;
+      opacity:0.9;
+      &.left {
+        width: 8.8rem;
+        flex-shrink: 0;
+      }
+      &.right {
+        margin-left: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    .track_icon {
+      padding-top: 4.5rem;
     }
     .track_text {
-      margin-top: .24rem; 
-      font-size: .16rem;
-      color: #000000;
+      margin-top: 1.8rem;
+      font-size: 1.2rem;
+      color: #000;
       line-height: 1;
-      opacity:0.6;
+      opacity:0.3;
+    }
+    .img_trach {
+      width: 4.75rem;
+      height: 4.5rem;
     }
 </style>

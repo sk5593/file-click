@@ -71,10 +71,9 @@
               <div class="form_row_input">
                 <label class="label_placeholder"
                        v-show="!form.state">Select your state</label>
-                <select class="input_text input_text_firstname select"
+                <select class="input_text select"
                      :class="{'error' : errorKey.includes('state')}"
                         autocomplete="off"
-                        @change="handlerStateChange"
                         v-model="form.state">
                   <option v-for="item of Australia"
                           :key="'AustraliaState' + item.code"
@@ -90,18 +89,15 @@
             </div>
             <div class="form_item_content">
               <div class="form_row_input">
-                <label class="label_placeholder"
-                       v-show="!form.city">Select your city here</label>
-                <select class="input_text input_text_firstname select"
-                     :class="{'error' : errorKey.includes('city')}"
-                        autocomplete="off"
-                        v-show="form.state"
-                        v-model="form.city">
-                  <option v-for="item of AustraliaCity"
-                          :key="'AustraliaCity' + item"
-                          class="select_item">{{item}}</option>
-                </select>
-                <input v-show="!form.state" type="text" readonly class="input_text select" @click="handlerSelectCity">
+                <!-- <label class="label_placeholder"
+                       v-show="!form.city">Select your city here</label> -->
+                <input type="text"
+                      class="input_text"
+                      :class="{'error' : errorKey.includes('city')}"
+                      placeholder="Enter your city here"
+                      autocomplete="off"
+                      maxlength="250"
+                      v-model="form.city">
               </div>
             </div>
           </div>
@@ -133,7 +129,7 @@
                 <!-- <label class="label_placeholder"
                        v-show="!form.phone">Enter your phone number here</label> -->
                 <input type="tel"
-                       class="input_text input_text_firstname"
+                       class="input_text"
                        placeholder="Enter your phone number here"
                        autocomplete="off"
                      maxlength="50"
@@ -178,24 +174,14 @@ export default {
       },
       formReady: true,
       errorKey: [],
-      Australia: Australia,
-      AustraliaCity: []
+      Australia: Australia
     };
   },
   components: {
     baseLayout
   },
   watch: {
-    // form: {
-    //   deep: true,
-    //   handler: function(newVal) {
-    //     this.formReady = Object.keys(newVal).every(key => {
-    //       if (key == "phone") return true;
-    //       else if (key == "email" && !isEmail(newVal[key])) return false;
-    //       else return newVal[key];
-    //     });
-    //   }
-    // }
+
   },
   mounted() {
     this.init();
@@ -223,7 +209,6 @@ export default {
         this.form.lastName = data.lastName;
         this.form.country = data.country;
         this.form.state = data.state;
-        if(data.state) this.handlerStateChange();
         this.form.city = data.city;
         this.form.street = data.street;
         this.form.email = data.email;
@@ -271,26 +256,6 @@ export default {
         this.$router.push({path: '/success'});
       } else {
         alert(err.msg);
-      }
-    },
-    handlerStateChange() {
-      if(this.errorKey.length==1&&this.errorKey.includes('state')){
-        this.errorKey.splice(0, 1);
-      }
-      this.form.city = '';
-      this.Australia.some(item => {
-        if(item.name == this.form.state){
-          if(!this.AustraliaCity.length) this.AustraliaCity.push(...item.cities);
-          else this.AustraliaCity.splice(0, this.AustraliaCity.length, ...item.cities);
-        }
-      })
-    },
-    handlerSelectCity (e) {
-      if(!this.form.state) {
-        e.currentTarget.blur();
-        if(!this.errorKey.includes('state')){
-          this.errorKey.push('state');
-        }
       }
     }
   }

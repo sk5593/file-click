@@ -48,8 +48,7 @@
               <arguments>rebuild node-sass</arguments>
             </configuration>
           </execution>
-        </executions>
-
+          
           <!-- Build and minify static files -->
           <execution>
             <id>npm run build</id>

@@ -1,6 +1,8 @@
 <html>
 
 <head>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://www.yeelight.com/yeelight201703/css/amazeui.min.css">
     <script src="https://www.yeelight.com/yeelight201703/js/jquery.min.js"></script>
     <script src="https://www.yeelight.com/yeelight201703/js/amazeui.min.js"></script>
@@ -15,6 +17,7 @@
             margin: 0 auto;
             padding: 90px 0;
             line-height: 1;
+            color: #222222;
         }
 
         .amazon-lp-content__left {
@@ -31,14 +34,12 @@
         .amazon-lp-right-title {
             font-size: 28px;
             font-weight: 500;
-            color: #222222;
         }
 
         .amazon-lp-right-publicity {
             margin-top: 15px;
             font-size: 16px;
             font-weight: 300;
-            color: #222222;
         }
 
         .amazon-lp-right-line {
@@ -50,7 +51,6 @@
             margin: -8px 0;
             font-size: 14px;
             font-weight: 300;
-            color: #222222;
             line-height: 30px;
             letter-spacing: .5px;
         }
@@ -62,11 +62,12 @@
         .amazon-lp-right-size--title {
             font-size: 20px;
             font-weight: 400;
-            color: #222222;
         }
 
         .amazon-lp-right-size--box {
             margin-top: 40px;
+            margin-right: -12px;
+            margin-bottom: -20px;
             font-size: 0;
         }
 
@@ -78,17 +79,14 @@
             background: rgba(217, 217, 217, .2);
             font-size: 16px;
             font-weight: 300;
-            color: #222222;
             cursor: pointer;
             border: 1px solid rgba(217, 217, 217, .02);
+            margin-right: 12px;
+            margin-bottom: 20px;
         }
 
         .amazon-lp-sizebox__item.amazon-lp-sizebox__item--current {
             border: 1px solid #D9D9D9;
-        }
-
-        .amazon-lp-sizebox__item+.amazon-lp-sizebox__item {
-            margin-left: 12px;
         }
 
         .amazon-lp-right-footer {
@@ -167,12 +165,10 @@
         .amazon-lp-right-price-unit {
             font-size: 22px;
             font-weight: 400;
-            color: #222222;
         }
         .amazon-lp-right-price-num {
             font-size: 36px;
             font-weight:bold;
-            color: #222222;
         }
         .amazon-lp-right-desc {
             margin-top: 20px;
@@ -186,6 +182,127 @@
         }
         .amazon-lp-right-desc-ul > li {
             list-style: disc;
+        }
+        
+        .amazon-lp-content-mobile {
+            display: none;
+        }
+
+        @media screen and (max-width: 640px) {
+            .amazon-lp-content-pc {
+                display: none;
+            }
+            .amazon-lp-content-mobile {
+                display: block;
+                color: #222222;
+                line-height: 1;
+            }
+            .am-slider-amazon-lp-mobile {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                border-bottom: 1px solid #EEEEEE;
+            }
+
+            .am-slider-amazon-lp-mobile.am-slider-a1 .am-control-nav {
+                bottom: 15px;
+            }
+            .am-slider-amazon-lp-mobile.am-slider-a1 .am-control-nav li {
+                margin: 0 5px;
+            }
+            .am-slider-amazon-lp-mobile.am-slider-a1 .am-control-nav li a {
+                width: 17px;
+                height: 2px;
+                display: block;
+                background-color: rgba(0,0,0,.15);
+                cursor: pointer;
+                text-indent: -9999px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .am-slider-amazon-lp-mobile.am-slider-a1 .am-control-nav li a.am-active {
+                background-color: rgba(0,0,0,.5);
+                cursor: default;
+            }
+
+            .amazon-lp-content-mobile__info {
+                padding: 25px 20px 40px;
+            }
+            .amazon-lp-right-title {
+                font-size: 18px;
+            }
+            .amazon-lp-right-price {
+                margin-top: 20px;
+            }
+            .amazon-lp-right-price-unit {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .amazon-lp-right-price-num {
+                font-size: 25px;
+            }
+            .amazon-lp-right-publicity {
+                font-size: 12px;
+                font-weight: 300;
+                color: #A6A6A6;
+                letter-spacing: .5px;
+            }
+            .amazon-lp-right-line {
+                margin: 20px 0;
+            }
+            .amazon-lp-right-span {
+                font-size: 11px;
+                font-weight: 300;
+                line-height:18px;
+                margin: -3px 0;
+            }
+            .amazon-lp-right-desc-ul {
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 16px;
+            }
+            .amazon-lp-right-size {
+                margin-top: 38px;
+            }
+            .amazon-lp-right-size--title {
+                font-size: 16px;
+            }
+            .amazon-lp-right-size--box {
+                margin-top: 20px;
+                margin-right: -5px;
+                margin-bottom: -10px;
+            }
+            .amazon-lp-sizebox__item {
+                height: 30px;
+                line-height: 28px;
+                font-size: 11px;
+                margin-right: 5px;
+                margin-bottom: 10px;
+            }
+            body {
+                margin-bottom: 46px;
+            }
+            .amazon-lp-right-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 46px;
+                text-align: right;
+                padding: 8px 20px;
+                background: #fff;
+                z-index: 99;
+            }
+            .btn-amazon-lp {
+                height: 30;
+                width: 136px;
+                font-size: 11px;
+            }
+            .amazon-lp-left__bottom-img-mobile {
+                height: 100%;
+                max-height: 375px;
+                object-fit: contain;
+            }
         }
     </style>
     <!-- Facebook Pixel Code -->
@@ -209,7 +326,7 @@
 
 <body>
     <div class="amazon-lp-container">
-        <div class="amazon-lp-content">
+        <div class="amazon-lp-content amazon-lp-content-pc">
             <div class="amazon-lp-content__left">
                 <div class="amazon-lp-left__top">
                     <img class="amazon-lp-left__top-img" src="./Lightstrip/61KeMznyvbL._SL1000_.jpg" alt="">
@@ -248,8 +365,7 @@
                 <div class="amazon-lp-right-title">Yeelight Aurora Lightstrip Plus</div>
                 <div class="amazon-lp-right-publicity">Highlight your Home with Extendable Joy</div>
                 <div class="amazon-lp-right-line"></div>
-                <div class="amazon-lp-right-span">Flowing Colors　|　App Remote Control　|　Voice Control　|　Extendable to
-                    10m MAX　|　Music Sync</div>
+                <div class="amazon-lp-right-span">Flowing Colors　|　App Remote Control　|　Voice Control　|　Extendable to 10m MAX　|　Music Sync</div>
 
                 <div class="amazon-lp-right-desc">
                     <ul class="amazon-lp-right-desc-ul">
@@ -276,6 +392,70 @@
                 <div class="amazon-lp-right-footer">
                     <button class="btn-amazon-lp">Buy on Amazon</button>
                 </div>
+            </div>
+        </div>
+
+        
+        <div class="amazon-lp-content-mobile">
+            <div>
+                <div data-am-widget="slider" class="am-slider am-slider-a1 am-slider-amazon-lp-mobile" data-am-slider='{directionNav:false,controlsContainer: "aaaaaaaaaa"}'>
+                    <ul class="am-slides">
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/61KeMznyvbL._SL1000_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/61jU7xKogwL._SL1500_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/61+U1r3tkbL._SL1200_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/81XipWxQu+L._SL1500_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/61p-T0Z9nkL._SL1200_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/61xjR9tJVGL._SL1500_.jpg">
+                        </li>
+                        <li>
+                            <img class="amazon-lp-left__bottom-img-mobile" src="./Lightstrip/71JRJ5Nbm-L._SX679_.jpg">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="amazon-lp-content-mobile__info">
+                <div class="amazon-lp-right-title">Yeelight Aurora Lightstrip Plus</div>
+                <div class="amazon-lp-right-price">
+                    <span class="amazon-lp-right-price-unit">$</span>
+                    <span class="amazon-lp-right-price-num">15.99</span>
+                </div>
+                <div class="amazon-lp-right-publicity">Highlight your Home with Extendable Joy</div>
+                <div class="amazon-lp-right-line"></div>
+                <div class="amazon-lp-right-span">Flowing Colors　|　App Remote Control　|　Voice Control　|　Extendable to 10m MAX　|　Music Sync</div>
+
+                <div class="amazon-lp-right-desc">
+                    <ul class="amazon-lp-right-desc-ul">
+                        <li>Voice Control: Compatible with Amazon Alexa and Google Assistant for hands-free voice control, and to integrate into larger smart home functions.</li>
+                        <li>Do more with light：Have some fun by syncing your Yeelight bulbs with music, or use your photos to create a personalized lighting scene. Automate your daily routine with timers and smart schedules. Explore countless other ways to enhance the way you live, work, and play.</li>
+                        <li>Go from drab to fab: Yeelight Aurora LED light strips can be used to add tasteful accents throughout your home, including your dining room, bedroom, kitchen, patio, and living room. They're especially great for adding décor for holidays and events like Christmas, Halloween, Party, and more.</li>
+                        <li>Extendable & Cuttable: Yeelight Aurora light strips come in flexible 6.5' sections that can be easily cut to the perfect size, or extended up to 33 feet with 3.3' extensions.</li>
+                        <li>Easy to set up, easy to use: Each Yeelight Smart LED Light has built-in WiFi - no bridge or hub required. Just plug it in, tap in the app, and use your phone or smart home speaker to create stunning lighting effects.</li>
+                    </ul>
+                </div>
+
+                <div class="amazon-lp-right-size">
+                    <div class="amazon-lp-right-size--title">Size</div>
+                    <div class="amazon-lp-right-size--box">
+                        <div class="amazon-lp-sizebox__item" data-price="64.99">Light Strip + 1 Extension</div>
+                        <div class="amazon-lp-sizebox__item" data-price="15.99">3.3ft Extension 1pc</div>
+                        <div class="amazon-lp-sizebox__item" data-price="59.99">Light Strip</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="amazon-lp-right-footer">
+                <button class="btn-amazon-lp">Buy on Amazon</button>
             </div>
         </div>
     </div>

@@ -122,6 +122,8 @@
         </div>
         
         <script>
+            
+            // 视频连接
             var phoneUrl = {
                 yeelight: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov',
                 mijia: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_cn.mov'
@@ -130,23 +132,29 @@
                 yeelight: 'javascript:;',
                 mijia: 'javascript:;'
             }
-            var mijiaUrl = '';
-            var yeelightUrl = '';
+            // 图片连接
             var IMGPrefix = 'https://cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
             var IMGArray = {
                 pc: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
                 phone: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg']
             };
-            var nowArray = [];
-            var nowArrayLen = 0;
-            var device = '';
-            var docEl = document.documentElement;
-            var content = document.getElementsByClassName('content')[0];
-            var videoDom = document.getElementsByClassName('video')[0];
-            var contentHTML;
-            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
-            var recalc = function () {
-                var clientWidth = docEl.clientWidth;
+            
+
+            function init() {
+                var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+                window.addEventListener(resizeEvt, devideChange, false);
+                document.addEventListener('DOMContentLoaded', devideChange, false);
+            }
+            init();
+            // 设备首次加载 及 宽度变化回调
+            function devideChange() {
+                var options = recalc();
+                createDom(options); 
+                bindEvent(options.device);
+            }
+            function recalc() {
+                var device , mijiaUrl, yeelightUrl, nowArray;
+                var clientWidth = document.documentElement.clientWidth;
                 if (!clientWidth) {
                     return false;
                 } else {
@@ -160,22 +168,39 @@
                         yeelightUrl = phoneUrl.yeelight;
                     }
                 }
-                nowArray = IMGArray[device];
-                nowArrayLen = nowArray.length;
-                contentHTML = '';
-                for(var i = 0; i < nowArrayLen; i++) {
+                nowArray = IMGArray[device];  
+                return {
+                    device: device,
+                    mijiaUrl: mijiaUrl,
+                    yeelightUrl: yeelightUrl,
+                    nowArray: nowArray
+                }
+            }
+            // 生成dom元素
+            function createDom(options) {
+                var content = document.getElementsByClassName('content')[0];
+                var len = options.nowArray.length;
+                var contentHTML = '';
+                for(var i = 0; i < len; i++) {
                     contentHTML += '<section class="section">\
-                        <img src="' + IMGPrefix + nowArray[i] + '" alt="">';
-                    if(i == nowArrayLen-1){
-                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + yeelightUrl +'"></a></div><div class="btn-look btn-look--right"><a href="' + mijiaUrl + '"></a></div></div>'
+                        <img src="' + IMGPrefix + options.nowArray[i] + '" alt="">';
+                    if(i == len - 1){
+                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + options.yeelightUrl +'"></a></div><div class="btn-look btn-look--right"><a href="' + options.mijiaUrl + '"></a></div></div>'
                     }
                     contentHTML += '</section>';
                 }
                 content.innerHTML = contentHTML;
-                var btns = document.getElementsByClassName('btn-look');
+            }
+            // 绑定事件
+            function bindEvent(device) {
                 var yeeVideo = document.getElementsByClassName('yee-video')[0];
                 var mijiaVideo = document.getElementsByClassName('mijia-video')[0];
+                var videoDom = document.getElementsByClassName('video')[0];
+                var coverDom = document.getElementsByClassName('cover')[0];
+                var content = document.getElementsByClassName('content')[0];
+                // pc端视频处理
                 if(device == 'pc') {
+                    // 视频按钮
                     var yeeBtn = document.getElementsByClassName('btn-look--left')[0];
                     var mijiaBtn = document.getElementsByClassName('btn-look--right')[0];
                     yeeBtn.onclick = function () {
@@ -190,16 +215,20 @@
                         mijiaVideo.style.display = 'block';
                         content.style.display = 'none';
                     } 
+                    // 点击视频侧边空白关闭视频
+                    coverDom.onclick = function () {
+                        videoDom.style.display = 'none';
+                        content.style.display = 'block';
+                    }
                 }
                 
             }
-            window.addEventListener(resizeEvt, recalc, false);
-            document.addEventListener('DOMContentLoaded', recalc, false);
-            var coverDom = document.getElementsByClassName('cover')[0];
-            coverDom.onclick = function () {
-                videoDom.style.display = 'none';
-                content.style.display = 'block';
-            }
+
+            
+            
+        
+            
+            
         </script>
   </body>
 </html>

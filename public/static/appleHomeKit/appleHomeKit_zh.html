@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Yeelight</title>
+    <style>
+        body {
+            background: #2E2D33;
+            color: #000;
+            font-size: 14px;
+            font-family: Roboto-Regular,NotoSans-Regular,Helvetica,"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+            font-weight: 400;
+            margin: 0;
+        }
+        a{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+        .container{
+            position: relative;
+        }
+        .content {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img{
+            width: 100%;
+            vertical-align: middle;
+        }
+        .section {
+            position: relative;
+        }
+        .btn-box{
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+        .btn-look {
+            position: absolute;
+            top: 0%; 
+            height: 100%;
+        }
+        .video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 100vh;
+            width: 100vw;
+            background: #000;
+        }
+        .video video{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 80%;
+        }
+        @media screen and (max-width: 640px){
+            .content{
+                max-width: 640px;
+            }
+            .btn-box{
+                bottom: 18.935%;
+                height: 6.864%;
+            }
+            .btn-look{
+                width: 24%;
+            }
+            .btn-look--left{
+                left: 16.4%;
+            }
+            .btn-look--right{
+                right: 16.13%;
+            }
+            
+        }
+        @media screen and (min-width: 641px){
+            .content{
+                max-width: 1440px;
+            }
+            .btn-box{
+                bottom: 25.258%;
+                height: 7.474%;
+            }
+            .btn-look{
+                width: 12.5%;
+            }
+            .btn-look--left{
+                left: 32.569%;
+            }
+            .btn-look--right{
+                right: 32.43%;
+            }
+        }
+    </style>
+  </head>
+  <body>
+        <div class="container">
+            <article class="content"></article>
+            <div class="video">
+                
+                <video controls src="https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov"></video>
+            </div>
+        </div>
+        
+        <script>
+            var videoUrl = {
+                yeelight: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov',
+                mijia: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_cn.mov'
+            };
+            var IMGPrefix = 'https://cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
+            var IMGArray = {
+                pc: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
+                phone: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg']
+            };
+            var nowArray = [];
+            var nowArrayLen = 0;
+            var device = '';
+            var docEl = document.documentElement;
+            var content = document.getElementsByClassName('content')[0];
+            var contentHTML;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) {
+                    return false;
+                } else {
+                    if (clientWidth > 640) {
+                        device = 'pc';
+                    } else {
+                        device = 'phone';
+                    }
+                }
+                nowArray = IMGArray[device];
+                nowArrayLen = nowArray.length;
+                contentHTML = '';
+                for(var i = 0; i < nowArrayLen; i++) {
+                    contentHTML += '<section class="section">\
+                        <img src="' + IMGPrefix + nowArray[i] + '" alt="">';
+                    if(i == nowArrayLen-1){
+                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + videoUrl.yeelight +'"></a></div><div class="btn-look btn-look--right"><a href="' + videoUrl.mijia + '"></a></div></div>'
+                    }
+                    contentHTML += '</section>';
+                }
+                content.innerHTML = contentHTML; 
+            }
+            window.addEventListener(resizeEvt, recalc, false);
+            document.addEventListener('DOMContentLoaded', recalc, false);
+            
+        </script>
+  </body>
+</html>

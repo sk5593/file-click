@@ -44,11 +44,37 @@
             height: 8.12rem;
             transform: translate(-50%, -50%);
         }
+        
+
+        video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
+        video::-webkit-media-controls-play-button {
+            background: red;
+        }
+        video::-webkit-media-controls-play-button {display: none}
+        video::-webkit-media-controls-timeline {display: none}
+        video::-webkit-media-controls-current-time-display{}
+        video::-webkit-media-controls-time-remaining-display {}
+        video::-webkit-media-controls-time-remaining-display {}
+        video::-webkit-media-controls-mute-button {}
+        video::-webkit-media-controls-toggle-closed-captions-button {}
+        video::-webkit-media-controls-volume-slider {}
+        video::-internal-media-controls-download-button {
+            display:none;
+        }
+        video::-webkit-media-controls-enclosure {
+            overflow:hidden;
+        }
+        video::-webkit-media-controls-panel {
+            width: calc(100% + 30px);
+        }
+
     
     </style>
 </head>
 <body>
-    <video controls src="https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_en.mov"></video>
+    <video preload="preload" loop="loop" autoplay controls  x5-playsinline="" webkit-playsinline="" src="https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_en.mov"></video>
     <script src="">
         var videoUrl = {
             yee_cn: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov',

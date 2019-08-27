@@ -37,6 +37,8 @@
         body{
             margin: 0;
             background: #000;
+            width: 100vw;
+            height: 100vh;
         }
         video{
             position: absolute;
@@ -45,6 +47,7 @@
             width: 3.75rem;
             height: 8.12rem;
             transform: translate(-50%, -50%);
+
         }
         video::-webkit-media-controls-fullscreen-button {display: none;}
         video::-webkit-media-controls-play-button {display: block}
@@ -70,7 +73,6 @@
         preload="preload" 
         autoplay 
         controls 
-        object-fit: fill 
         playsinline=""
         src="" 
         class="video"></video>
@@ -145,16 +147,38 @@
             videoDom.src = url;
             videoDom.addEventListener('ended', function () {
                 alert('ended')
-                this.objectFit = 'contain' 
+                exitFullscreen();
             })
             videoDom.addEventListener('pause', function () {
                 alert('pause')
-                this.objectFit = 'contain'
+                exitFullscreen();
             })
             videoDom.addEventListener('play', function () {
                 alert('play')
-                this.objectFit = 'inherit';
+                FullScreen();
             })
+        }
+        // 进入全屏
+        function FullScreen() {
+            var ele = document.documentElement;
+            if (ele .requestFullscreen) {
+                ele .requestFullscreen();
+            } else if (ele .mozRequestFullScreen) {
+                ele .mozRequestFullScreen();
+            } else if (ele .webkitRequestFullScreen) {
+                ele .webkitRequestFullScreen();
+            }
+        }
+        //退出全屏
+        function exitFullscreen() {
+            var de = document;
+            if (de.exitFullscreen) {
+                de.exitFullscreen();
+            } else if (de.mozCancelFullScreen) {
+                de.mozCancelFullScreen();
+            } else if (de.webkitCancelFullScreen) {
+                de.webkitCancelFullScreen();
+            }
         }
 
     

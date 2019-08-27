@@ -46,23 +46,17 @@
             height: 8.12rem;
             transform: translate(-50%, -50%);
         }
-        video::-webkit-media-controls-fullscreen-button {
-            display: none;
-        }
-        video::-webkit-media-controls-play-button {display: none}
-        video::-webkit-media-controls-timeline {display: none}
+        video::-webkit-media-controls-fullscreen-button {display: none;}
+        video::-webkit-media-controls-play-button {display: block}
+        video::-webkit-media-controls-timeline {display: block}
         video::-webkit-media-controls-current-time-display{}
         video::-webkit-media-controls-time-remaining-display {}
         video::-webkit-media-controls-time-remaining-display {}
         video::-webkit-media-controls-mute-button {}
         video::-webkit-media-controls-toggle-closed-captions-button {}
         video::-webkit-media-controls-volume-slider {}
-        video::-internal-media-controls-download-button {
-            display:none;
-        }
-        video::-webkit-media-controls-enclosure {
-            overflow:hidden;
-        }
+        video::-internal-media-controls-download-button {display:none}
+        video::-webkit-media-controls-enclosure {overflow:hidden}
         /* video::-webkit-media-controls-panel {
             width: calc(100% + 30px);
         } */
@@ -71,8 +65,8 @@
     </style>
 </head>
 <body>
-    <!-- x5-playsinline="" webkit-playsinline="" -->
-    <video preload="preload" autoplay controls src="" class="video"></video>
+    <!--  -->
+    <video preload="preload" autoplay controls x5-playsinline="" webkit-playsinline="" src="" class="video"></video>
     <script>
         var language, videoType, videoUrl;
         var videoPrefix = 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/';

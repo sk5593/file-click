@@ -46,35 +46,16 @@
             top: 0%; 
             height: 100%;
             border-radius: 24px;
+            overflow: hidden;
         }
-        .video{
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            height: 100vh;
-            width: 100vw;
-            background: #000;
+        .btn-look--left a{
+            background: url();
+            background: orange;
         }
-        .video .cover{
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
+        .btn-look--right a{
+            background: url();
+            background: orange;
         }
-        .video video{
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            height: 80%;
-        }
-        
         @media screen and (max-width: 640px){
             .content{
                 max-width: 640px;
@@ -116,38 +97,19 @@
   <body>
         <div class="container">
             <article class="content"></article>
-            <div class="video">
-                <div class="cover"></div>
-                <video class="yee-video" controls src=""></video>
-                <video class="mijia-video" controls src=""></video>
-            </div>
-            
         </div>
-        <a href="http://192.168.0.43/static/appleHomeKit/video.html">视频</a>
         <script>
             var language;
-            
-            // 视频连接
-            var phoneUrl = {
-                yeelight_cn: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov',
-                mijia_cn: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_cn.mov',
-                yeelight_en: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_en.mov',
-                mijia_en: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_en.mov'
-            };
-            var pcUrl = {
-                yeelight_cn: 'javascript:;',
-                mijia_cn: 'javascript:;',
-                yeelight_en: 'javascript:;',
-                mijia_en: 'javascript:;'
-            }
-            var yeeViderSrc = mijiaVideoSrc = '';
-            // 图片连接
+            var videoLink = 'http://192.168.0.43/static/appleHomeKit/video.html';
+            // img url
             var IMGPrefix = 'https://cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
             var IMGArray = {
-                pc_cn: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
-                phone_cn: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg'],
+                pc_zh: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
                 pc_en: ['en-pc/en-pc_01.jpg', 'en-pc/en-pc_02.jpg', 'en-pc/en-pc_03.jpg',  'en-pc/en-pc_04.jpg', 'en-pc/en-pc_05.jpg'],
-                phone_en: ['en-phone/en-phone_01.jpg', 'en-phone/en-phone_02.jpg', 'en-phone/en-phone_03.jpg', 'en-phone/en-phone_04.jpg', 'en-phone/en-phone_05.jpg']
+                pc_de: ['de-pc/de-pc_01.jpg', 'de-pc/de-pc_02.jpg', 'de-pc/de-pc_03.jpg',  'de-pc/de-pc_04.jpg', 'de-pc/de-pc_05.jpg'],
+                phone_zh: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg'],
+                phone_en: ['en-phone/en-phone_01.jpg', 'en-phone/en-phone_02.jpg', 'en-phone/en-phone_03.jpg', 'en-phone/en-phone_04.jpg', 'en-phone/en-phone_05.jpg'],
+                phone_de: ['de-phone/de-phone_01.jpg', 'de-phone/de-phone_02.jpg', 'de-phone/de-phone_03.jpg', 'de-phone/de-phone_04.jpg', 'de-phone/de-phone_05.jpg']
             };
             
             function init() {
@@ -157,118 +119,77 @@
                 document.addEventListener('DOMContentLoaded', devideChange, false);
             }
             init();
-            
+            // to make sure language
             function langFun() {
                 var l;
                 var lang = (navigator.browserLanguage || navigator.language).toLowerCase();
-                if(lang.indexOf('zh')>-1){
-                    l = 'zh'
+                if(lang.indexOf('zh') > -1){
+                    l = 'zh';
+                }else if(lang.indexOf('de') > -1) {
+                    l = 'de';
                 }else {
                     l = 'en';
                 }
                 return l;
             }
-            // 设备首次加载 及 宽度变化回调
+            
             function devideChange() {
-                var options = recalc();
-                createDom(options); 
-                bindEvent(options.device);
+                var device = recalc();
+                var imgArr = imgUrl(language, device);
+                createDom(imgArr);
             }
+            // to make sure device
             function recalc() {
-                var device , mijiaUrl, yeelightUrl, nowArray;
+                var device;
                 var clientWidth = document.documentElement.clientWidth;
                 if (!clientWidth) {
                     return false;
                 } else {
-                    if(language == 'zh') {
-                        if (clientWidth > 640) {
-                            device = 'pc';
-                            mijiaUrl = pcUrl.mijia_cn;
-                            yeelightUrl = pcUrl.yeelight_cn;
-                            nowArray = IMGArray.pc_cn; 
-                            yeeViderSrc = phoneUrl.yeelight_cn;
-                            mijiaVideoSrc = phoneUrl.mijia_cn;
-                        } else {
-                            device = 'phone';
-                            mijiaUrl = phoneUrl.mijia_cn;
-                            yeelightUrl = phoneUrl.yeelight_cn;
-                            nowArray = IMGArray.phone_cn; 
-                        }
-                        
+                    if(clientWidth > 640) {
+                        device = 'pc'
                     }else {
-                        if (clientWidth > 640) {
-                            device = 'pc';
-                            mijiaUrl = pcUrl.mijia_en;
-                            yeelightUrl = pcUrl.yeelight_en;
-                            nowArray = IMGArray.pc_en; 
-                            yeeViderSrc = phoneUrl.yeelight_en;
-                            mijiaVideoSrc = phoneUrl.mijia_en;
-                        } else {
-                            device = 'phone';
-                            mijiaUrl = phoneUrl.mijia_en;
-                            yeelightUrl = phoneUrl.yeelight_en;
-                            nowArray = IMGArray.phone_en;
-                        }
+                        device = 'phone';
                     }
-                    
-                }
-                return {
-                    device: device,
-                    mijiaUrl: mijiaUrl,
-                    yeelightUrl: yeelightUrl,
-                    nowArray: nowArray
+                    return device;
                 }
             }
-            // 生成dom元素
-            function createDom(options) {
+            // find image url
+            function imgUrl(lang, device) {
+                var nowArray;
+                if(device == 'pc') {
+                    if(lang == 'zh') {
+                        nowArray = IMGArray.pc_zh; 
+                    }else if(lang =='de') {
+                        nowArray = IMGArray.pc_de; 
+                    }else {
+                        nowArray = IMGArray.pc_en;
+                    }
+                }else if(device == 'phone') {
+                    if(lang == 'zh') {
+                        nowArray = IMGArray.phone_zh; 
+                    }else if(lang =='de') {
+                        nowArray = IMGArray.phone_de; 
+                    }else {
+                        nowArray = IMGArray.phone_en;
+                    }
+                }
+                return nowArray;
+            }
+                    
+            // create dom
+            function createDom(imgArr) {
                 var content = document.getElementsByClassName('content')[0];
-
-                var len = options.nowArray.length;
+                var len = imgArr.length;
                 var contentHTML = '';
                 for(var i = 0; i < len; i++) {
                     contentHTML += '<section class="section">\
-                        <img src="' + IMGPrefix + options.nowArray[i] + '" alt="">';
+                        <img src="' + IMGPrefix + imgArr[i] + '" alt="">';
                     if(i == len - 1){
-                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + options.yeelightUrl +'"></a></div><div class="btn-look btn-look--right"><a href="' + options.mijiaUrl + '"></a></div></div>'
+                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + videoLink + '?type=yeelight' +'"></a></div><div class="btn-look btn-look--right"><a href="' + videoLink + '?type=mijia' + '"></a></div></div>'
                     }
                     contentHTML += '</section>';
                 }
                 content.innerHTML = contentHTML;
-
-            }
-            // 绑定事件
-            function bindEvent(device) {
-                var yeeVideo = document.getElementsByClassName('yee-video')[0];
-                var mijiaVideo = document.getElementsByClassName('mijia-video')[0];
-                var videoDom = document.getElementsByClassName('video')[0];
-                var coverDom = document.getElementsByClassName('cover')[0];
-                var content = document.getElementsByClassName('content')[0];
-                yeeVideo.src = yeeViderSrc;
-                mijiaVideo.src = mijiaVideoSrc;
-                // pc端视频处理
-                if(device == 'pc') {
-                    // 视频按钮
-                    var yeeBtn = document.getElementsByClassName('btn-look--left')[0];
-                    var mijiaBtn = document.getElementsByClassName('btn-look--right')[0];
-                    yeeBtn.onclick = function () {
-                        videoDom.style.display = 'block';
-                        yeeVideo.style.display = 'block';
-                        mijiaVideo.style.display = 'none';
-                        content.style.display = 'none';
-                    }
-                    mijiaBtn.onclick = function () {
-                        videoDom.style.display = 'block';
-                        yeeVideo.style.display = 'none';
-                        mijiaVideo.style.display = 'block';
-                        content.style.display = 'none';
-                    } 
-                    // 点击视频侧边空白关闭视频
-                    coverDom.onclick = function () {
-                        videoDom.style.display = 'none';
-                        content.style.display = 'block';
-                    }
-                }
-                
             }
 
             

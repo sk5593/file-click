@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" href="favicon.ico">
     <script>
        (function (doc, win) {
             let docEl = doc.documentElement
@@ -69,16 +71,78 @@
     </style>
 </head>
 <body>
-    <video preload="preload" autoplay controls  x5-playsinline="" webkit-playsinline="" src="https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_en.mov"></video>
-    <script src="">
-        var videoUrl = {
-            yee_cn: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_cn.mov',
-            mijia_cn: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_cn.mov',
-            yee_en: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/yeelight_en.mov',
-            mijia_en: 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/mijia_en.mov'
+    <!-- x5-playsinline="" webkit-playsinline="" -->
+    <video preload="preload" autoplay controls src="" class="video"></video>
+    <script>
+        var language, videoType, videoUrl;
+        var videoPrefix = 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/';
+        var videoArray = {
+            yee_zh: 'yeelight_cn.mov',
+            yee_en: 'yeelight_en.mov',
+            yee_de: 'yeelight_de.mov',
+            mijia_zh: 'mijia_cn.mov',
+            mijia_en: 'mijia_en.mov',
+            mijia_de: 'mijia_de.mov'
+        }
+        function init() {
+            language = langFun();
+            videoType = gup('type');
+            videoUrl = videoPrefix + videoName(language, videoType, videoArray);
+            addVideoSrc(videoUrl);
+        }
+        init();
+        // to make sure language
+        function langFun() {
+            var l;
+            var lang = (navigator.browserLanguage || navigator.language).toLowerCase();
+            if(lang.indexOf('zh') > -1){
+                l = 'zh';
+            }else if(lang.indexOf('de') > -1) {
+                l = 'de';
+            }else {
+                l = 'en';
+            }
+            return l;
+        }
+        // get location seach
+        function gup( name ) {
+            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( window.location.href );
+            if( results == null )
+                return "";
+            else
+                return results[1];
+        }
+        // choose video src
+        function videoName(lang, type, urlList) {
+            var name = '';
+            if(type == 'yeelight') {
+                if(lang == 'zh') {
+                    name = urlList.yee_zh; 
+                }else if(language =='de') {
+                    name = urlList.yee_de; 
+                }else {
+                    name = urlList.yee_en;
+                }
+            }else if(type == 'mijia') {
+                if(lang == 'zh') {
+                    name = urlList.mijia_zh; 
+                }else if(language =='de') {
+                    name = urlList.mijia_de; 
+                }else {
+                    name = urlList.mijia_en;
+                }
+            }
+            return name;
+        }
+        // video add src
+        function addVideoSrc(url) {
+            var videoDom = document.getElementsByClassName('video')[0];
+            videoDom.src = url;
         }
 
-        
     
     
     </script>

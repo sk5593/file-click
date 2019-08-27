@@ -144,12 +144,15 @@
             var videoDom = document.getElementsByClassName('video')[0];
             videoDom.src = url;
             video.addEventListener('ended', function () {
+                alert('ended')
                 this.objectFit = 'contain' 
             })
             video.addEventListener('pause', function () {
+                alert('pause')
                 this.objectFit = 'contain'
             })
             video.addEventListener('play', function () {
+                alert('play')
                 this.objectFit = 'inherit';
             })
         }

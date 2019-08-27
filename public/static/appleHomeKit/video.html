@@ -66,8 +66,16 @@
 </head>
 <body>
     <!--  -->
-    <video preload="preload" autoplay controls x5-playsinline="" webkit-playsinline="" src="" class="video"></video>
+    <video 
+        preload="preload" 
+        autoplay 
+        controls 
+        object-fit: fill 
+        playsinline=""
+        src="" 
+        class="video"></video>
     <script>
+        // let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
         var language, videoType, videoUrl;
         var videoPrefix = 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/';
         var videoArray = {
@@ -82,7 +90,7 @@
             language = langFun();
             videoType = gup('type');
             videoUrl = videoPrefix + videoName(language, videoType, videoArray);
-            addVideoSrc(videoUrl);
+            setVideo(videoUrl);
         }
         init();
         // to make sure language
@@ -131,10 +139,19 @@
             }
             return name;
         }
-        // video add src
-        function addVideoSrc(url) {
+        // set video dom src and event
+        function setVideo(url) {
             var videoDom = document.getElementsByClassName('video')[0];
             videoDom.src = url;
+            video.addEventListener('ended', function () {
+                this.objectFit = 'contain' 
+            })
+            video.addEventListener('pause', function () {
+                this.objectFit = 'contain'
+            })
+            video.addEventListener('play', function () {
+                this.objectFit = 'inherit';
+            })
         }
 
     

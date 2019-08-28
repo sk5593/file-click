@@ -48,19 +48,14 @@
             border-radius: 24px;
             overflow: hidden;
         }
-        .btn-look--left a{
-            background: url();
-            background: orange;
-        }
-        .btn-look--right a{
-            background: url();
-            background: orange;
+        .btn-look a{
+            background-size: 100% ;
         }
         @media screen and (max-width: 640px){
             .content{
                 max-width: 640px;
             }
-            .btn-box{
+            /* .btn-box{
                 bottom: 18.935%;
                 height: 6.864%;
             }
@@ -72,13 +67,13 @@
             }
             .btn-look--right{
                 right: 16.13%;
-            }
+            } */
         }
         @media screen and (min-width: 641px){
             .content{
                 max-width: 1440px;
             }
-            .btn-box{
+            /* .btn-box{
                 bottom: 25.258%;
                 height: 7.474%;
             }
@@ -90,7 +85,7 @@
             }
             .btn-look--right{
                 right: 32.43%;
-            }
+            } */
         }
     </style>
   </head>
@@ -109,8 +104,77 @@
                 pc_de: ['de-pc/de-pc_01.jpg', 'de-pc/de-pc_02.jpg', 'de-pc/de-pc_03.jpg',  'de-pc/de-pc_04.jpg', 'de-pc/de-pc_05.jpg'],
                 phone_zh: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg'],
                 phone_en: ['en-phone/en-phone_01.jpg', 'en-phone/en-phone_02.jpg', 'en-phone/en-phone_03.jpg', 'en-phone/en-phone_04.jpg', 'en-phone/en-phone_05.jpg'],
-                phone_de: ['de-phone/de-phone_01.jpg', 'de-phone/de-phone_02.jpg', 'de-phone/de-phone_03.jpg', 'de-phone/de-phone_04.jpg', 'de-phone/de-phone_05.jpg']
+                phone_de: ['de-phone/de-phone_01.jpg', 'de-phone/de-phone_02.jpg', 'de-phone/de-phone_03.jpg', 'de-phone/de-phone_04.jpg', 'de-phone/de-phone_05.jpg'],
             };
+            // btn url
+            var btnArr = {
+                btn_en: 'btns/click_en.png',
+                btn_zh: 'btns/click_zh.png',
+                btn_de: 'btns/click_de.png'
+            }
+
+            var btnStyle = {
+                pc_zh: {
+                    btn_box: {
+                        bottom: '25.258%',
+                        height: '7.474%'
+                    },
+                    btn_look: {
+                        width: '12.5%'
+                    },
+                    btn_look__left: {
+                        left: '32.569%'
+                    },
+                    btn_look__right: {
+                        right: '32.43%'
+                    }
+                },
+                phone_zh: {
+                    btn_box: {
+                        bottom: '18.935%',
+                        height: '6.864%'
+                    },
+                    btn_look: {
+                        width: '24%'
+                    },
+                    btn_look__left: {
+                        left: '16.4%'
+                    },
+                    btn_look__right: {
+                        right: '16.13%'
+                    } 
+                },
+                pc_en: {
+                    btn_box: {
+                        bottom: '23.117%',
+                        height: '7.532%'
+                    },
+                    btn_look: {
+                        width: '13.889%'
+                    },
+                    btn_look__left: {
+                        left: '19.861%'
+                    },
+                    btn_look__right: {
+                        right: '19.861%'
+                    } 
+                },
+                phone_en: {
+                    btn_box: {
+                        bottom: '15.556%',
+                        height: '7.16%'
+                    },
+                    btn_look: {
+                        width: '26.667%'
+                    },
+                    btn_look__left: {
+                        left: '14.667%'
+                    },
+                    btn_look__right: {
+                        right: '14.667%'
+                    } 
+                }
+            }
             
             function init() {
                 language = langFun();
@@ -155,41 +219,60 @@
             }
             // find image url
             function imgUrl(lang, device) {
-                var nowArray;
-                if(device == 'pc') {
-                    if(lang == 'zh') {
+                var nowArray, btnUrl, btnStyleObj;
+                if(lang == 'zh') {
+                    if(device == 'pc') {
                         nowArray = IMGArray.pc_zh; 
-                    }else if(lang =='de') {
-                        nowArray = IMGArray.pc_de; 
-                    }else {
-                        nowArray = IMGArray.pc_en;
-                    }
-                }else if(device == 'phone') {
-                    if(lang == 'zh') {
+                        btnStyleObj = btnStyle.pc_zh;
+                    }else if(device == 'phone') {
                         nowArray = IMGArray.phone_zh; 
-                    }else if(lang =='de') {
-                        nowArray = IMGArray.phone_de; 
-                    }else {
-                        nowArray = IMGArray.phone_en;
+                        btnStyleObj = btnStyle.phone_zh;
                     }
+                    btnUrl = btnArr.btn_zh;
+                }else if(lang =='de') {
+                    if(device == 'pc') {
+                        nowArray = IMGArray.pc_de; 
+                        btnStyleObj = btnStyle.pc_de;
+                    }else if(device == 'phone') {
+                        nowArray = IMGArray.phone_de; 
+                        btnStyleObj = btnStyle.phone_de;
+                    }
+                    btnUrl = btnArr.btn_de;
+                }else {
+                    if(device == 'pc') {
+                        nowArray = IMGArray.pc_en; 
+                        btnStyleObj = btnStyle.pc_en;
+                    }else if(device == 'phone') {
+                        nowArray = IMGArray.phone_en; 
+                        btnStyleObj = btnStyle.phone_en;
+                    }
+                    btnUrl = btnArr.btn_en;
                 }
-                return nowArray;
+                return {
+                    nowArray: nowArray,
+                    btnUrl: btnUrl,
+                    btnStyleObj: btnStyleObj
+                };
             }
                     
             // create dom
-            function createDom(imgArr) {
+            function createDom(obj) {
                 var content = document.getElementsByClassName('content')[0];
+                var imgArr = obj.nowArray;
+                var btnUrl = obj.btnUrl;
+                var btnStyleObj = obj.btnStyleObj;
                 var len = imgArr.length;
                 var contentHTML = '';
                 for(var i = 0; i < len; i++) {
                     contentHTML += '<section class="section">\
                         <img src="' + IMGPrefix + imgArr[i] + '" alt="">';
                     if(i == len - 1){
-                        contentHTML += '<div class="btn-box"><div class="btn-look btn-look--left"><a href="' + videoLink + '?type=yeelight' +'"></a></div><div class="btn-look btn-look--right"><a href="' + videoLink + '?type=mijia' + '"></a></div></div>'
+                        contentHTML += '<div class="btn-box" style="bottom:'+btnStyleObj.btn_box.bottom+';height: '+btnStyleObj.btn_box.height+'"><div class="btn-look btn-look--left" style="width: '+btnStyleObj.btn_look.width+';left: '+btnStyleObj.btn_look__left.left+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=yeelight' +'"></a></div><div class="btn-look btn-look--right" style="width: '+btnStyleObj.btn_look.width+';right: '+btnStyleObj.btn_look__right.right+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=mijia' + '"></a></div></div>'
                     }
                     contentHTML += '</section>';
                 }
                 content.innerHTML = contentHTML;
+                
             }
 
             

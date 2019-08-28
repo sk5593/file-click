@@ -35,6 +35,11 @@
     </script>
     <style>
         body{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
             margin: 0;
             background: #000;
         }
@@ -68,15 +73,17 @@
     <!--  -->
     <video 
         preload="preload" 
+        webkit-playsinline
+        playsinline
         autoplay 
         controls
+        loop
         x5-video-player-fullscreen="false"
         x5-playsinline="" 
         playsinline=""
         src="" 
         class="video"></video>
     <script>
-        // let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
         var language, videoType, videoUrl;
         var videoPrefix = 'https://cloud-bj-resources.yeelight.com/video/tocpage/appleHomeKit/';
         var videoArray = {
@@ -87,6 +94,7 @@
             mijia_en: 'mijia_en.mov',
             mijia_de: 'mijia_de.mov'
         }
+        
         function init() {
             language = langFun();
             videoType = gup('type');

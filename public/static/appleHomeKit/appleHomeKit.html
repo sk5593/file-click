@@ -95,7 +95,8 @@
         </div>
         <script>
             var language;
-            var videoLink = 'video.html';
+
+            var videoLink = location.protocol + '//page.yeelight.com/static/appleHomeKi/video.html';
             // img url
             var IMGPrefix = '//cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
             var IMGArray = {
@@ -183,6 +184,7 @@
                 document.addEventListener('DOMContentLoaded', devideChange, false);
             }
             init();
+
             // to make sure language
             function langFun() {
                 var l;
@@ -272,7 +274,6 @@
                     contentHTML += '</section>';
                 }
                 content.innerHTML = contentHTML;
-                
             }
 
             

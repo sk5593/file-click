@@ -90,10 +90,10 @@
         var videoArray = {
             yee_zh: 'yeelight_cn.mov',
             yee_en: 'yeelight_en.mov',
-            yee_de: 'yeelight_de.mov',
+            yee_de: 'yeelight_en.mov',
             mijia_zh: 'mijia_cn.mov',
             mijia_en: 'mijia_en.mov',
-            mijia_de: 'mijia_de.mov'
+            mijia_de: 'mijia_en.mov'
         }
         
         function init() {
@@ -130,10 +130,11 @@
         // choose video src
         function videoName(lang, type, urlList) {
             var name = '';
+            lang = 'de';
             if(type == 'yeelight') {
                 if(lang == 'zh') {
                     name = urlList.yee_zh; 
-                }else if(language =='de') {
+                }else if(lang =='de') {
                     name = urlList.yee_de; 
                 }else {
                     name = urlList.yee_en;
@@ -141,7 +142,7 @@
             }else if(type == 'mijia') {
                 if(lang == 'zh') {
                     name = urlList.mijia_zh; 
-                }else if(language =='de') {
+                }else if(lang =='de') {
                     name = urlList.mijia_de; 
                 }else {
                     name = urlList.mijia_en;

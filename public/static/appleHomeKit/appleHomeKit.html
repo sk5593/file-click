@@ -102,10 +102,10 @@
             var IMGArray = {
                 pc_zh: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
                 pc_en: ['en-pc/en-pc_01.jpg', 'en-pc/en-pc_02.jpg', 'en-pc/en-pc_03.jpg',  'en-pc/en-pc_04.jpg', 'en-pc/en-pc_05.jpg'],
-                pc_de: ['de-pc/de-pc_01.jpg', 'de-pc/de-pc_02.jpg', 'de-pc/de-pc_03.jpg',  'de-pc/de-pc_04.jpg', 'de-pc/de-pc_05.jpg'],
+                pc_de: ['de-pc/de-pc_01.jpg', 'de-pc/de-pc_02.jpg', 'de-pc/de-pc_03.jpg',  'de-pc/de-pc_04.jpg'],
                 phone_zh: ['zh-phone/zh-phone_01.jpg', 'zh-phone/zh-phone_02.jpg', 'zh-phone/zh-phone_03.jpg', 'zh-phone/zh-phone_04.jpg', 'zh-phone/zh-phone_05.jpg'],
                 phone_en: ['en-phone/en-phone_01.jpg', 'en-phone/en-phone_02.jpg', 'en-phone/en-phone_03.jpg', 'en-phone/en-phone_04.jpg', 'en-phone/en-phone_05.jpg'],
-                phone_de: ['de-phone/de-phone_01.jpg', 'de-phone/de-phone_02.jpg', 'de-phone/de-phone_03.jpg', 'de-phone/de-phone_04.jpg', 'de-phone/de-phone_05.jpg'],
+                phone_de: ['de-phone/de-phone_01.jpg', 'de-phone/de-phone_02.jpg', 'de-phone/de-phone_03.jpg', 'de-phone/de-phone_04.jpg'],
             };
             // btn url
             var btnArr = {
@@ -174,6 +174,36 @@
                     btn_look__right: {
                         right: '14.667%'
                     } 
+                },
+                pc_de: {
+                    btn_box: {
+                        bottom: '23.006%',
+                        height: '6.705%'
+                    },
+                    btn_look: {
+                        width: '20.556%'
+                    },
+                    btn_look__left: {
+                        left: '25.833%'
+                    },
+                    btn_look__right: {
+                        right: '25.833%'
+                    } 
+                },
+                phone_de: {
+                    btn_box: {
+                        bottom: '15.223%',
+                        height: '7.178%'
+                    },
+                    btn_look: {
+                        width: '39.467%'
+                    },
+                    btn_look__left: {
+                        left: '8.133%'
+                    },
+                    btn_look__right: {
+                        right: '8.133%'
+                    }
                 }
             }
             
@@ -222,6 +252,7 @@
             // find image url
             function imgUrl(lang, device) {
                 var nowArray, btnUrl, btnStyleObj;
+                lang = 'de';
                 if(lang == 'zh') {
                     if(device == 'pc') {
                         nowArray = IMGArray.pc_zh; 
@@ -234,10 +265,10 @@
                 }else if(lang =='de') {
                     if(device == 'pc') {
                         nowArray = IMGArray.pc_de; 
-                        btnStyleObj = btnStyle.pc_de;
+                        btnStyleObj = btnStyle.pc_en;
                     }else if(device == 'phone') {
                         nowArray = IMGArray.phone_de; 
-                        btnStyleObj = btnStyle.phone_de;
+                        btnStyleObj = btnStyle.phone_en;
                     }
                     btnUrl = btnArr.btn_de;
                 }else {

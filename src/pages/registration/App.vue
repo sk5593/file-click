@@ -102,9 +102,10 @@
                     this.end = activeData.end;
                     this.activityInfor();
                 }, rej => {
-                    if(rej.code == '401002') {
+                    if(rej.status == '401') {
                         location.href = 'http://test.yeelight.com/apis/c/wx/r/redirect?redirect=' + location.href;
                     }
+
                 })
             },
             activityInfor() {

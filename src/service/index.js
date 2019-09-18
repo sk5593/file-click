@@ -49,8 +49,9 @@ axios.interceptors.response.use(res => {
 //   if (statusWhiteList.includes(status)) return Promise.reject(res);
   // 如果请求为非200否者默认统一处理
   if (status != 200) {
-    return Promise.reject(res.data)
+    return Promise.reject(res)
   }
+
   return res.data;
 }, error => {
   NProgress.done();

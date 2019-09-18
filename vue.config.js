@@ -23,6 +23,14 @@ module.exports = {
         googleexchange_pc: {
             entry: 'src/pages/googleexchange_pc/main.js',
             template: 'src/pages/googleexchange_pc/googleexchange_pc.html'
+        },
+        registration: {
+            entry: 'src/pages/registration/main.js',
+            template: 'src/pages/registration/registration.html'
+        },
+        registration_state: {
+            entry: 'src/pages/registration_state/main.js',
+            template: 'src/pages/registration_state/registration_state.html'
         }
     },
     chainWebpack: config => {

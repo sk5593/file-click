@@ -2,7 +2,7 @@ import request from './index';
 
 const ENV = "test";
 const ENVOBJ = {
-    test: "http://api-test.yeedev.com/apis/c",
+    test: "http://test.yeelight.com/apis/c",
     dev: "http://api-dev.yeedev.com/apis/c",
     prod: "http://api.yeelight.com/apis/c",
 };

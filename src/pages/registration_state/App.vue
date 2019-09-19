@@ -93,7 +93,7 @@
 
 <script>
     import { Dialog, Toast, Loading, Area, Popup } from 'vant';
-    import { activityHome, activityInfor, submit, address } from '@/service/registration';
+    import { activityHome, activityInfor, submit, autoCookie } from '@/service/registration';
     import areaList from './lib/area';
     export default {
         data(){
@@ -136,8 +136,8 @@
                     this.form.activityId = activeData.id;
                     this.activityInfor();
                 }, rej => {
-                    if(rej.code == '401002') {
-                        location.href = 'http://test.yeelight.com/apis/c/wx/r/redirect?redirect=' + location.href;
+                    if(rej.status == '401') {
+                        location.href = autoCookie(location.href);
                     }
                 })
             },
@@ -160,7 +160,6 @@
                             this.state = 4;
                         }else {//未报名
                             this.state = 0;
-                            this.address()
                         }
                     }
                 })

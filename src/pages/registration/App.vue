@@ -81,7 +81,7 @@
 </template>
 
 <script>
-    import { activityHome, activityInfor } from '@/service/registration';
+    import { activityHome, activityInfor, autoCookie } from '@/service/registration';
     export default {
         data() {
             return {
@@ -103,7 +103,7 @@
                     this.activityInfor();
                 }, rej => {
                     if(rej.status == '401') {
-                        location.href = 'http://test.yeelight.com/apis/c/wx/r/redirect?redirect=' + location.href;
+                        location.href = autoCookie(location.href);
                     }
 
                 })

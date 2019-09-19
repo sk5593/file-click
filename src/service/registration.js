@@ -1,8 +1,16 @@
 import request from './index';
 
+const ENV = "test";
+const ENVOBJ = {
+    test: "http://api-test.yeedev.com/apis/c",
+    dev: "http://api-dev.yeedev.com/apis/c",
+    prod: "http://api.yeelight.com/apis/c",
+};
+let URL = ENVOBJ[ENV];
+
 export const activityHome = () => {
     return request({
-        url: 'http://test.yeelight.com/apis/c/activity/r/1',
+        url: URL + '/activity/r/1',
         method: 'get',
         meta: {
             isToken: false
@@ -12,7 +20,7 @@ export const activityHome = () => {
 
 export const activityInfor = () => {
     return request({
-        url: 'http://test.yeelight.com/apis/c/activityEnrolment/r/1',
+        url: URL + '/activityEnrolment/r/1',
         method: 'get',
         meta: {
             isToken: false
@@ -22,7 +30,7 @@ export const activityInfor = () => {
 
 export const submit = (data) => {
     return request({
-        url: 'http://test.yeelight.com/apis/c/activityEnrolment/w',
+        url: URL + '/activityEnrolment/w',
         method: 'post',
         meta: {
             isToken: false
@@ -32,12 +40,6 @@ export const submit = (data) => {
     });
 }
 
-export const address = () => {
-    return request({
-        url: 'http://test.yeelight.com/apis/c/geo/r/100000/children',
-        method: 'get',
-        meta: {
-            isToken: false
-        },
-    });
+export const autoCookie = (data) => {
+    return URL + '/wx/r/redirect?redirect=' + data;
 }

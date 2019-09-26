@@ -48,7 +48,7 @@
                 </div>
                 <div class="main_item main_interior">
                     <div class="main_subtitle">
-                        <h2 class="subtitle_title">活动介绍</h2>
+                        <h2 class="subtitle_title">店铺内景</h2>
                         <img class="subtitle_img" src="./lib/img_subtitle.png" alt="">
                     </div>
                     <div class="main_inner">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="main_inner">
                         <div class="inner_box">
-                             <div class="inner_des">
+                            <div class="inner_des">
                                 <p class="des_p1">扫描二维码或搜索“w_vince”添加小助理微信号，添加成功后发送进群关键词“开业”，小助理会将大家拉进群哦。</p>
                             </div>
                             <div class="inner_QRCode">
@@ -105,7 +105,6 @@
                     if(rej.status == '401') {
                         location.href = autoCookie(location.href);
                     }
-
                 })
             },
             activityInfor() {
@@ -246,7 +245,7 @@
     }
     .infor_des{
         font-size: .7rem;
-        font-weight: lighter;
+        // font-weight: lighter;
         color: $mainConColor;
         margin-bottom: 0.65rem;
         text-align: justify;

@@ -15,21 +15,19 @@
                     <div class="main_inner">
                         <div class="inner_box">
                             <div class="form_content">
-                                <div class="form_item form_name">
+                                <div class="form_item form_name" flex="cross:center">
                                     <img class="icon_name" src="./lib/icon_name.png" alt="">
-                                    <input type="text" placeholder="姓名" v-model="form.userName">
+                                    <input type="text" placeholder="姓名" @blur="blurFun" v-model="form.userName">
                                 </div>
-                                <div class="form_item form_phone">
+                                <div class="form_item form_phone" flex="cross:center">
                                     <img class="icon_phone" src="./lib/icon_phone.png" alt="">
-                                    <input type="tel" placeholder="手机号" v-model="form.userMobile">
+                                    <input type="tel" placeholder="手机号" @blur="blurFun" v-model="form.userMobile" maxlength="11">
                                 </div>
-                                <div class="form_item form_address">
+                                <div class="form_item form_address" flex="cross:center">
                                     <img class="icon_address" src="./lib/icon_address.png" alt="">
-                                    <input type="text" placeholder="省、市、区/县" v-model="area" @click="selectArea=true">
+                                    <input type="text" placeholder="省、市、区/县" v-model="area" readonly unselectable="on" onfocus="this.blur()" @click="selectArea=true">
                                     <img class="icon_arrow" src="./lib/icon_arrow.png" alt="">
                                 </div>
-                                
-                            
                             </div>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
 </template>
 
 <script>
-    import { Dialog, Toast, Loading, Area, Popup } from 'vant';
+    import { Dialog, Toast, Area, Popup } from 'vant';
     import { activityHome, activityInfor, submit, autoCookie } from '@/service/registration';
     import areaList from './lib/area';
     export default {
@@ -138,6 +136,10 @@
                 }, rej => {
                     if(rej.status == '401') {
                         location.href = autoCookie(location.href);
+                    }else {
+                        Dialog({
+                            message: '网络异常，请重试'
+                        })
                     }
                 })
             },
@@ -155,13 +157,17 @@
                         }else {//报名成功
                             this.state = 1;
                         }
-                    }else if(state == undefined) {
+                    }else{
                         if(this.end) {//活动截止
                             this.state = 4;
                         }else {//未报名
                             this.state = 0;
                         }
                     }
+                }, () => {
+                    Dialog({
+                        message: '网络异常，请重试'
+                    })
                 })
             },
             onConfirmArea(val) {
@@ -172,7 +178,7 @@
                     this.form.userCityName = val[1].name;
                     this.form.userRegionId = val[2].code;
                     this.form.userRegionName = val[2].name;
-                    this.area = this.form.userProvinceName + '、' + this.form.userCityName + '、' + this.form.userRegionName;
+                    this.area = this.form.userProvinceName + this.form.userCityName + this.form.userRegionName;
                 }
                 this.selectArea = false;
             },
@@ -185,11 +191,13 @@
             submit(data) {
                 if(!this.validFormData()) return;
                 this.isSubmiting = true;
-                submit(data).then(res => {
+                submit(data).then(() => {
+                    // var value = res.data;
                     this.state = 1;
                 }, rej => {
+                    var value = rej.data;
                     Dialog({
-                        message: rej.msg
+                        message: value.msg
                     })
                 })
             },
@@ -200,6 +208,9 @@
                 }else if(!this.form.userMobile) {
                     Toast('请输入电话')
                     return false;
+                }else if(this.form.userMobile && (this.form.userMobile.length != 11 || !(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.form.userMobile)))) {
+                    Toast('手机号码格式不正确');
+                    return false;
                 }else if(this.form.userMobile.length != 11){
                     Toast('请输入正确的手机号')
                     return false;
@@ -208,7 +219,14 @@
                     return false;
                 }
                 return true;
-            }
+            },
+            blurFun() {
+                setTimeout(() => {
+                    const scrollHeight =
+                        document.documentElement.scrollTop || document.body.scrollTop || 0;
+                    window.scrollTo(0, Math.max(scrollHeight - 1, 0));
+                }, 100);
+            },
         }
     }
 </script>

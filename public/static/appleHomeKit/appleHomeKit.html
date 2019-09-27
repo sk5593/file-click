@@ -94,11 +94,12 @@
             <article class="content"></article>
         </div>
         <script>
+            
             var language;
 
             var videoLink = 'video.html';
             // img url
-            var IMGPrefix = '//cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
+            var IMGPrefix = 'https://cloud-bj-resources.yeelight.com/img/tocpage/appleHomeKit/';
             var IMGArray = {
                 pc_zh: ['zh-pc/zh-pc_01.jpg', 'zh-pc/zh-pc_02.jpg', 'zh-pc/zh-pc_03.jpg',  'zh-pc/zh-pc_04.jpg', 'zh-pc/zh-pc_05.jpg'],
                 pc_en: ['en-pc/en-pc_01.jpg', 'en-pc/en-pc_02.jpg', 'en-pc/en-pc_03.jpg',  'en-pc/en-pc_04.jpg', 'en-pc/en-pc_05.jpg'],
@@ -214,19 +215,39 @@
                 document.addEventListener('DOMContentLoaded', devideChange, false);
             }
             init();
-
+            
             // to make sure language
             function langFun() {
                 var l;
-                var lang = (navigator.browserLanguage || navigator.language).toLowerCase();
-                if(lang.indexOf('zh') > -1){
+                var language = (navigator.browserLanguage || navigator.language).toLowerCase();
+                var lang = gup('lang');
+                if(!lang) {
+                    if(language.indexOf('zh') > -1){
+                        l = 'zh';
+                    }else if(language.indexOf('de') > -1) {
+                        l = 'de';
+                    }else {
+                        l = 'en';
+                    }
+                }else if(lang == 'zh') {
                     l = 'zh';
-                }else if(lang.indexOf('de') > -1) {
+                }else if(lang == 'de') {
                     l = 'de';
                 }else {
                     l = 'en';
                 }
                 return l;
+            }
+            // get location seach
+            function gup( name ) {
+                name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+                var regexS = "[\\?&]"+name+"=([^&#]*)";
+                var regex = new RegExp( regexS );
+                var results = regex.exec( window.location.href );
+                if( results == null )
+                    return "";
+                else
+                    return results[1];
             }
             
             function devideChange() {
@@ -299,7 +320,7 @@
                     contentHTML += '<section class="section">\
                         <img src="' + IMGPrefix + imgArr[i] + '" alt="">';
                     if(i == len - 1){
-                        contentHTML += '<div class="btn-box" style="bottom:'+btnStyleObj.btn_box.bottom+';height: '+btnStyleObj.btn_box.height+'"><div class="btn-look btn-look--left" style="width: '+btnStyleObj.btn_look.width+';left: '+btnStyleObj.btn_look__left.left+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=yeelight' +'"></a></div><div class="btn-look btn-look--right" style="width: '+btnStyleObj.btn_look.width+';right: '+btnStyleObj.btn_look__right.right+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=mijia' + '"></a></div></div>'
+                        contentHTML += '<div class="btn-box" style="bottom:'+btnStyleObj.btn_box.bottom+';height: '+btnStyleObj.btn_box.height+'"><div class="btn-look btn-look--left" style="width: '+btnStyleObj.btn_look.width+';left: '+btnStyleObj.btn_look__left.left+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=yeelight&lang='+ language +'"></a></div><div class="btn-look btn-look--right" style="width: '+btnStyleObj.btn_look.width+';right: '+btnStyleObj.btn_look__right.right+'"><a style="background-image: url('+IMGPrefix + btnUrl+')" href="' + videoLink + '?type=mijia&lang='+ language + '"></a></div></div>'
                     }
                     contentHTML += '</section>';
                 }

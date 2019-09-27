@@ -37,7 +37,7 @@ module.exports = {
         config.optimization.delete('splitChunks')
     },
     devServer:{
-        host: 'localhost.yeelight.com',
+        host: '',
         port: 80,
         open: true,
         openPage: `${entry}.html`,

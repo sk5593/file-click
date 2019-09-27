@@ -103,13 +103,21 @@
             addVideoSrc(videoUrl);
         }
         init();
-        // to make sure language
         function langFun() {
             var l;
-            var lang = (navigator.browserLanguage || navigator.language).toLowerCase();
-            if(lang.indexOf('zh') > -1){
+            var language = (navigator.browserLanguage || navigator.language).toLowerCase();
+            var lang = gup('lang');
+            if(!lang) {
+                if(language.indexOf('zh') > -1){
+                    l = 'zh';
+                }else if(language.indexOf('de') > -1) {
+                    l = 'de';
+                }else {
+                    l = 'en';
+                }
+            }else if(lang == 'zh') {
                 l = 'zh';
-            }else if(lang.indexOf('de') > -1) {
+            }else if(lang == 'de') {
                 l = 'de';
             }else {
                 l = 'en';

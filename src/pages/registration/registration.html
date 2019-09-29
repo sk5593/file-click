@@ -15,14 +15,15 @@
       IMGPrefix = IMGPrefix.join('/');
       document.write('<script src="' + IMGPrefix + '/cdn/rem.js"><\/script>');
       document.write('<script src="' + IMGPrefix + '/cdn/jweixin-1.3.2.js"><\/script>');
-      const ENV = "test";
+      const ENV = "stage";
       const ENVOBJ = {
           test: "http://api-test.yeedev.com",
           dev: "http://api-dev.yeedev.com",
-          prod: "http://api.yeelight.com"
+          prod: "http://api.yeelight.com",
+          stage: "http://api-stage.yeelight.com/apis/c"
       };
       let URL = ENVOBJ[ENV];
-      document.write('<script src="' + URL + '/apis/c/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
+      document.write('<script src="' + URL + '/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
     </script>
   </head>
   <body>

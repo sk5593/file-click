@@ -20,10 +20,10 @@
           test: "http://api-test.yeedev.com",
           dev: "http://api-dev.yeedev.com",
           prod: "http://api.yeelight.com",
-          stage: "http://api-stage.yeelight.com/apis/c"
+          stage: "http://api-stage.yeelight.com"
       };
       let URL = ENVOBJ[ENV];
-      document.write('<script src="' + URL + '/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
+      document.write('<script src="' + URL + '/apis/c/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
     </script>
   </head>
   <body>

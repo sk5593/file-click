@@ -1,10 +1,11 @@
 import request from './index';
 
-const ENV = "test";
+const ENV = "stage";
 const ENVOBJ = {
     test: "http://test.yeelight.com/apis/c",
     dev: "http://api-dev.yeedev.com/apis/c",
     prod: "http://api.yeelight.com/apis/c",
+    stage: "http://api-stage.yeelight.com/apis/c"
 };
 let URL = ENVOBJ[ENV];
 

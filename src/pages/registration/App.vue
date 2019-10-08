@@ -69,7 +69,7 @@
                                 <p class="des_p1">扫描二维码或搜索“w_vince”添加小助理微信号，添加成功后发送进群关键词“开业”，小助理会将大家拉进群哦。</p>
                             </div>
                             <div class="inner_QRCode">
-                                <img class="QRCode_img" src="./lib/qr_code@2x.png" alt="">
+                                <img class="QRCode_img" src="./lib/qr_code.png" alt="">
                             </div>
                         </div>
                     </div>

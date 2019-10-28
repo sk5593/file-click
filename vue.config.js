@@ -1,5 +1,5 @@
 // vue.config.js
-const entry = 'googleexchange';
+const entry = 'e_tailors_festival';
 const apiUrl = 'http://api-test.yeedev.com';
 // const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
@@ -12,6 +12,10 @@ module.exports = {
         //     entry: 'src/pages/givemefive/main.js',
         //     template: 'src/pages/givemefive/givemefive.html'
         // },
+        e_tailors_festival: {
+            entry: 'src/pages/e-tailors-festival/main.js',
+            template: 'src/pages/e-tailors-festival/e-tailors-festival.html'
+        },
         // betaactivity: {
         //     entry: 'src/pages/betaactivity/main.js',
         //     template: 'src/pages/betaactivity/betaactivity.html'
@@ -24,14 +28,14 @@ module.exports = {
         //     entry: 'src/pages/googleexchange_pc/main.js',
         //     template: 'src/pages/googleexchange_pc/googleexchange_pc.html'
         // },
-        registration: {
-            entry: 'src/pages/registration/main.js',
-            template: 'src/pages/registration/registration.html'
-        },
-        registration_state: {
-            entry: 'src/pages/registration_state/main.js',
-            template: 'src/pages/registration_state/registration_state.html'
-        }
+        // registration: {
+        //     entry: 'src/pages/registration/main.js',
+        //     template: 'src/pages/registration/registration.html'
+        // },
+        // registration_state: {
+        //     entry: 'src/pages/registration_state/main.js',
+        //     template: 'src/pages/registration_state/registration_state.html'
+        // }
     },
     chainWebpack: config => {
         config.optimization.delete('splitChunks')

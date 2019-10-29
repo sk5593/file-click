@@ -1,8 +1,16 @@
 import request from './index';
-// 获取当前微信登陆拼团信息
+const ENV = "stage";
+const ENVOBJ = {
+    test: "http://test.yeelight.com/apis/c",
+    dev: "http://api-dev.yeedev.com/apis/c",
+    prod: "http://api.yeelight.com/apis/c",
+    stage: "http://api-stage.yeelight.com/apis/c"
+};
+let URL = ENVOBJ[ENV];
+// 获取当前微信登陆拼团信息 y
 export const getteam = (teamId) => {
     return request({    
-        url: '/apis/c/v1/user-coupons/jd/r/get/team',
+        url: URL + '/v1/user-coupons/jd/r/get/team',
         method: 'get',
         params: {
             teamId
@@ -12,17 +20,17 @@ export const getteam = (teamId) => {
 // 分享签名接口
 export const share = (url) => {
     return request({
-        url: '/apis/c/wx/r/js_api_signature',
+        url:  URL + '/wx/r/js_api_signature',
         method: 'get',
         params: {
             url
         }
     })
 }
-// 加入某个京东拼团
+// 加入某个京东拼团 y
 export const jointeam = (union_id, team_id) => {
     return request({
-        url: '/apis/c/v1/user-coupons/jd/w/join/team',
+        url:  URL + '/v1/user-coupons/jd/w/join/team',
         method: 'post',
         data: {
             union_id,
@@ -33,28 +41,32 @@ export const jointeam = (union_id, team_id) => {
 // 跳转使用京东优惠券
 export const turnToUse = () => {
     return request({
-        url: '/apis/c/v1/user-coupons/jd/w/open/coupon',
+        url:  URL + '/v1/user-coupons/jd/w/use/coupon/1',
         method: 'post'
     })
 }
-// 打开京东优惠券
+// 打开京东优惠券 y
 export const opencoupon = () => {
     return request({
-        url: '/apis/c/v1/user-coupons/jd/w/open/coupon',
+        url:  URL + '/v1/user-coupons/jd/w/open/coupon',
         method: 'post'
     })
 }
-// 京东拆券活动截止时间
+// 京东拆券活动截止时间 y
 export const config = () => {
     return request({
-        url: '/apis/c/v1/user-coupons/jd/r/config',
+        url: URL +  '/v1/user-coupons/jd/r/config',
         method: 'get'
     })
 }
-// 京东默认优惠券
+// 京东默认优惠券 y
 export const defaultCoupon = () => {
     return request({
-        url: '/apis/c/v1/user-coupons/jd/r/coupon/sunshine',
+        url:  URL + '/v1/user-coupons/jd/r/coupon/sunshine',
         method: 'get'
     })
+}
+// 微信授权 y
+export const autoCookie = (data) => {
+    return URL + '/wx/r/redirect?redirect=' + data;
 }

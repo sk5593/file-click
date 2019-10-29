@@ -1,7 +1,7 @@
 // vue.config.js
 const entry = 'e_tailors_festival';
-const apiUrl = 'http://api-test.yeedev.com';
-// const apiUrl = 'http://api-dev.yeedev.com';
+// const apiUrl = 'http://api-test.yeedev.com';
+const apiUrl = 'http://api-dev.yeedev.com';
 module.exports = {
     publicPath: '/',
     // outputDir: '',
@@ -41,7 +41,8 @@ module.exports = {
         config.optimization.delete('splitChunks')
     },
     devServer:{
-        host: 'localhost.yeelight.com',
+        // host: 'localhost.yeelight.com',
+        host: '',
         port: 80,
         open: true,
         openPage: `${entry}.html`,

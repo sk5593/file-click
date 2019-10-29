@@ -26,7 +26,12 @@
                         <!-- <div class="coupon-title-endtime">{{config.validDate}}结束</div> -->
                     </div>
                     <template v-else-if="config.valid">
-                        <div v-if="state==1" class="coupon-title-main">人气618，省钱攻略来袭</div>
+                        <div v-if="state==1">
+                            <div class="coupon-title-main">11.11五人团战省钱攻略</div>
+                            <div class="coupon-title-subtitle">最高送550元半价券</div>
+                        </div>
+                        
+                        
                         <div v-else-if="join==false">
                             <div class="coupon-title-main" v-if="state>=4">很遗憾，当前拼团人数已满</div>
                             <div class="coupon-title-main" v-else>您的小伙伴邀您走向省钱巅峰</div>
@@ -149,7 +154,7 @@
             <aside class="aside textcenter" v-else-if="state==4 && join">
                 <button class="btn-aside btn-openteam" @click="handleBth">
                     <img :src="IMGPrefix+'/img/givemefive/logo.png'" alt="" width="19px"> 
-                    <span class="btn-aside-text">Give me five</span>
+                    <span class="btn-aside-text">立即拆券</span>
                 </button>
             </aside>
         </template>
@@ -166,8 +171,8 @@
 
 <script>
     import { getQueryString, validatenull } from '@/util/util';
-    import { getToken, setToken } from '@/util/auth'
-    import { getteam, jointeam, opencoupon, config, } from '@/service/e-tailors-festival';
+    import { getToken2, setToken2 } from '@/util/auth'
+    import { getteam, jointeam, opencoupon, config, autoCookie, defaultCoupon } from '@/service/e-tailors-festival';
     export default {
         data(){
             return {
@@ -175,10 +180,11 @@
                     valid: null,
                     validDate: ''
                 },
+                amount: '',//默认优惠券
                 state: 0, // 1.初始状态；2.团长开团；3.有小伙伴加入（不满5人）；4.已满团（满5人）;5.已开券
                 role: 1, // 角色，1.团长；2.团员
                 join: null, // 是否已加入
-                bind: false, //是否已绑定小米账号
+                // bind: false, //是否已绑定小米账号
                 scene: '', // 来源
                 teamId: '', // 团ID
                 self: {}, //个人信息
@@ -212,8 +218,8 @@
             }
         },
         mounted(){
-            let token = getQueryString('timeline') || getToken();
-            if(token) setToken(token);
+            let token = getQueryString('timeline') || getToken2();
+            if(token) setToken2(token);
             this.scene = getQueryString('scene');
             this.teamId = getQueryString('teamId');
             this.init();
@@ -228,27 +234,106 @@
                     if(this.config.valid){
                         this.vmGetteam();
                     } else {
-                        this.state = 1;
+                        this.state = 1; 
+                        defaultCoupon().then(res => {
+                            let data = res.data;
+                            this.amount = data.amount;
+                        });
+                    }
+                }, rej => {
+                    if(rej.status == '401') {
+                        location.href = autoCookie(location.href);
                     }
                 })
             },
+            // 获取当前状态信息
             vmGetteam() {
                 getteam(this.teamId).then(res => {
+                    
                     if(!validatenull(res.data)){
                         let data = res.data;
-                        this.bind = data.bind;
-                        if(this.bind){
+                        console.log(data)
+                        // this.bind = data.bind;
+                        // if(this.bind){
                             this.join = data.join;
                             if(this.join) {
                                 this.self = data.self;
                                 this.role = this.self.role;
                             }
-                        }
+                        // }
                         if(validatenull(data.team)){
                             this.state = 1;
                             return;
                         }
                         this.teamList = data.team;
+                        // this.teamList = [
+                        //     {
+                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
+                        //         couponsDetail: {},
+                        //         createTime: "1572334197",
+                        //         id: "2",
+                        //         joinTime: "1572334197",
+                        //         nickName: "ICE",
+                        //         role: 1,
+                        //         startTime: "1572334197",
+                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
+                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
+                        //         updateTime: "1572334197",
+                        //     },
+                        //     {
+                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
+                        //         couponsDetail: {},
+                        //         createTime: "1572334197",
+                        //         id: "3",
+                        //         joinTime: "1572334197",
+                        //         nickName: "ICE",
+                        //         role: 2,
+                        //         startTime: "1572334197",
+                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
+                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
+                        //         updateTime: "1572334197",
+                        //     },
+                        //     {
+                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
+                        //         couponsDetail: {},
+                        //         createTime: "1572334197",
+                        //         id: "4",
+                        //         joinTime: "1572334197",
+                        //         nickName: "ICE",
+                        //         role: 2,
+                        //         startTime: "1572334197",
+                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
+                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
+                        //         updateTime: "1572334197",
+                        //     },
+                        //     {
+                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
+                        //         couponsDetail: {},
+                        //         createTime: "1572334197",
+                        //         id: "5",
+                        //         joinTime: "1572334197",
+                        //         nickName: "ICE",
+                        //         role: 2,
+                        //         startTime: "1572334197",
+                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
+                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
+                        //         updateTime: "1572334197",
+                        //     },
+                        //     {
+                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
+                        //         couponsDetail: {},
+                        //         createTime: "1572334197",
+                        //         id: "6",
+                        //         joinTime: "1572334197",
+                        //         nickName: "ICE",
+                        //         role: 2,
+                        //         startTime: "1572334197",
+                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
+                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
+                        //         updateTime: "1572334197",
+                        //     }
+                        // ]
+                        // console.log(this.teamList)
                         this.teamId = this.teamList[0].teamId;
                         if(this.teamList.length == 1) {
                             this.state = 2;
@@ -262,6 +347,8 @@
                         }
                         this.initMessage();
                     }
+                }, err => {
+                    alert(err.data.msg);
                 });
             },
             initMessage() {
@@ -278,27 +365,28 @@
                 }
             },
             handleBth(){
-                if(!this.bind) {
-                    try{
-                        // eslint-disable-next-line no-undef
-                        wx.miniProgram.postMessage({
-                            data: {
-                                teamId: this.teamId,
-                                scene: this.scene,
-                                redirect: true
-                            }
-                        });
-                        // eslint-disable-next-line no-undef
-                        wx.miniProgram.redirectTo({
-                            url: '/pages/oauth/oauth'
-                        });
-                    } catch(e) {
-                        // eslint-disable-next-line no-console
-                        console.log(e);
-                    }
-                    return;
-                }
-                
+                // if(!this.bind) {
+                //     try{
+                //         // eslint-disable-next-line no-undef
+                //         wx.miniProgram.postMessage({
+                //             data: {
+                //                 teamId: this.teamId,
+                //                 scene: this.scene,
+                //                 redirect: true
+                //             }
+                //         });
+                //         // eslint-disable-next-line no-undef
+                //         wx.miniProgram.redirectTo({
+                //             url: '/pages/oauth/oauth'
+                //         });
+                //     } catch(e) {
+                //         // eslint-disable-next-line no-console
+                //         console.log(e);
+                //     }
+                //     return;
+                // }
+                console.log(this.state, this.join)
+                this.state = 4;
                 if(this.state == 1) {
                     this.vmJointeam();
                 } else if(this.state == 4){
@@ -322,7 +410,7 @@
                     }
                     this.init();
                 }).catch(err => {
-                    alert(err.msg);
+                    alert(err.data.msg);
                     this.init();
                 })
             },
@@ -435,6 +523,14 @@
             line-height: 1;
             letter-spacing: .05rem;
         }
+        .coupon-title-subtitle{
+            margin-top: .625rem;
+            font-size: .6rem;
+            color:#4A4A4A;
+            line-height: 1;
+            letter-spacing: .05rem;
+        }
+
     }
 
     .user-list{

@@ -2,22 +2,22 @@
     <div class="container">
         <article class="content" :class="{'hasAside': state&&config.valid&&(state<4||(state==4&&join))}">
             <header class="header">
-                <img class="img-bg-header" :src="IMGPrefix+'/img/givemefive/bg-header.png'" alt="">
+                <img class="img-bg-header" :src="IMGPrefix+'/img/e-tailors-festival/bg-header.png'" alt="">
                 <div class="bg-title textcenter">
-                    <div><img class="img-bg-title" :src="IMGPrefix+'/img/givemefive/bg-title.png'" alt=""></div>
+                    <div><img class="img-bg-title" :src="IMGPrefix+'/img/e-tailors-festival/bg-title.png'" alt=""></div>
                     <div class="bg-title-word">
-                        <img class="img-bg-title-2" :src="IMGPrefix+'/img/givemefive/bg-title-2.png'" alt="">
+                        <img class="img-bg-title-2" :src="IMGPrefix+'/img/e-tailors-festival/bg-title-2.png'" alt="">
                     </div>
                 </div>
             </header>
             <main class="main-coupon">
                 <section v-if="state&&state!=5" class="coupon-quota textcenter">
-                    <img class="img-coupon" :src="IMGPrefix+'/img/givemefive/coupon.png'" alt="">
+                    <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon.png'" alt="">
                 </section>
                 <section v-else-if="state==5" class="coupon-quota textcenter">
                     <div class="coupon-box">
                         <div class="coupon-value">{{self.coupon}}</div>
-                        <img class="img-coupon" :src="IMGPrefix+'/img/givemefive/coupon_slices.png'" alt="">
+                        <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_slices.png'" alt="">
                     </div>
                 </section>
                 <section class="coupon-title textcenter">
@@ -132,35 +132,38 @@
                 </summary>
             </main>
             <footer class="footer visibility" >
-                <img class="img-bg-bottom" :src="IMGPrefix+'/img/givemefive/bg-bottom.png'" alt="">
+                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e-tailors-festival/bg-bottom.png'" alt="">
             </footer>
             <footer class="footer isOver">
-                <img class="img-bg-bottom" :src="IMGPrefix+'/img/givemefive/bg-bottom.png'" alt="">
+                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e-tailors-festival/bg-bottom.png'" alt="">
             </footer>
         </article>
         <template v-if="state && config.valid">
             <aside class="aside textcenter" v-if="state==1 || (join==false&&state<4) ">
                 <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/givemefive/logo.png'" alt="" width="19px"> 
+                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
                     <span class="btn-aside-text">立即参团</span>
                 </button>
             </aside>
             <aside class="aside textcenter" v-else-if="state==2 || state==3">
                 <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/givemefive/logo.png'" alt="" width="19px"> 
+                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
                     <span class="btn-aside-text">呼唤小伙伴</span>
                 </button>
             </aside>
             <aside class="aside textcenter" v-else-if="state==4 && join">
                 <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/givemefive/logo.png'" alt="" width="19px"> 
+                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
                     <span class="btn-aside-text">立即拆券</span>
                 </button>
             </aside>
         </template>
+        <template v-else-if="">
+
+        </template>
         <div class="mask" v-show="maskFlag" @click="maskFlag=false">
             <div class="mask-img">
-                <img class="img-jiantou" :src="IMGPrefix+'/img/givemefive/jiantou.png'" alt="">
+                <img class="img-jiantou" :src="IMGPrefix+'/img/e-tailors-festival/jiantou.png'" alt="">
             </div>
             <div class="mask-word">
                 <div class="mask-word-con">点击 "转发" 邀请好友</div>

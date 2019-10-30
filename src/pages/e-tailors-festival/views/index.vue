@@ -11,27 +11,43 @@
                 </div>
             </header>
             <main class="main-coupon">
-                <section v-if="state&&state!=5" class="coupon-quota textcenter">
-                    <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon.png'" alt="">
-                </section>
-                <section v-else-if="state==5" class="coupon-quota textcenter">
-                    <div class="coupon-box">
-                        <div class="coupon-value">{{self.coupon}}</div>
-                        <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_slices.png'" alt="">
-                    </div>
-                </section>
+                <!-- 拆券中 -->
+                <div v-if="config.valid&&config.isOpenDateEnd==false">
+                    <section v-if="state==5&&join==true" class="coupon-quota textcenter">
+                        <div class="coupon-box">
+                            <div class="coupon-value">{{self.coupon}}</div>
+                            <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_slices.png'" alt="">
+                        </div>
+                    </section>
+                    <section v-else class="coupon-quota textcenter">
+                        <div class="coupon-box">
+                            <div class="coupon-value">{{amount}}</div>
+                            <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_default.png'" alt="">
+                        </div>
+                    </section>
+                </div>
+                <div v-else>
+                    <section class="coupon-quota textcenter">
+                        <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon.png'" alt="">
+                    </section>
+                </div>
+                
                 <section class="coupon-title textcenter">
+                    <!-- 活动截止 -->
                     <div v-if="config.valid===false">
                         <div class="coupon-title-main">很遗憾，活动结束！下次活动再接再厉哦</div>
                         <!-- <div class="coupon-title-endtime">{{config.validDate}}结束</div> -->
                     </div>
-                    <template v-else-if="config.valid">
+                    <!-- 拆券中 且 未成团或未参加 -->
+                    <div v-else-if="config.valid==true&&config.isOpenDateEnd==false&&stage<4">
+                        <div class="coupon-title-main">未成团不遗憾，点击领取百元专享券</div>
+                        <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                    </div>
+                    <template v-else>
                         <div v-if="state==1">
                             <div class="coupon-title-main">11.11五人团战省钱攻略</div>
                             <div class="coupon-title-subtitle">最高送550元半价券</div>
                         </div>
-                        
-                        
                         <div v-else-if="join==false">
                             <div class="coupon-title-main" v-if="state>=4">很遗憾，当前拼团人数已满</div>
                             <div class="coupon-title-main" v-else>您的小伙伴邀您走向省钱巅峰</div>
@@ -46,8 +62,7 @@
                             <div class="coupon-title-endtime">{{config.validDate}}结束</div>
                         </div>
                         <div v-else-if="state==5">
-                            <div class="coupon-title-endtime">优惠券将于6月16日前发放到有品账户，</div>
-                            <div class="coupon-title-endtime">可移至有品APP内查看并使用</div>
+                            <div class="coupon-title-endtime">优惠券已拆取成功！</div>
                         </div>
                     </template>
                 </section>
@@ -139,27 +154,33 @@
             </footer>
         </article>
         <template v-if="state && config.valid">
-            <aside class="aside textcenter" v-if="state==1 || (join==false&&state<4) ">
+            <aside v-if="config.isOpenDateEnd==false&&(state<4||join==false)" class="aside textcenter">
                 <button class="btn-aside btn-openteam" @click="handleBth">
                     <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
-                    <span class="btn-aside-text">立即参团</span>
+                    <span class="btn-aside-text">立即领券</span>
                 </button>
             </aside>
-            <aside class="aside textcenter" v-else-if="state==2 || state==3">
-                <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
-                    <span class="btn-aside-text">呼唤小伙伴</span>
-                </button>
-            </aside>
-            <aside class="aside textcenter" v-else-if="state==4 && join">
-                <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
-                    <span class="btn-aside-text">立即拆券</span>
-                </button>
-            </aside>
-        </template>
-        <template v-else-if="">
-
+            <div v-else>
+                <aside class="aside textcenter" v-if="state==1 || (join==false&&state<4) ">
+                    <button class="btn-aside btn-openteam" @click="handleBth">
+                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <span class="btn-aside-text">立即参团</span>
+                    </button>
+                </aside>
+                <aside class="aside textcenter" v-else-if="state==2 || state==3">
+                    <button class="btn-aside btn-openteam" @click="handleBth">
+                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <span class="btn-aside-text">呼唤小伙伴</span>
+                    </button>
+                </aside>
+                <aside v-else-if="state==4 && join" class="aside textcenter">
+                    <button class="btn-aside btn-openteam" @click="handleBth">
+                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <span class="btn-aside-text">立即拆券</span>
+                    </button>
+                </aside>
+                
+            </div>
         </template>
         <div class="mask" v-show="maskFlag" @click="maskFlag=false">
             <div class="mask-img">
@@ -181,13 +202,14 @@
             return {
                 config: {
                     valid: null,
-                    validDate: ''
+                    isOpenDateEnd: null, //拆券是否截止
+                    validDate: '',
+                    openDate: '', 
                 },
                 amount: '',//默认优惠券
                 state: 0, // 1.初始状态；2.团长开团；3.有小伙伴加入（不满5人）；4.已满团（满5人）;5.已开券
                 role: 1, // 角色，1.团长；2.团员
                 join: null, // 是否已加入
-                // bind: false, //是否已绑定小米账号
                 scene: '', // 来源
                 teamId: '', // 团ID
                 self: {}, //个人信息
@@ -234,14 +256,18 @@
                     if(res.data){
                         this.config = res.data
                     }
+                    // 活动未截止
                     if(this.config.valid){
                         this.vmGetteam();
-                    } else {
+                        //拆券中
+                        if(!this.config.isOpenDateEnd) {
+                            defaultCoupon().then(res => {
+                                let data = res.data;
+                                this.amount = data.amount;
+                            });
+                        }
+                    } else {//活动截止
                         this.state = 1; 
-                        defaultCoupon().then(res => {
-                            let data = res.data;
-                            this.amount = data.amount;
-                        });
                     }
                 }, rej => {
                     if(rej.status == '401') {
@@ -252,91 +278,19 @@
             // 获取当前状态信息
             vmGetteam() {
                 getteam(this.teamId).then(res => {
-                    
                     if(!validatenull(res.data)){
                         let data = res.data;
-                        console.log(data)
-                        // this.bind = data.bind;
-                        // if(this.bind){
-                            this.join = data.join;
-                            if(this.join) {
-                                this.self = data.self;
-                                this.role = this.self.role;
-                            }
-                        // }
+                        this.join = data.join;
+                        if(this.join) {
+                            this.self = data.self;
+                            this.role = this.self.role;
+                        }
                         if(validatenull(data.team)){
                             this.state = 1;
                             return;
                         }
                         this.teamList = data.team;
-                        // this.teamList = [
-                        //     {
-                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
-                        //         couponsDetail: {},
-                        //         createTime: "1572334197",
-                        //         id: "2",
-                        //         joinTime: "1572334197",
-                        //         nickName: "ICE",
-                        //         role: 1,
-                        //         startTime: "1572334197",
-                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
-                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
-                        //         updateTime: "1572334197",
-                        //     },
-                        //     {
-                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
-                        //         couponsDetail: {},
-                        //         createTime: "1572334197",
-                        //         id: "3",
-                        //         joinTime: "1572334197",
-                        //         nickName: "ICE",
-                        //         role: 2,
-                        //         startTime: "1572334197",
-                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
-                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
-                        //         updateTime: "1572334197",
-                        //     },
-                        //     {
-                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
-                        //         couponsDetail: {},
-                        //         createTime: "1572334197",
-                        //         id: "4",
-                        //         joinTime: "1572334197",
-                        //         nickName: "ICE",
-                        //         role: 2,
-                        //         startTime: "1572334197",
-                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
-                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
-                        //         updateTime: "1572334197",
-                        //     },
-                        //     {
-                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
-                        //         couponsDetail: {},
-                        //         createTime: "1572334197",
-                        //         id: "5",
-                        //         joinTime: "1572334197",
-                        //         nickName: "ICE",
-                        //         role: 2,
-                        //         startTime: "1572334197",
-                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
-                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
-                        //         updateTime: "1572334197",
-                        //     },
-                        //     {
-                        //         avatarUrl: "http://thirdwx.qlogo.cn/mmopen/cRuicuvRTGk2jA3ANFr0o73FgwuBns5BSHcI826OLVXnzFKWKo042JLVibe7ia72ZLzfjW2W7jKvticETqHRqZS4ANEqDDNmNicbq/132",
-                        //         couponsDetail: {},
-                        //         createTime: "1572334197",
-                        //         id: "6",
-                        //         joinTime: "1572334197",
-                        //         nickName: "ICE",
-                        //         role: 2,
-                        //         startTime: "1572334197",
-                        //         teamId: "6cabe821337c44988591b59f1c9ccc43",
-                        //         unionId: "oKJvdw9RG1nU2fIXPYUYNi7XQeUk",
-                        //         updateTime: "1572334197",
-                        //     }
-                        // ]
-                        // console.log(this.teamList)
+                        
                         this.teamId = this.teamList[0].teamId;
                         if(this.teamList.length == 1) {
                             this.state = 2;
@@ -368,33 +322,15 @@
                 }
             },
             handleBth(){
-                // if(!this.bind) {
-                //     try{
-                //         // eslint-disable-next-line no-undef
-                //         wx.miniProgram.postMessage({
-                //             data: {
-                //                 teamId: this.teamId,
-                //                 scene: this.scene,
-                //                 redirect: true
-                //             }
-                //         });
-                //         // eslint-disable-next-line no-undef
-                //         wx.miniProgram.redirectTo({
-                //             url: '/pages/oauth/oauth'
-                //         });
-                //     } catch(e) {
-                //         // eslint-disable-next-line no-console
-                //         console.log(e);
-                //     }
-                //     return;
-                // }
-                console.log(this.state, this.join)
-                this.state = 4;
                 if(this.state == 1) {
                     this.vmJointeam();
                 } else if(this.state == 4){
                     if(this.join == false){
                         alert('您不在当前团中，无法领取优惠券');
+                        return;
+                    }
+                    if(this.config.isOpenDateEnd) {
+                        alert('拆券时间2019年11月09日 00:00:00-2019年11月11日 00:00:00')
                         return;
                     }
                     this.vmOpencoupon();

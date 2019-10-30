@@ -36,12 +36,12 @@
                     <!-- 活动截止 -->
                     <div v-if="config.valid===false">
                         <div class="coupon-title-main">很遗憾，活动结束！下次活动再接再厉哦</div>
-                        <!-- <div class="coupon-title-endtime">{{config.validDate}}结束</div> -->
+                        <!-- <div class="coupon-title-endtime">{{config.openDate}}结束</div> -->
                     </div>
                     <!-- 拆券中 且 未成团或未参加 -->
                     <div v-else-if="config.valid==true&&config.isOpenDateEnd==false&&stage<4">
                         <div class="coupon-title-main">未成团不遗憾，点击领取百元专享券</div>
-                        <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                        <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                     </div>
                     <template v-else>
                         <div v-if="state==1">
@@ -51,15 +51,15 @@
                         <div v-else-if="join==false">
                             <div class="coupon-title-main" v-if="state>=4">很遗憾，当前拼团人数已满</div>
                             <div class="coupon-title-main" v-else>您的小伙伴邀您走向省钱巅峰</div>
-                            <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                            <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                         </div>
                         <div v-else-if="state==2||state==3">
                             <div class="coupon-title-main">瓜分神券进行中</div>
-                            <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                            <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                         </div>
                         <div v-else-if="state==4">
                             <div class="coupon-title-main">小伙伴已就位，点击拆开</div>
-                            <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                            <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                         </div>
                         <div v-else-if="state==5">
                             <div class="coupon-title-endtime">优惠券已拆取成功！</div>
@@ -302,25 +302,25 @@
                         } else {
                             this.state = 4;
                         }
-                        this.initMessage();
+                        // this.initMessage();
                     }
                 }, err => {
                     alert(err.data.msg);
                 });
             },
-            initMessage() {
-                try{
-                    // eslint-disable-next-line no-undef
-                    wx.miniProgram.postMessage({
-                        data: {
-                            teamId: this.teamId
-                        }
-                    });
-                }catch(e){
-                    // eslint-disable-next-line no-console
-                    console.log(e);
-                }
-            },
+            // initMessage() {
+            //     try{
+            //         // eslint-disable-next-line no-undef
+            //         wx.miniProgram.postMessage({
+            //             data: {
+            //                 teamId: this.teamId
+            //             }
+            //         });
+            //     }catch(e){
+            //         // eslint-disable-next-line no-console
+            //         console.log(e);
+            //     }
+            // },
             handleBth(){
                 if(this.state == 1) {
                     this.vmJointeam();

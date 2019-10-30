@@ -303,13 +303,7 @@
                         } else {
                             this.state = 4;
                         }
-                        this.initMessage();
-                            this.$router.push({
-                            path: location.href,
-                            query: {
-                                teamId: this.teamId,
-                            },
-                        });
+                        history.replaceState('', "", '?teamId='+this.teamId);
                     }
                 }, err => {
                     alert(err.data.msg);

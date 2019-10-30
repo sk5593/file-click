@@ -13,8 +13,8 @@ module.exports = {
         //     template: 'src/pages/givemefive/givemefive.html'
         // },
         e_tailors_festival: {
-            entry: 'src/pages/e-tailors-festival/main.js',
-            template: 'src/pages/e-tailors-festival/e-tailors-festival.html'
+            entry: 'src/pages/e_tailors_festival/main.js',
+            template: 'src/pages/e_tailors_festival/e_tailors_festival.html'
         },
         // betaactivity: {
         //     entry: 'src/pages/betaactivity/main.js',
@@ -41,9 +41,8 @@ module.exports = {
         config.optimization.delete('splitChunks')
     },
     devServer:{
-        // host: 'localhost.yeelight.com',
-        host: '',
-        port: 80,
+        host: 'localhost.yeelight.com',
+        port: 8080,
         open: true,
         openPage: `${entry}.html`,
         proxy: {

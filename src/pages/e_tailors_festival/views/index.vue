@@ -2,11 +2,11 @@
     <div class="container">
         <article class="content" :class="{'hasAside': state&&config.valid&&(state<4||(state==4&&join))}">
             <header class="header">
-                <img class="img-bg-header" :src="IMGPrefix+'/img/e-tailors-festival/bg-header.png'" alt="">
+                <img class="img-bg-header" :src="IMGPrefix+'/img/e_tailors_festival/bg-header.png'" alt="">
                 <div class="bg-title textcenter">
-                    <div><img class="img-bg-title" :src="IMGPrefix+'/img/e-tailors-festival/bg-title.png'" alt=""></div>
+                    <div><img class="img-bg-title" :src="IMGPrefix+'/img/e_tailors_festival/bg-title.png'" alt=""></div>
                     <div class="bg-title-word">
-                        <img class="img-bg-title-2" :src="IMGPrefix+'/img/e-tailors-festival/bg-title-2.png'" alt="">
+                        <img class="img-bg-title-2" :src="IMGPrefix+'/img/e_tailors_festival/bg-title-2.png'" alt="">
                     </div>
                 </div>
             </header>
@@ -16,19 +16,19 @@
                     <section v-if="state==5&&join==true" class="coupon-quota textcenter">
                         <div class="coupon-box">
                             <div class="coupon-value">{{self.coupon}}</div>
-                            <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_slices.png'" alt="">
+                            <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon_slices.png'" alt="">
                         </div>
                     </section>
                     <section v-else class="coupon-quota textcenter">
                         <div class="coupon-box">
                             <div class="coupon-value">{{amount}}</div>
-                            <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon_default.png'" alt="">
+                            <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon_default.png'" alt="">
                         </div>
                     </section>
                 </div>
                 <div v-else>
                     <section class="coupon-quota textcenter">
-                        <img class="img-coupon" :src="IMGPrefix+'/img/e-tailors-festival/coupon.png'" alt="">
+                        <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon.png'" alt="">
                     </section>
                 </div>
                 
@@ -39,7 +39,7 @@
                         <!-- <div class="coupon-title-endtime">{{config.openDate}}结束</div> -->
                     </div>
                     <!-- 拆券中 且 未成团或未参加 -->
-                    <div v-else-if="config.valid==true&&config.isOpenDateEnd==false&&stage<4">
+                    <div v-else-if="config.valid==true&&config.isOpenDateEnd==false&&state<4">
                         <div class="coupon-title-main">未成团不遗憾，点击领取百元专享券</div>
                         <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                     </div>
@@ -147,44 +147,43 @@
                 </summary>
             </main>
             <footer class="footer visibility" >
-                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e-tailors-festival/bg-bottom.png'" alt="">
+                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e_tailors_festival/bg-bottom.png'" alt="">
             </footer>
             <footer class="footer isOver">
-                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e-tailors-festival/bg-bottom.png'" alt="">
+                <img class="img-bg-bottom" :src="IMGPrefix+'/img/e_tailors_festival/bg-bottom.png'" alt="">
             </footer>
         </article>
         <template v-if="state && config.valid">
             <aside v-if="config.isOpenDateEnd==false&&(state<4||join==false)" class="aside textcenter">
                 <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                    <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                     <span class="btn-aside-text">立即领券</span>
                 </button>
             </aside>
             <div v-else>
                 <aside class="aside textcenter" v-if="state==1 || (join==false&&state<4) ">
                     <button class="btn-aside btn-openteam" @click="handleBth">
-                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">立即参团</span>
                     </button>
                 </aside>
                 <aside class="aside textcenter" v-else-if="state==2 || state==3">
                     <button class="btn-aside btn-openteam" @click="handleBth">
-                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">呼唤小伙伴</span>
                     </button>
                 </aside>
                 <aside v-else-if="state==4 && join" class="aside textcenter">
                     <button class="btn-aside btn-openteam" @click="handleBth">
-                        <img :src="IMGPrefix+'/img/e-tailors-festival/logo.png'" alt="" width="19px"> 
+                        <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">立即拆券</span>
                     </button>
                 </aside>
-                
             </div>
-        </template>
+        </template> 
         <div class="mask" v-show="maskFlag" @click="maskFlag=false">
             <div class="mask-img">
-                <img class="img-jiantou" :src="IMGPrefix+'/img/e-tailors-festival/jiantou.png'" alt="">
+                <img class="img-jiantou" :src="IMGPrefix+'/img/e_tailors_festival/jiantou.png'" alt="">
             </div>
             <div class="mask-word">
                 <div class="mask-word-con">点击 "转发" 邀请好友</div>
@@ -196,7 +195,7 @@
 <script>
     import { getQueryString, validatenull } from '@/util/util';
     import { getToken2, setToken2 } from '@/util/auth'
-    import { getteam, jointeam, opencoupon, config, autoCookie, defaultCoupon } from '@/service/e-tailors-festival';
+    import { getteam, jointeam, opencoupon, config, autoCookie, defaultCoupon } from '@/service/e_tailors_festival';
     export default {
         data(){
             return {
@@ -207,6 +206,7 @@
                     openDate: '', 
                 },
                 amount: '',//默认优惠券
+                amountUrl: '',
                 state: 0, // 1.初始状态；2.团长开团；3.有小伙伴加入（不满5人）；4.已满团（满5人）;5.已开券
                 role: 1, // 角色，1.团长；2.团员
                 join: null, // 是否已加入
@@ -264,6 +264,7 @@
                             defaultCoupon().then(res => {
                                 let data = res.data;
                                 this.amount = data.amount;
+                                this.amountUrl = data.url;
                             });
                         }
                     } else {//活动截止
@@ -322,30 +323,41 @@
             //     }
             // },
             handleBth(){
-                if(this.state == 1) {
-                    this.vmJointeam();
-                } else if(this.state == 4){
-                    if(this.join == false){
-                        alert('您不在当前团中，无法领取优惠券');
-                        return;
-                    }
-                    if(this.config.isOpenDateEnd) {
-                        alert('拆券时间2019年11月09日 00:00:00-2019年11月11日 00:00:00')
+                
+                if(this.config.isOpenDateEnd==false) {
+                    if(this.state<4 || this.join==false) {
+                        location.href = this.amountUrl;
+                    }else if(this.state==4 && this.join) {
+                        location.href = this.self.couponsDetail.url;
+                    }else {
                         return;
                     }
                     this.vmOpencoupon();
-                } else {
-                    if(this.join == false){
+                }else {
+                    if(this.state == 1) {
                         this.vmJointeam();
-                    }else{
-                        this.maskFlag = true;
+                    }else if(this.state == 4){
+                        if(this.join == false){
+                            alert('您不在当前团中，无法领取优惠券');
+                            return;
+                        }
+                        if(this.config.isOpenDateEnd) {
+                            alert('拆券时间2019年11月09日 00:00:00-2019年11月11日 00:00:00')
+                            return;
+                        }
+                    } else {
+                        if(this.join == false){
+                            this.vmJointeam();
+                        }else{
+                            this.maskFlag = true;
+                        }
                     }
                 }
             },
             vmJointeam(){
                 jointeam(this.scene, this.teamId).then(res => {
                     if(!res.success){
-                        alert(res.msg);
+                        alert(res.data.msg);
                     }
                     this.init();
                 }).catch(err => {
@@ -438,7 +450,7 @@
     .coupon-value{
         position: absolute;
         top: 2rem;
-        left: 1.85rem;
+        left: 1.3rem;
         font-size: 3.75rem;
         font-weight:bold;
         color:rgba(255,255,255,1);

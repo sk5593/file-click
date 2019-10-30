@@ -13,7 +13,7 @@
             <main class="main-coupon">
                 <!-- 拆券中 -->
                 <div v-if="config.valid&&config.isOpenDateEnd==false">
-                    <section v-if="state==5&&join==true" class="coupon-quota textcenter">
+                    <section v-if="state==4&&join==true" class="coupon-quota textcenter">
                         <div class="coupon-box">
                             <div class="coupon-value">{{self.coupon}}</div>
                             <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon_slices.png'" alt="">

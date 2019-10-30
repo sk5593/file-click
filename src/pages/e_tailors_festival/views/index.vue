@@ -210,7 +210,7 @@
                 state: 0, // 1.初始状态；2.团长开团；3.有小伙伴加入（不满5人）；4.已满团（满5人）;5.已开券
                 role: 1, // 角色，1.团长；2.团员
                 join: null, // 是否已加入
-                scene: '', // 来源
+                // scene: '', // 来源
                 teamId: '', // 团ID
                 self: {}, //个人信息
                 teamList: [],
@@ -246,7 +246,7 @@
             let token =  getToken2();
             if(token) setToken2(token);
             this.teamId = getQueryString('teamId');
-            
+
             this.init();
         },
         methods: {
@@ -303,7 +303,7 @@
                         } else {
                             this.state = 4;
                         }
-                        history.replaceState('', "", '?teamId='+this.teamId);
+                        // history.replaceState('', "", '?teamId='+this.teamId);
                     }
                 }, err => {
                     alert(err.data.msg);
@@ -381,11 +381,13 @@
                 }
             },
             vmJointeam(){
-                jointeam(this.scene, this.teamId).then(res => {
+                jointeam(this.teamId).then(res => {
                     if(!res.success){
                         alert(res.data.msg);
                     }
                     this.init();
+                    location.href = location.origin + location.pathname + '?teamId='+this.teamId;
+                    
                 }).catch(err => {
                     alert(err.data.msg);
                     this.init();

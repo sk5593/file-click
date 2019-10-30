@@ -28,13 +28,12 @@ export const share = (url) => {
     })
 }
 // 加入某个京东拼团 y
-export const jointeam = (union_id, team_id) => {
+export const jointeam = (teamId) => {
     return request({
         url:  URL + '/v1/user-coupons/jd/w/join/team',
         method: 'post',
         data: {
-            union_id,
-            team_id
+            teamId
         }
     })
 }

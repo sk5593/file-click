@@ -368,7 +368,7 @@
                             return;
                         }
                         if(this.config.isOpenDateEnd) {
-                            alert('拆券时间2019年11月09日 00:00:00-2019年11月11日 00:00:00')
+                            alert('拆券时间2019年11月09日 - 2019年11月11日')
                             return;
                         }
                     } else {

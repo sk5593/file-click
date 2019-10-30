@@ -70,7 +70,7 @@
                     <ul class="" flex="main:justify">
                         <li class="user-item" v-for="item in teamList" :key="'useritemreal'+item.id">
                             <div class="user-headimg real" flex="main:center cross:center">
-                                <img :src="item.avatarUrl" width="100%" alt="">
+                                <img :src="item.avatarUrl || (IMGPrefix+'/img/e_tailors_festival/default_avatar.jpg')" width="100%" alt="">
                             </div>
                             <div v-if="item.role==1" class="user-name textcenter">团长</div>
                         </li>

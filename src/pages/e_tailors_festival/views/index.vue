@@ -243,10 +243,10 @@
             }
         },
         mounted(){
-            let token = getQueryString('timeline') || getToken2();
+            let token =  getToken2();
             if(token) setToken2(token);
-            this.scene = getQueryString('scene');
             this.teamId = getQueryString('teamId');
+            
             this.init();
         },
         methods: {
@@ -304,6 +304,12 @@
                             this.state = 4;
                         }
                         this.initMessage();
+                            this.$router.push({
+                            path: location.href,
+                            query: {
+                                teamId: this.teamId,
+                            },
+                        });
                     }
                 }, err => {
                     alert(err.data.msg);
@@ -312,6 +318,10 @@
             initMessage() {
                 share(location.href).then(res => {
                     let json = res.data;
+                    const shareObj = {
+                        link: location.href+'?teamId=' + this.teamId,
+                        imgUrl: 'https://wx.qlogo.cn/mmhead/Q3auHgzwzM7icwVGibr1W4z2ZcsJTLnvnzOSMJ4sAm7DlMdAuXqAqt1A/64',
+                    };
                     wx.config({
                         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: json.appId, // 必填，公众号的唯一标识
@@ -325,8 +335,8 @@
                         wx.updateAppMessageShareData({ 
                             title: 'Yeelight', // 分享标题
                             desc: '五人携手走，11.11不剁手', // 分享描述
-                            link: 'https://www.baidu.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: 'https://wx.qlogo.cn/mmhead/Q3auHgzwzM7icwVGibr1W4z2ZcsJTLnvnzOSMJ4sAm7DlMdAuXqAqt1A/64', // 分享图标
+                            link: shareObj.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
                                 console.log('朋友分享成功')
@@ -335,8 +345,8 @@
                         // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（
                         wx.updateTimelineShareData({ 
                             title: 'Yeelight', // 分享标题
-                            link: 'https://www.baidu.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: 'https://wx.qlogo.cn/mmhead/Q3auHgzwzM7icwVGibr1W4z2ZcsJTLnvnzOSMJ4sAm7DlMdAuXqAqt1A/64', // 分享图标
+                            link: shareObj.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
                                 console.log('朋友圈分享成功')
@@ -346,7 +356,6 @@
                 })
             },
             handleBth(){
-                
                 if(this.config.isOpenDateEnd==false) {
                     if(this.state<4 || this.join==false) {
                         location.href = this.amountUrl;

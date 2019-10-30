@@ -1,5 +1,5 @@
 import request from './index';
-const ENV = "test";
+const ENV = "stage";
 const ENVOBJ = {
     test: "http://api-test.yeedev.com/apis/c",
     dev: "http://api-dev.yeedev.com/apis/c",

@@ -10,10 +10,15 @@
                     </div>
                 </div>
             </header>
+            
             <main class="main-coupon">
+                <!-- 第一部分：券 -->
                 <!-- 拆券中 -->
                 <div v-if="config.valid&&config.isOpenDateEnd==false">
                     <section v-if="state==4&&join==true" class="coupon-quota textcenter">
+                        <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon.png'" alt="">
+                    </section>
+                    <section v-else-if="state==5&&join==true" class="coupon-quota textcenter">
                         <div class="coupon-box">
                             <div class="coupon-value">{{self.coupon}}</div>
                             <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon_slices.png'" alt="">
@@ -26,24 +31,21 @@
                         </div>
                     </section>
                 </div>
+                <!-- 拆券前 || 结束后 -->
                 <div v-else>
                     <section class="coupon-quota textcenter">
                         <img class="img-coupon" :src="IMGPrefix+'/img/e_tailors_festival/coupon.png'" alt="">
                     </section>
                 </div>
-                
+                <!-- 第二部分：券下面的文字 -->
                 <section class="coupon-title textcenter">
                     <!-- 活动截止 -->
                     <div v-if="config.valid===false">
                         <div class="coupon-title-main">很遗憾，活动结束！下次活动再接再厉哦</div>
                         <!-- <div class="coupon-title-endtime">{{config.openDate}}结束</div> -->
                     </div>
-                    <!-- 拆券中 且 未成团或未参加 -->
-                    <div v-else-if="config.valid==true&&config.isOpenDateEnd==false&&state<4">
-                        <div class="coupon-title-main">未成团不遗憾，点击领取百元专享券</div>
-                        <div class="coupon-title-endtime">{{config.openDate}}结束</div>
-                    </div>
-                    <template v-else>
+                     <!-- 拆券前 -->
+                    <template v-if="config.valid==true&&config.isOpenDateEnd==true">
                         <div v-if="state==1">
                             <div class="coupon-title-main">11.11五人团战省钱攻略</div>
                             <div class="coupon-title-subtitle">最高送550元半价券</div>
@@ -61,8 +63,19 @@
                             <div class="coupon-title-main">小伙伴已就位，点击拆开</div>
                             <div class="coupon-title-endtime">{{config.openDate}}结束</div>
                         </div>
+                    </template>
+                    <!-- 拆券中 -->
+                    <template v-else>
+                        <div v-if="join==false || (join==true&&state<4)">
+                            <div class="coupon-title-main">未成团不遗憾，点击领取百元专享券</div>
+                            <div class="coupon-title-endtime">{{config.validDate}}结束</div>
+                        </div>
+                        <div v-else-if="state==4">
+                            <div class="coupon-title-main">小伙伴已就位，点击拆开</div>
+                            <div class="coupon-title-endtime">{{config.openDate}}结束</div>
+                        </div>
                         <div v-else-if="state==5">
-                            <div class="coupon-title-endtime">优惠券已拆取成功！</div>
+                            <div class="coupon-title-main">优惠券已拆开，点击领取！</div>
                         </div>
                     </template>
                 </section>
@@ -120,7 +133,6 @@
                         </div>
                     </summary>
                 </template>
-                
                 <summary class="summary-fin" v-else-if="state==5">
                     <div class="summary-title" flex="cross:center">
                         <div flex-box="1"><hr class="summary-title-line"></div>
@@ -153,30 +165,41 @@
                 <img class="img-bg-bottom" :src="IMGPrefix+'/img/e_tailors_festival/bg-bottom.png'" alt="">
             </footer>
         </article>
+        <!-- 第四部分：按钮 -->
         <template v-if="state && config.valid">
-            <aside v-if="config.isOpenDateEnd==false&&(state<4||join==false)" class="aside textcenter">
-                <button class="btn-aside btn-openteam" @click="handleBth">
-                    <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
-                    <span class="btn-aside-text">立即领券</span>
-                </button>
-            </aside>
-            <div v-else>
-                <aside class="aside textcenter" v-if="state==1 || (join==false&&state<4) ">
+            <!-- 拆券前 -->
+            <div v-if="config.isOpenDateEnd==true">
+                <aside class="aside textcenter" v-if="join==false&&state<=4">
                     <button class="btn-aside btn-openteam" @click="handleBth">
                         <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">立即参团</span>
                     </button>
                 </aside>
-                <aside class="aside textcenter" v-else-if="state==2 || state==3">
+                <aside class="aside textcenter" v-else-if="join==true&&(state==2 || state==3)">
                     <button class="btn-aside btn-openteam" @click="handleBth">
                         <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">呼唤小伙伴</span>
                     </button>
                 </aside>
-                <aside v-else-if="state==4 && join" class="aside textcenter">
+                <aside v-else-if="join==true&&state==4" class="aside textcenter">
                     <button class="btn-aside btn-openteam" @click="handleBth">
                         <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
                         <span class="btn-aside-text">立即拆券</span>
+                    </button>
+                </aside>
+            </div>
+            <!-- 拆券中 -->
+            <div v-else>
+                <aside v-if="join==true&&state==4" class="aside textcenter">
+                    <button class="btn-aside btn-openteam" @click="handleBth">
+                        <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
+                        <span class="btn-aside-text">立即拆券</span>
+                    </button>
+                </aside>
+                <aside v-else class="aside textcenter">
+                    <button class="btn-aside btn-openteam" @click="handleBth">
+                        <img :src="IMGPrefix+'/img/e_tailors_festival/logo.png'" alt="" width="19px"> 
+                        <span class="btn-aside-text">立即领券</span>
                     </button>
                 </aside>
             </div>
@@ -252,7 +275,6 @@
         methods: {
             init(){
                 config().then(res => {
-                    // res.data.valid = false;
                     if(res.data){
                         this.config = res.data
                     }
@@ -291,19 +313,18 @@
                             return;
                         }
                         this.teamList = data.team;
-                        
                         this.teamId = this.teamList[0].teamId;
                         if(this.teamList.length == 1) {
                             this.state = 2;
+                            this.config.isOpenDateEnd = false;
                         } else if(this.teamList.length < 5) {
-                            this.state = 3
+                            this.state = 3;
                         } else if(this.self.openTime) {
                             this.state = 5;
                             return;
                         } else {
                             this.state = 4;
                         }
-                        // history.replaceState('', "", '?teamId='+this.teamId);
                     }
                 }, err => {
                     alert(err.data.msg);
@@ -350,24 +371,31 @@
                 })
             },
             handleBth(){
+                // 拆券中
                 if(this.config.isOpenDateEnd==false) {
-                    if(this.state<4 || this.join==false) {
-                        location.href = this.amountUrl;
-                    }else if(this.state==4 && this.join) {
+                    if(this.join && this.state == 4) {
                         location.href = this.self.couponsDetail.url;
                     }else {
-                        return;
+                        location.href = this.amountUrl;
                     }
                     this.vmOpencoupon();
-                }else {
+                    // if(this.state<4 || this.join==false) {
+                    //     location.href = this.amountUrl;
+                    // }else if(this.state==4 && this.join) {
+                    //     location.href = this.self.couponsDetail.url;
+                    // }else {
+                    //     return;
+                    // }
+                    // this.vmOpencoupon();
+                }else {//拆券前
                     if(this.state == 1) {
                         this.vmJointeam();
                     }else if(this.state == 4){
                         if(this.join == false){
-                            alert('您不在当前团中，无法领取优惠券');
+                            alert('当前拼团人数已满，开启新拼团');
+                            location.href = location.origin + location.pathname;
                             return;
-                        }
-                        if(this.config.isOpenDateEnd) {
+                        }else if(this.config.isOpenDateEnd) {
                             alert('拆券时间2019年11月09日 - 2019年11月11日')
                             return;
                         }

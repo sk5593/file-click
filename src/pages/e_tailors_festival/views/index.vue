@@ -316,7 +316,6 @@
                         this.teamId = this.teamList[0].teamId;
                         if(this.teamList.length == 1) {
                             this.state = 2;
-                            this.config.isOpenDateEnd = false;
                         } else if(this.teamList.length < 5) {
                             this.state = 3;
                         } else if(this.self.openTime) {
@@ -325,7 +324,9 @@
                         } else {
                             this.state = 4;
                         }
+                        console.log(this.state)
                     }
+
                 }, err => {
                     alert(err.data.msg);
                 });

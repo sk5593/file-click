@@ -79,7 +79,7 @@
                         </div>
                     </template>
                 </section>
-                <section class="user-list" v-if="state==2||state==3||state==4">
+                <section class="user-list" v-if="(state==2||state==3||state==4) && (this.config.isOpenDateEnd || (!this.config.isOpenDateEnd&&this.join))">
                     <ul class="" flex="main:justify">
                         <li class="user-item" v-for="item in teamList" :key="'useritemreal'+item.id">
                             <div class="user-headimg real" flex="main:center cross:center">
@@ -423,7 +423,8 @@
                 })
             },
             vmOpencoupon(){
-                opencoupon().then(() => {
+                opencoupon().then((res) => {
+                    alert(res.data)
                     this.init();
                 })
             },

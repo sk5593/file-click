@@ -314,7 +314,7 @@
                     let json = res.data;
                     const shareObj = {
                         link: location.href+'?teamId=' + this.teamId,
-                        imgUrl: 'https://wx.qlogo.cn/mmhead/Q3auHgzwzM7icwVGibr1W4z2ZcsJTLnvnzOSMJ4sAm7DlMdAuXqAqt1A/64',
+                        imgUrl: this.IMGPrefix + '/img/e_tailors_festival/share_icon.png',
                     };
                     wx.config({
                         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -327,8 +327,8 @@
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
                         // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                         wx.updateAppMessageShareData({ 
-                            title: 'Yeelight', // 分享标题
-                            desc: '五人携手走，11.11不剁手', // 分享描述
+                            title: '【智造光 易起来】11.11千元神券来袭！', // 分享标题
+                            desc: '五人参团即可瓜分京东11.11千元大额券，立即参与吧！', // 分享描述
                             link: shareObj.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
@@ -338,7 +338,7 @@
                         });
                         // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（
                         wx.updateTimelineShareData({ 
-                            title: 'Yeelight', // 分享标题
+                            title: '【智造光 易起来】11.11千元神券来袭！', // 分享标题
                             link: shareObj.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {

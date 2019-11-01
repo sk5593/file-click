@@ -144,7 +144,7 @@
                             <li v-for="item in teamList" class="item-coupondis" :key="'usercouponitem'+item.id" flex="cross:center">
                                  <div class="user-item">
                                     <div class="user-headimg real" flex="main:center cross:center">
-                                        <img :src="item.avatarUrl" width="100%" alt="">
+                                        <img :src="item.avatarUrl || (IMGPrefix+'/img/e_tailors_festival/default_avatar.jpg')" width="100%" alt="">
                                     </div>
                                     <div v-if="item.role==1" class="user-name textcenter">团长</div>
                                 </div>
@@ -324,7 +324,6 @@
                         } else {
                             this.state = 4;
                         }
-                        console.log(this.state)
                     }
 
                 }, err => {
@@ -374,7 +373,7 @@
             handleBth(){
                 // 拆券中
                 if(this.config.isOpenDateEnd==false) {
-                    if(this.join && this.state == 4) {
+                    if(this.join && (this.state == 4 || this.state == 5)) {
                         location.href = this.self.couponsDetail.url;
                     }else {
                         location.href = this.amountUrl;

@@ -311,8 +311,16 @@
                             this.state = 1;
                             return;
                         }
+
                         this.teamList = data.team;
-                        this.teamId = this.teamList[0].teamId;
+
+                        if(!this.teamId && this.teamList[0].teamId) {
+                            this.teamId = this.teamList[0].teamId;
+                            location.href = location.origin + location.pathname + '?teamId='+this.teamId;
+                        }
+
+                        
+
                         if(this.teamList.length == 1) {
                             this.state = 2;
                         } else if(this.teamList.length < 5) {
@@ -323,19 +331,16 @@
                         } else {
                             this.state = 4;
                         }
-                         this.initMessage();
+                        this.initMessage();
+
                     }
                 }, err => {
                     alert(err.data.msg);
                 });
             },
             initMessage() {
-                var urlStr = location.origin + location.pathname;
-                if(this.teamId) {
-                    urlStr += '?teamId='+this.teamId;
-                }
                 const shareObj = {
-                    link: urlStr,
+                    link: location.href,
                     imgUrl: 'https://page.yeelight.com/img/e_tailors_festival/share_icon.jpg',
                 };
                 share(shareObj.link).then(res => {

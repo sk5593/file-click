@@ -294,7 +294,8 @@
                     }
                 }, rej => {
                     if(rej.status == '401') {
-                        location.href = autoCookie(location.href);
+                        console.log(8)
+                        // location.href = autoCookie(location.href);
                     }
                 })
             },

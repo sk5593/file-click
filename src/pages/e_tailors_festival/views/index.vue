@@ -268,16 +268,17 @@
         mounted(){
             let token =  getToken2();
             if(token) setToken2(token);
+            this.teamId = getQueryString('teamId');
             this.init();
+            
         },
         methods: {
             init(){
-                this.teamId = getQueryString('teamId');
                 config().then(res => {
                     if(res.data){
                         this.config = res.data
                     }
-                    this.initMessage();
+                    
                     // 活动未截止
                     if(this.config.valid){
                         this.vmGetteam();
@@ -314,6 +315,8 @@
                         }
                         this.teamList = data.team;
                         this.teamId = this.teamList[0].teamId;
+                        
+                        this.initMessage();
                         if(this.teamList.length == 1) {
                             this.state = 2;
                         } else if(this.teamList.length < 5) {
@@ -324,6 +327,7 @@
                         } else {
                             this.state = 4;
                         }
+
                     }
                 }, err => {
                     alert(err.data.msg);
@@ -338,6 +342,7 @@
                     link: urlStr,
                     imgUrl: 'https://page.yeelight.com/img/e_tailors_festival/share_icon.jpg',
                 };
+                console.log(shareObj.link)
                 share(shareObj.link).then(res => {
                     let json = res.data;
                     wx.config({

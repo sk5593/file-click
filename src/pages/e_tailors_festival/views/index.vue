@@ -325,7 +325,6 @@
                             this.state = 4;
                         }
                     }
-
                 }, err => {
                     alert(err.data.msg);
                 });
@@ -373,12 +372,20 @@
             handleBth(){
                 // 拆券中
                 if(this.config.isOpenDateEnd==false) {
-                    if(this.join && (this.state == 4 || this.state == 5)) {
+                    if(this.join&&this.state == 4) {
+                        this.vmOpencoupon();
+                    }else if(this.join&&this.state == 5) {
                         location.href = this.self.couponsDetail.url;
                     }else {
+                        this.vmOpencoupon();
                         location.href = this.amountUrl;
                     }
-                    this.vmOpencoupon();
+                    // if(this.join && (this.state == 4 || this.state == 5)) {
+                    //     location.href = this.self.couponsDetail.url;
+                    // }else {
+                    //     location.href = this.amountUrl;
+                    // }
+                    // this.vmOpencoupon();
                     // if(this.state<4 || this.join==false) {
                     //     location.href = this.amountUrl;
                     // }else if(this.state==4 && this.join) {

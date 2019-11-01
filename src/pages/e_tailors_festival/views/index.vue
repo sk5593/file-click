@@ -311,6 +311,7 @@
                         }
                         if(validatenull(data.team)){
                             this.state = 1;
+                            this.initMessage();
                             return;
                         }
                         this.teamList = data.team;
@@ -342,7 +343,6 @@
                     link: urlStr,
                     imgUrl: 'https://page.yeelight.com/img/e_tailors_festival/share_icon.jpg',
                 };
-                console.log(shareObj.link)
                 share(shareObj.link).then(res => {
                     let json = res.data;
                     wx.config({

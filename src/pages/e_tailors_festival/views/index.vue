@@ -357,7 +357,6 @@
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
-                                alert('朋友分享成功')
                             }
                         });
                         // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（
@@ -367,7 +366,6 @@
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
-                                alert('朋友圈分享成功')
                             }
                         })
                     });

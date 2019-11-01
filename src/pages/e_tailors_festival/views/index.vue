@@ -268,11 +268,11 @@
         mounted(){
             let token =  getToken2();
             if(token) setToken2(token);
-            this.teamId = getQueryString('teamId');
             this.init();
         },
         methods: {
             init(){
+                this.teamId = getQueryString('teamId');
                 config().then(res => {
                     if(res.data){
                         this.config = res.data

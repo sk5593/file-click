@@ -94,9 +94,9 @@
                         </li>
                     </ul>
                 </section>
-                <template v-if="(state==2||state==3||state==4) && (this.config.isOpenDateEnd || (!this.config.isOpenDateEnd&&this.join))">
-                    <section class="coupon-progress">
-                        <ul flex="cross:corsss">
+                <template v-if="state&&state!=5">
+                    <section class="coupon-progress" v-if="(state==2||state==3||state==4) && (this.config.isOpenDateEnd || (!this.config.isOpenDateEnd&&this.join))">
+                        <ul flex="cross:corsss" >
                             <li v-for="item in stepList" :key="'stepitemline'+item.id" :flex-box="item.portion" flex="cross:center" class="coupon-item" :class="{'reach': item.key<state, 'current': item.key==state||(item.key==4&&state==5)}">
                                 <div class="progress-line-box" flex-box="1" flex="cross:center">
                                     <hr flex-box="1" class="progress-line progress-line-rea">

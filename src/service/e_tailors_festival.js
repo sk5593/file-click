@@ -67,5 +67,5 @@ export const defaultCoupon = () => {
 }
 // 微信授权 y
 export const autoCookie = (data) => {
-    return 'https://api.yeelight.com/apis/c/apis/c/wx/r/redirect?redirect=' + data;
+    return 'https://api.yeelight.com/apis/c/wx/r/redirect?redirect=' + data;
 }

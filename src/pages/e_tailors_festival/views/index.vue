@@ -345,6 +345,7 @@
                 };
                 share(shareObj.link).then(res => {
                     let json = res.data;
+                    alert('ready')
                     wx.config({
                         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: json.appId, // 必填，公众号的唯一标识
@@ -355,6 +356,7 @@
                     });
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
                         // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
+                        alert('ready')
                         wx.updateAppMessageShareData({ 
                             title: '【智造光 易起来】11.11千元神券来袭！', // 分享标题
                             desc: '五人参团即可瓜分京东11.11千元大额券，立即参与吧！', // 分享描述

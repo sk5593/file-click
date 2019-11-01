@@ -269,7 +269,6 @@
             let token =  getToken2();
             if(token) setToken2(token);
             this.teamId = getQueryString('teamId');
-
             this.init();
         },
         methods: {
@@ -278,6 +277,7 @@
                     if(res.data){
                         this.config = res.data
                     }
+                    this.initMessage();
                     // 活动未截止
                     if(this.config.valid){
                         this.vmGetteam();
@@ -330,12 +330,12 @@
                 });
             },
             initMessage() {
-                share(location.href).then(res => {
+                const shareObj = {
+                    link: location.origin + location.pathname + '?teamId='+this.teamId,
+                    imgUrl: location.origin + '/img/e_tailors_festival/share_icon.png',
+                };
+                share(shareObj.link).then(res => {
                     let json = res.data;
-                    const shareObj = {
-                        link: location.href+'?teamId=' + this.teamId,
-                        imgUrl: this.IMGPrefix + '/img/e_tailors_festival/share_icon.png',
-                    };
                     wx.config({
                         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: json.appId, // 必填，公众号的唯一标识
@@ -353,7 +353,7 @@
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
-                                console.log('朋友分享成功')
+                                alert('朋友分享成功')
                             }
                         });
                         // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（
@@ -363,7 +363,7 @@
                             imgUrl: shareObj.imgUrl, // 分享图标
                             success: function () {
                             // 设置成功
-                                console.log('朋友圈分享成功')
+                                alert('朋友圈分享成功')
                             }
                         })
                     });
@@ -421,16 +421,14 @@
                         alert(res.data.msg);
                     }
                     this.init();
-                    location.href = location.origin + location.pathname + '?teamId='+this.teamId;
-                    
+                    // location.href = location.origin + location.pathname + '?teamId='+this.teamId;
                 }).catch(err => {
                     alert(err.data.msg);
                     this.init();
                 })
             },
             vmOpencoupon(){
-                opencoupon().then((res) => {
-                    alert(res.data)
+                opencoupon().then(() => {
                     this.init();
                 })
             },

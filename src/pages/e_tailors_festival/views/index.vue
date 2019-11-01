@@ -311,16 +311,11 @@
                             this.state = 1;
                             return;
                         }
-
                         this.teamList = data.team;
-
                         if(!this.teamId && this.teamList[0].teamId) {
                             this.teamId = this.teamList[0].teamId;
                             location.href = location.origin + location.pathname + '?teamId='+this.teamId;
                         }
-
-                        
-
                         if(this.teamList.length == 1) {
                             this.state = 2;
                         } else if(this.teamList.length < 5) {
@@ -332,7 +327,6 @@
                             this.state = 4;
                         }
                         this.initMessage();
-
                     }
                 }, err => {
                     alert(err.data.msg);
@@ -346,7 +340,7 @@
                 share(shareObj.link).then(res => {
                     let json = res.data;
                     wx.config({
-                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: json.appId, // 必填，公众号的唯一标识
                         timestamp:json.timestamp , // 必填，生成签名的时间戳
                         nonceStr: json.nonceStr, // 必填，生成签名的随机串
@@ -387,20 +381,6 @@
                         this.vmOpencoupon();
                         location.href = this.amountUrl;
                     }
-                    // if(this.join && (this.state == 4 || this.state == 5)) {
-                    //     location.href = this.self.couponsDetail.url;
-                    // }else {
-                    //     location.href = this.amountUrl;
-                    // }
-                    // this.vmOpencoupon();
-                    // if(this.state<4 || this.join==false) {
-                    //     location.href = this.amountUrl;
-                    // }else if(this.state==4 && this.join) {
-                    //     location.href = this.self.couponsDetail.url;
-                    // }else {
-                    //     return;
-                    // }
-                    // this.vmOpencoupon();
                 }else {//拆券前
                     if(this.state == 1) {
                         this.vmJointeam();

@@ -3,7 +3,7 @@ const ENV = "prod";
 const ENVOBJ = {
     test: "http://api-test.yeedev.com/apis/c",
     dev: "http://api-dev.yeedev.com/apis/c",
-    prod: "http://api.yeelight.com/apis/c",
+    prod: "https://api.yeelight.com/apis/c",
     stage: "http://api-stage.yeelight.com/apis/c"
 };
 let URL = ENVOBJ[ENV];

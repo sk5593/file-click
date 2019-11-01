@@ -330,10 +330,15 @@
                 });
             },
             initMessage() {
+                var urlStr = location.origin + location.pathname;
+                if(this.teamId) {
+                    urlStr += '?teamId='+this.teamId;
+                }
                 const shareObj = {
-                    link: location.origin + location.pathname + '?teamId='+this.teamId,
+                    link: urlStr,
                     imgUrl: location.origin + '/img/e_tailors_festival/share_icon.png',
                 };
+                console.log(shareObj)
                 share(shareObj.link).then(res => {
                     let json = res.data;
                     wx.config({

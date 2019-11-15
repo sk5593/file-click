@@ -30,7 +30,7 @@
         }
         header{
             position: absolute;
-            top: 95px;
+            top: 105px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -56,7 +56,7 @@
             left: 50%;
             width: 52%;
             transform: translateX(-50%);
-            bottom: 75px;
+            bottom: 90px;
             text-align: center;
         }
         footer a{
@@ -95,25 +95,22 @@
         .android .icon_title{
             margin-left: 23px;
         }
-
         @media only screen and (min-aspect-ratio: 9/17){
-            header {
-                top: 78px;
-            }
-            footer{
-                bottom: 62px;
-            }
-        }
-        @media only screen and (min-aspect-ratio: 9/18.75){
             header {
                 top: 88px;
             }
             footer{
-                bottom: 69px;
+                bottom: 72px;
             }
         }
-       
-        
+        @media only screen and (min-aspect-ratio: 9/18.75){
+            header {
+                top: 98px;
+            }
+            footer{
+                bottom: 84px;
+            }
+        }
     </style>
   </head>
   <body>
@@ -149,7 +146,6 @@
                     return false; 
                 } 
             }
-
             function langFun() {
                 var l;
                 var language = (navigator.browserLanguage || navigator.language).toLowerCase();

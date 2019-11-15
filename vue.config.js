@@ -12,10 +12,10 @@ module.exports = {
         //     entry: 'src/pages/givemefive/main.js',
         //     template: 'src/pages/givemefive/givemefive.html'
         // },
-        e_tailors_festival: {
-            entry: 'src/pages/e_tailors_festival/main.js',
-            template: 'src/pages/e_tailors_festival/e_tailors_festival.html'
-        },
+        // e_tailors_festival: {
+        //     entry: 'src/pages/e_tailors_festival/main.js',
+        //     template: 'src/pages/e_tailors_festival/e_tailors_festival.html'
+        // },
         // betaactivity: {
         //     entry: 'src/pages/betaactivity/main.js',
         //     template: 'src/pages/betaactivity/betaactivity.html'
@@ -36,6 +36,7 @@ module.exports = {
         //     entry: 'src/pages/registration_state/main.js',
         //     template: 'src/pages/registration_state/registration_state.html'
         // }
+        
     },
     chainWebpack: config => {
         config.optimization.delete('splitChunks')

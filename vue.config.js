@@ -8,10 +8,10 @@ module.exports = {
     lintOnSave: true,
     productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
     pages:{
-        // givemefive: {
-        //     entry: 'src/pages/givemefive/main.js',
-        //     template: 'src/pages/givemefive/givemefive.html'
-        // },
+        givemefive: {
+            entry: 'src/pages/givemefive/main.js',
+            template: 'src/pages/givemefive/givemefive.html'
+        },
         // e_tailors_festival: {
         //     entry: 'src/pages/e_tailors_festival/main.js',
         //     template: 'src/pages/e_tailors_festival/e_tailors_festival.html'
@@ -35,7 +35,8 @@ module.exports = {
         // registration_state: {
         //     entry: 'src/pages/registration_state/main.js',
         //     template: 'src/pages/registration_state/registration_state.html'
-        // }
+        // },
+
         
     },
     chainWebpack: config => {

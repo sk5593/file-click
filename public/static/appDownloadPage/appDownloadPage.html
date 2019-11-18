@@ -194,9 +194,12 @@
                 container.style.backgroundImage = 'url('+url+')';
             }
             init();
-            if(isWeiXin()){ 
-                // window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yeelight.cherry';
+            window.onload = function() {
+                if(isWeiXin()){ 
+                    window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yeelight.cherry';
+                }
             }
+            
             document.write('<script src="https://api.yeelight.com/apis/c/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
             // 判断安卓
             // function isAndroid() {

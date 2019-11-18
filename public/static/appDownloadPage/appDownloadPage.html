@@ -194,28 +194,29 @@
                 container.style.backgroundImage = 'url('+url+')';
             }
             init();
-            // 判断安卓
-            function isAndroid() {
-                var u = navigator.userAgent;
-                if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
-                    if (window.ShowFitness !== undefined) return true;
-                }
-                return false;
-            }
-            // alert('是否为安卓：'+isAndroid())
-            // 判断设备为 ios
-            function isIos() {
-                var u = navigator.userAgent;
-                if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
-                    return true;
-                }
-                return false;
-            }
-            // alert('是否为IOS：'+isIos())
             if(isWeiXin()){ 
-                window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yeelight.cherry';
+                // window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yeelight.cherry';
             }
             document.write('<script src="https://api.yeelight.com/apis/c/report/r/trace.js?rand='+new Date().getTime()+'"><\/script>');
+            // 判断安卓
+            // function isAndroid() {
+            //     var u = navigator.userAgent;
+            //     if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+            //         if (window.ShowFitness !== undefined) return true;
+            //     }
+            //     return false;
+            // }
+            // alert('是否为安卓：'+isAndroid())
+            // 判断设备为 ios
+            // function isIos() {
+            //     var u = navigator.userAgent;
+            //     if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
+            //         return true;
+            //     }
+            //     return false;
+            // }
+            // alert('是否为IOS：'+isIos())
+            
         </script>
   </body>
 </html>

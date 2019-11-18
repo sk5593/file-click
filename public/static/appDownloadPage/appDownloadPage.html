@@ -28,17 +28,17 @@
         p{
             margin: 0;
         }
-        header{
+        /* header{
             position: absolute;
             top: 12.93vh;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             font-size: 22px;
-        }
-        header .title{
+        } */
+        /* header .title{
             margin-top: 15px;
-        }
+        } */
         .container{
             height: 100%;
             background-size: 100%;
@@ -46,11 +46,11 @@
             background-position: center;
             margin: 0 auto;
         }
-        .logo{
+        /* .logo{
             width: 78px;
             height: 78px;
             vertical-align: top;
-        }
+        } */
         footer{
             position: absolute;
             left: 50%;
@@ -100,7 +100,7 @@
                 top: 13.2vh;
             }
             footer{
-                bottom: 10.79vh;
+                bottom: 9.295vh;
             }
         }
         @media only screen and (min-aspect-ratio: 9/18.75){
@@ -108,17 +108,17 @@
                 top: 13.06vh;
             }
             footer{
-                bottom: 11.2vh;
+                bottom: 9.87vh;
             }
         }
     </style>
   </head>
   <body>
         <div class="container">
-            <header>
+            <!-- <header>
                 <img class="logo" src="https://cloud-bj-resources.yeelight.com/img/tocpage/appDownloadPage/common/logo.png" alt="">
                 <p class="title">Yeelight</p>
-            </header>
+            </header> -->
             <footer>
                 <a class="app_store"  href="https://itunes.apple.com/cn/app/id977125608?mt=8">
                     <img src="https://cloud-bj-resources.yeelight.com/img/tocpage/appDownloadPage/common/ios.png" class="icon_app_store icon_btn">
@@ -200,6 +200,24 @@
                 container.style.backgroundImage = 'url('+url+')';
             }
             init();
+            // 判断安卓
+            function isAndroid() {
+                var u = navigator.userAgent;
+                if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+                    if (window.ShowFitness !== undefined) return true;
+                }
+                return false;
+            }
+            // alert('是否为安卓：'+isAndroid())
+            // 判断设备为 ios
+            function isIos() {
+                var u = navigator.userAgent;
+                if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
+                    return true;
+                }
+                return false;
+            }
+            // alert('是否为IOS：'+isIos())
             if(isWeiXin()){ 
                 window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yeelight.cherry';
             }

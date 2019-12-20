@@ -25,6 +25,11 @@ NProgress.configure({
 });
 //HTTPrequest拦截
 axios.interceptors.request.use(config => {
+  if ((config.url.indexOf('/apis/d/') >= 0) && (config.url.indexOf('/userInfo') < 0)) {
+    console.log(localStorage.getItem('stock_token'))
+
+    config.headers.common['token'] = localStorage.getItem('stock_token') || '27db0b58a7f067726ff1be74cef10ce0'
+  }
   NProgress.start() // start progress bar
   const meta = (config.meta || {});
   const isToken = meta.isToken === false;
@@ -35,12 +40,18 @@ axios.interceptors.request.use(config => {
   if (config.method === 'post' && meta.isSerialize === true) {
     config.data = serialize(config.data);
   }
+  if(config.url)
   return config
 }, error => {
   return Promise.reject(error)
 });
 //HTTPresponse拦截
 axios.interceptors.response.use(res => {
+  //token失效或者第一次登录
+  if (res.data.code == "003"){
+    console.log(33333)
+    window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri=http://192.168.2.206/stockFeishu.html&app_id=cli_9d7d8766e8759107");
+  }
   NProgress.done();
   const status = res.status || 200
 //   const statusWhiteList = website.statusWhiteList || [];

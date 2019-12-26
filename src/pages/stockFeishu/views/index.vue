@@ -1,17 +1,6 @@
 <template>
     <div>
-        <div>
-            <div style="font-size: 30px;font-weight: bold">小米、天猫、京东缺货数据</div>
-            <br>
-            <br>
-            <el-row>
-                <!--                <el-col :span=8><div id="productNameChart" style="width: 500px;height:400px;"></div></el-col>-->
-                <!--                <el-col :span=8><div id="sourceChart" style="width: 400px;height:400px;"></div></el-col>-->
-                <el-col :span=12><div id="chart" style="width: 800px;height:700px;"></div></el-col>
-                <el-col :span=8><div id="areaTree" style="width: 800px;height:700px;"></div></el-col>
-            </el-row>
-        </div>
-        <avue-crud @search-change="searchChange" :page="page" @on-load="onLoad" :data="data" :option="option" v-model="obj">
+        <avue-crud @search-reset="searchReset" @search-change="searchChange" :page="page" @on-load="onLoad" :data="data" :option="option" v-model="obj">
             <template slot-scope="scope" slot="sourceSearch">
                 <el-select @change="selectChange" v-model="sourceSelectValue" multiple placeholder="请选择">
                     <el-option
@@ -42,25 +31,24 @@
                     </el-option>
                 </el-select>
             </template>
-            <template slot="stockSearch">
-                <el-select v-model="stockSelectValue" placeholder="请选择">
-                    <el-option
-                            v-for="item in stockOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                    </el-option>
-                </el-select>
-            </template>
             <template slot="menuLeft">
-
+                <el-row>
+                    <el-col :span="8"><div style="font-size: 20px;font-weight:bold">平台缺货比例</div></el-col>
+                    <el-col :span="8"><div style="font-size: 20px;font-weight:bold">产品缺货比例</div></el-col>
+                    <el-col :span="8"><div style="font-size: 20px;font-weight:bold">地区缺货比例</div></el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span=8><div id="chart" style="width: 400px;height:400px;"></div></el-col>
+                    <el-col :span=8><div id="chart2" style="width: 400px;height:400px;"></div></el-col>
+                    <el-col :span=8><div id="areaChart" style="width: 400px;height:400px;"></div></el-col>
+                </el-row>
             </template>
         </avue-crud>
     </div>
 </template>
 
 <script>
-import {getList, getName, getArea,search,selectProductOutOfStockRatio,selectSourceOutOfStockRatio,selectOutOfStockRatio} from '@/service/stockFeishu'
+import {getList, getName, getArea,search,selectOutOfStockRatio} from '@/service/stockFeishu'
 import {getUserInfo} from '@/service/feishu'
 let echarts = require('echarts');
 export default {
@@ -91,23 +79,17 @@ export default {
                 value: '小米天猫',
                 label: '小米天猫'
             }],
-            stockOptions: [{
-                value: '有货',
-                label: '有货'
-            }, {
-                value: '缺货',
-                label: '缺货'
-            }],
             nameOptions: [],
             areaOptions: [],
-            stockSelectValue: '',
             option: {
+
+                selectClearBtn:false,
                 refreshBtn: false,
                 searchBtn: false,
                 columnBtn: false,
                 menu: false,
                 addBtn: false,
-                // title: '小米、天猫、京东库存数据',
+                title: '小米、天猫、京东缺货数据',
                 page: false,
                 align: 'center',
                 menuAlign: 'center',
@@ -131,8 +113,6 @@ export default {
                     }, {
                         label: '库存',
                         prop: 'stock',
-                        search: true,
-                        searchslot: true,
                     }, {
                         label: "日期",
                         prop: "createTime",
@@ -162,7 +142,6 @@ export default {
                             this.page.currentPage = res.data.pageNum
                             this.page.pageSize = res.data.pageSize
                             this.data = res.data.list
-                            console.log(res.data.list)
                         }
                     )
                     if (this.nameOptions.length == 0) {
@@ -204,7 +183,7 @@ export default {
                         localStorage.setItem('code',code)
                         this.onLoad(this.page)
                     }else{
-                        alert("登陆失败")
+                        alert("登录失败")
                         return
                     }
                 })
@@ -216,7 +195,6 @@ export default {
                 source:this.sourceSelectValue,
                 productName:this.nameSelectValue,
                 area:this.areaSelectValue,
-                stock:this.stockSelectValue
             }
             search(this.page.currentPage,this.page.pageSize,this.searchObj).then(res=>{
                 this.page.total = res.total
@@ -242,10 +220,6 @@ export default {
             })
             getArea(value).then(res => {
                 let tempArr = []
-                let temp = {
-                    value: '',
-                    label: ''
-                }
                 for (let x = 0; x < res.length; x++) {
                     let temp = {
                         value: '',
@@ -268,58 +242,55 @@ export default {
             }
             return null;
         },
-        processStockData(dataArr){
-            for (let i of dataArr){
-
-            }
+        searchReset(){
+            this.sourceSelectValue = []
+            this.nameSelectValue = []
+            this.areaSelectValue = []
         }
     },
     mounted() {
         selectOutOfStockRatio().then(res=>{
-            let sourceData = []
-            let productData = []
-            let NameArr = []
-            let areaJson = {
-                name:'地区详情',
-                children:[]
+            let productNameAreaArr = []
+            let sourceNameArr = []
+            let areaNameArr = []
+            let sourceAreaData = []
+            let sourceName = res['sourceName']
+            let sourceAreaNum = res['sourceAreaNum']
+            let areaRatio = res['areaRatio']
+            let productNameArea = res['productNameArea']
+            for(let i in sourceName){
+                let t = []
+                for(let n in sourceName[i]){
+                    t.push('\n'+sourceName[i][n])
+                }
+                let tempObj = {
+                    value:sourceName[i].length,
+                    name:i,
+                }
+                sourceNameArr.push(tempObj)
             }
-            // let areaData = []
-            let sourceNum = res['sourceNum']
-            let productNum = res['productNum']
-            for (let i of sourceNum){
+            for (let i of sourceAreaNum){
                 for(let j in i){
                     let tempObj = {
                         value:i[j],
                         name:j
                     }
-                    sourceData.push(tempObj)
+                    sourceAreaData.push(tempObj)
                 }
-
             }
-            for (let i of productNum){
-                for(let j in i){
-                    let tempObj = {
-                        value:i[j].length,
-                        name:j
-                    }
-                    NameArr.push(j)
-                    let children = []
-
-                    for(let n in i[j]){
-                        let childrenTemp = {
-                            name:i[j][n]['area'],
-                            value:1
-                        }
-                        children.push(childrenTemp)
-                    }
-                    let areaTempObj = {
-                        name:j,
-                        children:children
-                    }
-                    areaJson.children.push(areaTempObj)
-                    //
-                    productData.push(tempObj)
+            for (let i in areaRatio){
+                let temp = {
+                    name:i,
+                    value:areaRatio[i]
                 }
+                areaNameArr.push(temp)
+            }
+            for (let i in productNameArea){
+                let tempObj = {
+                    value:productNameArea[i].length,
+                    name:i
+                }
+                productNameAreaArr.push(tempObj)
             }
             let chart = echarts.init(document.getElementById('chart'));
             chart.setOption({
@@ -327,83 +298,58 @@ export default {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
+                series: [
+                    {
+                        name:'缺货平台',
+                        type:'pie',
+                        selectedMode: 'single',
+                        radius: [0, '50%'],
+                        data:sourceNameArr
+                    }
+                ]
+            })
+            let chart2 = echarts.init(document.getElementById('chart2'));
+            chart2.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [
+                    {
+                        name:'缺货产品',
+                        type:'pie',
+                        selectedMode: 'single',
+                        radius: [0, '50%'],
+                        data:productNameAreaArr
+                    }
+                ]
+            })
+            let areaChart = echarts.init(document.getElementById('areaChart'));
+            areaChart.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
                 legend: {
+                    height:'500px',
+                    type: 'scroll',
                     orient: 'vertical',
                     x: 'left',
-                    data:NameArr
+                    data:areaNameArr
                 },
                 series: [
                     {
                         name:'缺货平台',
                         type:'pie',
                         selectedMode: 'single',
-                        radius: [0, '30%'],
+                        radius: [0, '50%'],
 
                         label: {
                             normal: {
-                                position: 'inner'
+                                position: 'outer'
                             }
                         },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:sourceData
-                    },
-                    {
-                        name:'产品缺货地区',
-                        type:'pie',
-                        radius: ['40%', '55%'],
-                        tooltip : {
-                            trigger: 'item',
-                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                        },
-                        data:productData
-                    },
-                ]
-            })
-            let areaTree = echarts.init(document.getElementById('areaTree'));
-            areaTree.setOption({
-                tooltip: {
-                    trigger: 'item',
-                    triggerOn: 'mousemove'
-                },
-                series: [
-                    {
-                        type: 'tree',
-
-                        data: [areaJson],
-
-                        top: '1%',
-                        left: '7%',
-                        bottom: '1%',
-                        right: '20%',
-
-                        symbolSize: 7,
-
-                        label: {
-                            normal: {
-                                position: 'left',
-                                verticalAlign: 'middle',
-                                align: 'right',
-                                fontSize: 9
-                            }
-                        },
-
-                        leaves: {
-                            label: {
-                                normal: {
-                                    position: 'right',
-                                    verticalAlign: 'middle',
-                                    align: 'left'
-                                }
-                            }
-                        },
-
-                        expandAndCollapse: true,
-                        animationDuration: 550,
-                        animationDurationUpdate: 750
+                        data:sourceAreaData
                     }
                 ]
             })

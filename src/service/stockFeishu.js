@@ -1,5 +1,5 @@
 import request from './index';
-
+import {getUserInfo} from './feishu'
 export const getList = (current, size) => {
     return request({
         url: '/apis/d/stock/list',
@@ -37,22 +37,68 @@ export const search = (current, size,options) => {
         }
     });
 };
-export const getUserInfo = (code) => {
+export const selectProductOutOfStockRatio = ()=>{
     return request({
-        url: '/apis/d/stock/userInfo',
+        url: '/apis/d/stock/selectProductOutOfStockRatio',
         method: 'get',
-        params: {
-            code
-        },
     });
-};
-export const clearToken = () => {
+}
+export const selectSourceOutOfStockRatio = ()=>{
     return request({
-        url: '/apis/d/stock/clearToken',
+        url: '/apis/d/stock/selectSourceOutOfStockRatio',
         method: 'get',
-        params: {
-            openId:"ou_82202c691d5c712421f780d323b39088",
-            secret:"secret333"
-        },
     });
-};
+}
+
+export const selectOutOfStockRatio =()=>{
+    return request({
+        url: '/apis/d/stock/selectOutOfStockRatio',
+        method: 'get',
+    });
+}
+
+// request.interceptors.request.use(config=>{
+//     if (config.url.indexOf('/userInfo') >= 0)
+//     {
+//         return config
+//     }
+//     let code = getQueryVariable('code')
+//     alert(code)
+//     //获取到一个全新的code
+//     if(code !=null&&(config.url.indexOf('/list') >= 0)){
+//         //授权,更新token
+//         getUserInfo(code,'cli_9d7d8766e8759107','PfjFJ4oSbjyNtQJ2OHQBucJUhZNVVece').then(res=>{
+//             alert(JSON.stringify(res))
+//             if (res.code==="000"){
+//                 alert()
+//                 localStorage.clear()
+//                 localStorage.setItem("stock_token",res.data)
+//                 localStorage.setItem('code',code)
+//                 // this.onLoad(this.page)
+//             }else{
+//                 alert("登录失败")
+//                 return
+//             }
+//         })
+//     }
+//     //每次请求带上token
+//     return config
+// })
+request.interceptors.response.use(res =>{
+    if (res.code === "003"){
+        window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri=http://127.0.0.1/stockFeishu.html&app_id=cli_9d7d8766e8759107");
+    }
+    return res;
+})
+//
+// function getQueryVariable(variable)
+// {
+//     let query = window.location.search.substring(1);
+//     let vars = query.split("&");
+//     for (let i=0;i<vars.length;i++) {
+//         let pair = vars[i].split("=");
+//         if(pair[0] == variable){return pair[1];}
+//     }
+//     return null;
+// }
+

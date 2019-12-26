@@ -1,5 +1,4 @@
 import request from './index';
-import {getUserInfo} from './feishu'
 export const getList = (current, size) => {
     return request({
         url: '/apis/d/stock/list',
@@ -37,18 +36,6 @@ export const search = (current, size,options) => {
         }
     });
 };
-export const selectProductOutOfStockRatio = ()=>{
-    return request({
-        url: '/apis/d/stock/selectProductOutOfStockRatio',
-        method: 'get',
-    });
-}
-export const selectSourceOutOfStockRatio = ()=>{
-    return request({
-        url: '/apis/d/stock/selectSourceOutOfStockRatio',
-        method: 'get',
-    });
-}
 
 export const selectOutOfStockRatio =()=>{
     return request({
@@ -86,7 +73,7 @@ export const selectOutOfStockRatio =()=>{
 // })
 request.interceptors.response.use(res =>{
     if (res.code === "003"){
-        window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri=http://127.0.0.1/stockFeishu.html&app_id=cli_9d7d8766e8759107");
+        window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri=http://192.168.2.206/stockFeishu.html&app_id=cli_9d7d8766e8759107");
     }
     return res;
 })

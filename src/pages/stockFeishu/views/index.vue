@@ -1,50 +1,52 @@
 <template>
-    <avue-crud @search-reset="searchReset" @search-change="searchChange" :page="page" @on-load="onLoad" :data="data" :option="option" v-model="obj">
-        <template slot-scope="scope" slot="sourceSearch">
-            <el-select @change="selectChange" v-model="sourceSelectValue" multiple placeholder="请选择">
-                <el-option
-                    v-for="item in sourceOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-        </template>
-        <template slot='productNameSearch'>
-            <el-select v-model="nameSelectValue" multiple placeholder="请选择">
-                <el-option
-                    v-for="item in nameOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-        </template>
-        <template slot='areaSearch'>
-            <el-select v-model="areaSelectValue" multiple placeholder="请选择">
-                <el-option
-                    v-for="item in areaOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-        </template>
-        <template slot="menuLeft">
-            <el-row>
-                <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">平台缺货比例</div><div id="chart" style="width: 400px;height:400px;"></div></el-col>
-                <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">产品缺货比例</div><div id="chart2" style="width: 400px;height:400px;"></div></el-col>
-                <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">地区缺货比例</div><div id="areaChart" style="width: 400px;height:400px;"></div></el-col>
-            </el-row>
-        </template>
-    </avue-crud>
+    <div class="feishu_stock">
+        <avue-crud @search-reset="searchReset" @search-change="searchChange" :page="page" @on-load="onLoad" :data="data" :option="option" v-model="obj">
+            <template slot-scope="scope" slot="sourceSearch">
+                <el-select @change="selectChange" v-model="sourceSelectValue" multiple placeholder="请选择">
+                    <el-option
+                            v-for="item in sourceOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
+            <template slot='productNameSearch'>
+                <el-select v-model="nameSelectValue" multiple placeholder="请选择">
+                    <el-option
+                            v-for="item in nameOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
+            <template slot='areaSearch'>
+                <el-select v-model="areaSelectValue" multiple placeholder="请选择">
+                    <el-option
+                            v-for="item in areaOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
+            <template slot="menuLeft">
+                <el-row>
+                    <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">平台缺货比例</div><div id="chart" style="width: 400px;height:400px;"></div></el-col>
+                    <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">产品缺货比例</div><div id="chart2" style="width: 400px;height:400px;"></div></el-col>
+                    <el-col :span=8 class="ratio"><div style="font-size: 20px;font-weight:bold">地区缺货比例</div><div id="areaChart" style="width: 400px;height:400px;"></div></el-col>
+                </el-row>
+            </template>
+        </avue-crud>
+    </div>
 </template>
 
 <script>
 import {getList, getName, getArea,search,selectOutOfStockRatio} from '@/service/stockFeishu'
 import {getUserInfo} from '@/service/feishu'
 // 引入 ECharts 主模块
-var echarts = require('echarts/dist/echarts.simple.js');
+var echarts = require('echarts');
 export default {
     name: 'index',
     data() {
@@ -298,7 +300,7 @@ export default {
                         name:'缺货平台',
                         type:'pie',
                         selectedMode: 'single',
-                        radius: [0, '50%'],
+                        radius: [0, '45%'],
                         data:sourceNameArr
                     }
                 ]
@@ -314,7 +316,7 @@ export default {
                         name:'缺货产品',
                         type:'pie',
                         selectedMode: 'single',
-                        radius: [0, '50%'],
+                        radius: [0, '45%'],
                         data:productNameAreaArr
                     }
                 ]
@@ -337,8 +339,7 @@ export default {
                         name:'缺货平台',
                         type:'pie',
                         selectedMode: 'single',
-                        radius: [0, '50%'],
-
+                        radius: [0, '45%'],
                         label: {
                             normal: {
                                 position: 'outer'
@@ -363,7 +364,7 @@ export default {
             height: 350px!important;
         }
     }
-    .avue-crud__left{
+    .feishu_stock .avue-crud__left{
         width: 100%;
     }
 </style>

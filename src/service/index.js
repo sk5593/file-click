@@ -26,9 +26,7 @@ NProgress.configure({
 //HTTPrequest拦截
 axios.interceptors.request.use(config => {
   //每次请求带上token
-  if ((config.url.indexOf('/apis/d/') >= 0) && (config.url.indexOf('/userInfo') < 0)) {
-    config.headers.common['token'] = localStorage.getItem('stock_token') || '27db0b58a7f067726ff1be74cef10ce0'
-  }
+
   NProgress.start() // start progress bar
   const meta = (config.meta || {});
   const isToken = meta.isToken === false;

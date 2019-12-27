@@ -25,6 +25,8 @@ NProgress.configure({
 });
 //HTTPrequest拦截
 axios.interceptors.request.use(config => {
+  //每次请求带上token
+
   NProgress.start() // start progress bar
   const meta = (config.meta || {});
   const isToken = meta.isToken === false;
@@ -35,6 +37,7 @@ axios.interceptors.request.use(config => {
   if (config.method === 'post' && meta.isSerialize === true) {
     config.data = serialize(config.data);
   }
+  if(config.url)
   return config
 }, error => {
   return Promise.reject(error)

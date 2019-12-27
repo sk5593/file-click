@@ -73,7 +73,7 @@ export const selectOutOfStockRatio =()=>{
 // })
 request.interceptors.response.use(res =>{
     if (res.code === "003"){
-        window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri=http://192.168.2.206/stockFeishu.html&app_id=cli_9d7d8766e8759107");
+        window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri="+window.location.href+"&app_id=cli_9d7d8766e8759107");
     }
     return res;
 })

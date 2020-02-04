@@ -44,33 +44,14 @@ export const selectOutOfStockRatio =()=>{
     });
 }
 
-// request.interceptors.request.use(config=>{
-//     if (config.url.indexOf('/userInfo') >= 0)
-//     {
-//         return config
-//     }
-//     let code = getQueryVariable('code')
-//     alert(code)
-//     //获取到一个全新的code
-//     if(code !=null&&(config.url.indexOf('/list') >= 0)){
-//         //授权,更新token
-//         getUserInfo(code,'cli_9d7d8766e8759107','PfjFJ4oSbjyNtQJ2OHQBucJUhZNVVece').then(res=>{
-//             alert(JSON.stringify(res))
-//             if (res.code==="000"){
-//                 alert()
-//                 localStorage.clear()
-//                 localStorage.setItem("stock_token",res.data)
-//                 localStorage.setItem('code',code)
-//                 // this.onLoad(this.page)
-//             }else{
-//                 alert("登录失败")
-//                 return
-//             }
-//         })
-//     }
-//     //每次请求带上token
-//     return config
-// })
+
+request.interceptors.request.use(config=>{
+    if ((config.url.indexOf('/apis/d/') >= 0) && (config.url.indexOf('/userInfo') < 0)) {
+        config.headers.common['token'] = localStorage.getItem('stock_token') || '27db0b58a7f067726ff1be74cef10ce0'
+    }
+    //每次请求带上token
+    return config
+})
 request.interceptors.response.use(res =>{
     if (res.code === "003"){
         window.location.replace("https://open.feishu.cn/connect/qrconnect/page/sso/?redirect_uri="+window.location.href+"&app_id=cli_9d7d8766e8759107");

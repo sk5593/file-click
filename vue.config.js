@@ -2,7 +2,6 @@
 const entry = 'e_tailors_festival';
 // const apiUrl = 'http://api-test.yeedev.com';
 const apiUrl = 'http://api-dev.yeedev.com';
-const apiUrl_d = 'http://127.0.0.1:18082';
 module.exports = {
     publicPath: '/',
     // outputDir: '',
@@ -64,14 +63,7 @@ module.exports = {
                 // pathRewrite: {
                 //     '^/apis/c': '/'
                 // },
-            },
-            '/apis/d': {
-                target: apiUrl_d,
-                ws: true,
-                // pathRewrite: {
-                //     '^/apis/c': '/'
-                // },
-            },
+            }
         }
     }
 }

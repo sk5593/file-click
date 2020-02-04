@@ -9,14 +9,18 @@ module.exports = {
     lintOnSave: true,
     productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
     pages:{
-        givemefive: {
-            entry: 'src/pages/givemefive/main.js',
-            template: 'src/pages/givemefive/givemefive.html'
+        // givemefive: {
+        //     entry: 'src/pages/givemefive/main.js',
+        //     template: 'src/pages/givemefive/givemefive.html'
+        // },
+        // stockFeishu: {
+        //     entry: 'src/pages/stockFeishu/main.js',
+        //     template: 'src/pages/stockFeishu/stockFeishu.html'
+        // },
+        vpnError: {
+            entry: 'src/pages/vpnError/main.js',
+            template: 'src/pages/vpnError/vpnError.html'
         },
-        stockFeishu: {
-            entry: 'src/pages/stockFeishu/main.js',
-            template: 'src/pages/stockFeishu/stockFeishu.html'
-        }
 
         // e_tailors_festival: {
         //     entry: 'src/pages/e_tailors_festival/main.js',
@@ -49,8 +53,8 @@ module.exports = {
         config.optimization.delete('splitChunks')
     },
     devServer:{
-        host: '192.168.2.206',
-        port: 80,
+        host: 'localhost.yeedev.com',
+        port: 8080,
         open: true,
         openPage: `${entry}.html`,
         proxy: {

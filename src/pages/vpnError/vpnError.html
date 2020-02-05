@@ -7,19 +7,56 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <link rel="icon" href="./favicon.ico">
-        <title>ERROR</title>
+        <title>访问限制</title>
         <style>
-          body {
-            text-align: center;
-          }
+        html, body{height:95%;}
+        body{background: #0f3854;background: -webkit-radial-gradient(center ellipse, #0a2e38 0%, #000000 70%);background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);background-size: 100%;}
+        p{margin:0;padding:0;}
+        .contanier {
+          position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);text-align: center;
+        }
+        .title{letter-spacing:0.1em;font-size:26px;display:inline-block;vertical-align: middle;color: #fff;margin-left: 8px;}
+        #box{font-family: 'Share Tech Mono', monospace;color: #daf6ff;text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);} 
+        #box .content{letter-spacing: 0.05em;font-size: 26px;padding: 5px 0;margin-top: 30px;}
+        #box .text{letter-spacing: 0.1em;font-size:14px;padding:20px 0 0;}</style>
+
+        <style>
           .main {
             color: red;
           }
         </style>
    </head>
    <body>
-      <h1>访问限制提示</h1>
-      <h2>您正在访问 Yeelight内部系统，请先连接公司 <span class="main">内网VPN</span>。</h2>
-      <h3><em>如有 账户 或 VPN连接问题，请飞书资询 <span class="main">贾文鹏</span>。</em></h3>
+     <div class="contanier">
+      <div>       
+        <div style="width: 60px;height: 60px;display:inline-block;vertical-align: middle">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 54 54" style="enable-background:new 0 0 54 54;" xml:space="preserve">
+            <style type="text/css">
+              .st0{fill:#F32735;}
+              .st1{fill:#FFFFFF;}
+            </style>
+            <g>
+              <path class="st0" d="M50.4,52H3.6C2.7,52,2,51.3,2,50.4V3.5C2,2.7,2.7,2,3.6,2h46.9C51.3,2,52,2.7,52,3.5v46.9
+                C52,51.3,51.3,52,50.4,52z"/>
+              <g>
+                <g>
+                  <path class="st1" d="M27,23.2L12.2,17c-0.5-0.2-1.1,0.2-1.1,0.7V30c0,0.8,0.5,1.5,1.2,1.8l6.7,2.8c0.3,0.1,0.7-0.1,0.7-0.5V31
+                    c0-0.3-0.2-0.6-0.5-0.7l-4.1-1.7l0-5.9l9.5,4l0,9.6c0,0.4,0.3,0.8,0.8,0.8h3c0.4,0,0.8-0.3,0.8-0.8l0-9.6l9.6-4l0,5.9l-4.1,1.7
+                    c-0.3,0.1-0.5,0.4-0.5,0.7v3.1c0,0.4,0.4,0.6,0.7,0.5l6.7-2.8c0.7-0.3,1.2-1,1.2-1.8V17.7c0-0.6-0.6-0.9-1.1-0.7L27,23.2z"/>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="title">YEELIGHT</div>
+      </div>
+  
+      <div id="box">
+        <p class="content">您正在访问的Yeelight网站仅开放给内部员工，<br />需要Yeelight办公网络或者连接Yeelight内部VPN才可正常访问。</p>
+        <p class="text"><em>如有 账户 或 VPN连接问题，请飞书资询 <span class="main">贾文鹏</span>。</em></p>
+      </div>
+     </div>
+    
    </body>
 </html>

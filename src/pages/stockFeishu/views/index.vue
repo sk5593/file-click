@@ -85,7 +85,7 @@ export default {
                 columnBtn: false,
                 menu: false,
                 addBtn: false,
-                title: '小米、天猫、京东缺货数据',
+                title: '易来电商缺货数据',
                 page: false,
                 align: 'center',
                 menuAlign: 'center',

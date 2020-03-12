@@ -1,4 +1,3 @@
-# yeelight-toc-page
 
 ## Project setup
 ```

@@ -4,6 +4,7 @@
       class="upload-demo"
       action="/api/upload"
       multiple
+      :before-upload="uploadBefore"
       :limit="3"
       :show-file-list="false"
       :on-success="fileUploadSuccess"
@@ -101,8 +102,14 @@
           }else{
             this.$message.error('获取最近上传列表异常');
           }
-
         })
+      },
+      uploadBefore(file) {
+        const isLt20M = file.size / 1024 / 1024 < 2;
+        if (!isLt20M) {
+          this.$message.error('上传文件大小不能超过 2MB!');
+          return false;
+        }
       },
       handleDetail(index, row) {
         getDetails(row.id).then(res => {
